@@ -7,162 +7,54 @@ export default function Home() {
 
   const kommuner = [
     // REGION HOVEDSTADEN
-    {
-      navn: "København",
-      region: "Region Hovedstaden",
-      status: "I salg",
-      fyldning: 72,
-      deadline: "18 maj",
-    },
-    {
-      navn: "Frederiksberg",
-      region: "Region Hovedstaden",
-      status: "Under produktion",
-      fyldning: 84,
-      deadline: "22 maj",
-    },
-    {
-      navn: "Gentofte",
-      region: "Region Hovedstaden",
-      status: "Ikke startet",
-      fyldning: 22,
-      deadline: "28 maj",
-    },
-    {
-      navn: "Helsingør",
-      region: "Region Hovedstaden",
-      status: "I salg",
-      fyldning: 55,
-      deadline: "24 maj",
-    },
-    {
-      navn: "Hillerød",
-      region: "Region Hovedstaden",
-      status: "Klar til print",
-      fyldning: 96,
-      deadline: "12 maj",
-    },
+    { navn: "Albertslund", region: "Region Hovedstaden", status: "I salg", fyldning: 45, deadline: "18 maj" },
+    { navn: "Allerød", region: "Region Hovedstaden", status: "I salg", fyldning: 61, deadline: "20 maj" },
+    { navn: "Ballerup", region: "Region Hovedstaden", status: "Under produktion", fyldning: 88, deadline: "14 maj" },
+    { navn: "Bornholm", region: "Region Hovedstaden", status: "Ikke startet", fyldning: 12, deadline: "28 maj" },
+    { navn: "Brøndby", region: "Region Hovedstaden", status: "I salg", fyldning: 55, deadline: "22 maj" },
+    { navn: "Dragør", region: "Region Hovedstaden", status: "I salg", fyldning: 48, deadline: "24 maj" },
+    { navn: "Egedal", region: "Region Hovedstaden", status: "Under produktion", fyldning: 76, deadline: "17 maj" },
+    { navn: "Fredensborg", region: "Region Hovedstaden", status: "I salg", fyldning: 66, deadline: "25 maj" },
+    { navn: "Frederiksberg", region: "Region Hovedstaden", status: "Klar til print", fyldning: 97, deadline: "11 maj" },
+    { navn: "Frederikssund", region: "Region Hovedstaden", status: "I salg", fyldning: 58, deadline: "21 maj" },
+    { navn: "Furesø", region: "Region Hovedstaden", status: "Ikke startet", fyldning: 9, deadline: "31 maj" },
+    { navn: "Gentofte", region: "Region Hovedstaden", status: "Under produktion", fyldning: 84, deadline: "16 maj" },
+    { navn: "Gladsaxe", region: "Region Hovedstaden", status: "I salg", fyldning: 64, deadline: "19 maj" },
+    { navn: "Glostrup", region: "Region Hovedstaden", status: "I salg", fyldning: 53, deadline: "22 maj" },
+    { navn: "Gribskov", region: "Region Hovedstaden", status: "Ikke startet", fyldning: 18, deadline: "30 maj" },
+    { navn: "Halsnæs", region: "Region Hovedstaden", status: "I salg", fyldning: 49, deadline: "23 maj" },
+    { navn: "Helsingør", region: "Region Hovedstaden", status: "Under produktion", fyldning: 82, deadline: "15 maj" },
+    { navn: "Herlev", region: "Region Hovedstaden", status: "I salg", fyldning: 57, deadline: "20 maj" },
+    { navn: "Hillerød", region: "Region Hovedstaden", status: "Klar til print", fyldning: 98, deadline: "10 maj" },
+    { navn: "Hvidovre", region: "Region Hovedstaden", status: "I salg", fyldning: 63, deadline: "18 maj" },
+    { navn: "Høje-Taastrup", region: "Region Hovedstaden", status: "Under produktion", fyldning: 75, deadline: "17 maj" },
+    { navn: "Hørsholm", region: "Region Hovedstaden", status: "I salg", fyldning: 52, deadline: "26 maj" },
+    { navn: "Ishøj", region: "Region Hovedstaden", status: "Ikke startet", fyldning: 14, deadline: "1 juni" },
+    { navn: "København", region: "Region Hovedstaden", status: "Under produktion", fyldning: 92, deadline: "13 maj" },
+    { navn: "Lyngby-Taarbæk", region: "Region Hovedstaden", status: "I salg", fyldning: 67, deadline: "21 maj" },
+    { navn: "Rudersdal", region: "Region Hovedstaden", status: "I salg", fyldning: 59, deadline: "24 maj" },
+    { navn: "Rødovre", region: "Region Hovedstaden", status: "I salg", fyldning: 51, deadline: "22 maj" },
+    { navn: "Tårnby", region: "Region Hovedstaden", status: "Under produktion", fyldning: 81, deadline: "16 maj" },
+    { navn: "Vallensbæk", region: "Region Hovedstaden", status: "Ikke startet", fyldning: 11, deadline: "2 juni" },
 
     // REGION SJÆLLAND
-    {
-      navn: "Roskilde",
-      region: "Region Sjælland",
-      status: "I salg",
-      fyldning: 61,
-      deadline: "19 maj",
-    },
-    {
-      navn: "Næstved",
-      region: "Region Sjælland",
-      status: "Under produktion",
-      fyldning: 82,
-      deadline: "20 maj",
-    },
-    {
-      navn: "Slagelse",
-      region: "Region Sjælland",
-      status: "Ikke startet",
-      fyldning: 18,
-      deadline: "30 maj",
-    },
-    {
-      navn: "Holbæk",
-      region: "Region Sjælland",
-      status: "I salg",
-      fyldning: 49,
-      deadline: "26 maj",
-    },
-
-    // REGION SYDDANMARK
-    {
-      navn: "Odense",
-      region: "Region Syddanmark",
-      status: "Under produktion",
-      fyldning: 88,
-      deadline: "17 maj",
-    },
-    {
-      navn: "Kolding",
-      region: "Region Syddanmark",
-      status: "I salg",
-      fyldning: 57,
-      deadline: "25 maj",
-    },
-    {
-      navn: "Esbjerg",
-      region: "Region Syddanmark",
-      status: "Ikke startet",
-      fyldning: 12,
-      deadline: "31 maj",
-    },
-    {
-      navn: "Vejle",
-      region: "Region Syddanmark",
-      status: "I salg",
-      fyldning: 69,
-      deadline: "21 maj",
-    },
-
-    // REGION MIDTJYLLAND
-    {
-      navn: "Aarhus",
-      region: "Region Midtjylland",
-      status: "Under produktion",
-      fyldning: 91,
-      deadline: "16 maj",
-    },
-    {
-      navn: "Randers",
-      region: "Region Midtjylland",
-      status: "I salg",
-      fyldning: 63,
-      deadline: "24 maj",
-    },
-    {
-      navn: "Horsens",
-      region: "Region Midtjylland",
-      status: "I salg",
-      fyldning: 58,
-      deadline: "27 maj",
-    },
-    {
-      navn: "Silkeborg",
-      region: "Region Midtjylland",
-      status: "Ikke startet",
-      fyldning: 15,
-      deadline: "2 juni",
-    },
-
-    // REGION NORDJYLLAND
-    {
-      navn: "Aalborg",
-      region: "Region Nordjylland",
-      status: "I salg",
-      fyldning: 73,
-      deadline: "20 maj",
-    },
-    {
-      navn: "Hjørring",
-      region: "Region Nordjylland",
-      status: "Ikke startet",
-      fyldning: 11,
-      deadline: "3 juni",
-    },
-    {
-      navn: "Frederikshavn",
-      region: "Region Nordjylland",
-      status: "Under produktion",
-      fyldning: 79,
-      deadline: "18 maj",
-    },
-  ];
-
-  const regions = [
-    "Region Hovedstaden",
-    "Region Sjælland",
-    "Region Syddanmark",
-    "Region Midtjylland",
-    "Region Nordjylland",
+    { navn: "Faxe", region: "Region Sjælland", status: "I salg", fyldning: 44, deadline: "23 maj" },
+    { navn: "Greve", region: "Region Sjælland", status: "Under produktion", fyldning: 74, deadline: "18 maj" },
+    { navn: "Guldborgsund", region: "Region Sjælland", status: "Ikke startet", fyldning: 16, deadline: "1 juni" },
+    { navn: "Holbæk", region: "Region Sjælland", status: "I salg", fyldning: 56, deadline: "25 maj" },
+    { navn: "Kalundborg", region: "Region Sjælland", status: "I salg", fyldning: 61, deadline: "22 maj" },
+    { navn: "Køge", region: "Region Sjælland", status: "Under produktion", fyldning: 79, deadline: "17 maj" },
+    { navn: "Lejre", region: "Region Sjælland", status: "Ikke startet", fyldning: 13, deadline: "30 maj" },
+    { navn: "Lolland", region: "Region Sjælland", status: "I salg", fyldning: 47, deadline: "24 maj" },
+    { navn: "Næstved", region: "Region Sjælland", status: "Under produktion", fyldning: 83, deadline: "15 maj" },
+    { navn: "Odsherred", region: "Region Sjælland", status: "I salg", fyldning: 54, deadline: "27 maj" },
+    { navn: "Ringsted", region: "Region Sjælland", status: "I salg", fyldning: 63, deadline: "21 maj" },
+    { navn: "Roskilde", region: "Region Sjælland", status: "Under produktion", fyldning: 88, deadline: "14 maj" },
+    { navn: "Slagelse", region: "Region Sjælland", status: "I salg", fyldning: 57, deadline: "26 maj" },
+    { navn: "Solrød", region: "Region Sjælland", status: "Ikke startet", fyldning: 10, deadline: "3 juni" },
+    { navn: "Sorø", region: "Region Sjælland", status: "I salg", fyldning: 48, deadline: "24 maj" },
+    { navn: "Stevns", region: "Region Sjælland", status: "I salg", fyldning: 50, deadline: "25 maj" },
+    { navn: "Vordingborg", region: "Region Sjælland", status: "Under produktion", fyldning: 76, deadline: "18 maj" },
   ];
 
   if (loggedIn) {
@@ -176,88 +68,69 @@ export default function Home() {
           fontFamily: "Arial",
         }}
       >
-        {/* SIDEBAR */}
-
         <div
           style={{
-            width: "280px",
+            width: "300px",
             background: "#161616",
             padding: "25px",
             borderRight: "1px solid #222",
             overflowY: "auto",
+            height: "100vh",
           }}
         >
-          <h2 style={{ marginBottom: "40px" }}>
+          <h2 style={{ marginBottom: "30px" }}>
             Magasin System
           </h2>
 
-          <div style={{ marginBottom: "35px" }}>
-            <div style={{ marginBottom: "12px" }}>
+          <div style={{ marginBottom: "30px" }}>
+            <div style={{ marginBottom: "10px" }}>
               Dashboard
             </div>
 
-            <div style={{ marginBottom: "12px" }}>
+            <div style={{ marginBottom: "10px" }}>
               Omsætning
             </div>
 
-            <div style={{ marginBottom: "12px" }}>
+            <div style={{ marginBottom: "10px" }}>
               Deadlines
-            </div>
-
-            <div style={{ marginBottom: "12px" }}>
-              Premium sider
             </div>
           </div>
 
-          {regions.map((region) => (
+          <h3
+            style={{
+              color: "#888",
+              marginBottom: "15px",
+            }}
+          >
+            Kommuner
+          </h3>
+
+          {kommuner.map((kommune) => (
             <div
-              key={region}
+              key={kommune.navn}
               style={{
-                marginBottom: "25px",
+                padding: "10px",
+                marginBottom: "8px",
+                background: "#1f1f1f",
+                borderRadius: "8px",
+                cursor: "pointer",
               }}
             >
-              <h3
-                style={{
-                  color: "#888",
-                  marginBottom: "12px",
-                }}
-              >
-                {region}
-              </h3>
-
-              {kommuner
-                .filter((k) => k.region === region)
-                .map((kommune) => (
-                  <div
-                    key={kommune.navn}
-                    style={{
-                      padding: "8px 10px",
-                      borderRadius: "8px",
-                      marginBottom: "6px",
-                      background: "#1f1f1f",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {kommune.navn}
-                  </div>
-                ))}
+              {kommune.navn}
             </div>
           ))}
         </div>
-
-        {/* CONTENT */}
 
         <div
           style={{
             flex: 1,
             padding: "30px",
+            overflowY: "auto",
           }}
         >
           <h1 style={{ marginBottom: "30px" }}>
             Dashboard
           </h1>
-
-          {/* TOP CARDS */}
 
           <div
             style={{
@@ -288,7 +161,9 @@ export default function Home() {
               }}
             >
               <h3>Aktive magasiner</h3>
-              <p style={{ fontSize: "30px" }}>24</p>
+              <p style={{ fontSize: "30px" }}>
+                97
+              </p>
             </div>
 
             <div
@@ -300,7 +175,7 @@ export default function Home() {
             >
               <h3>Omsætning</h3>
               <p style={{ fontSize: "30px" }}>
-                485.000 kr.
+                1.245.000 kr.
               </p>
             </div>
 
@@ -312,14 +187,14 @@ export default function Home() {
               }}
             >
               <h3>Premium sider</h3>
-              <p style={{ fontSize: "30px" }}>18</p>
+              <p style={{ fontSize: "30px" }}>
+                42
+              </p>
             </div>
           </div>
 
-          {/* KOMMUNER */}
-
           <h2 style={{ marginBottom: "20px" }}>
-            Alle kommuner
+            Kommuneoversigt
           </h2>
 
           <div
