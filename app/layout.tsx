@@ -1,6 +1,6 @@
 export const metadata = {
   title: "Magasin Dashboard",
-  description: "SeniorGuiden dashboard"
+  description: "SeniorGuiden dashboard",
 };
 
 export default function RootLayout({
