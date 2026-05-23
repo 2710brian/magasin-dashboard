@@ -34,7 +34,7 @@ export default function Home() {
           marginTop: "15px"
         }}>
           Side 5 – 1/1 side – Ledig
-        </div>
+        </div> 
 
       </div>
     </main>
