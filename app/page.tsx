@@ -5,118 +5,217 @@ import { useState } from "react";
 export default function Home() {
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const regions = [
+    {
+      name: "Region Nordjylland",
+      kommuner: ["Aalborg", "Hjørring", "Frederikshavn"],
+    },
+    {
+      name: "Region Midtjylland",
+      kommuner: ["Aarhus", "Randers", "Horsens"],
+    },
+    {
+      name: "Region Syddanmark",
+      kommuner: ["Odense", "Kolding", "Esbjerg"],
+    },
+    {
+      name: "Region Sjælland",
+      kommuner: ["Roskilde", "Næstved", "Slagelse"],
+    },
+    {
+      name: "Region Hovedstaden",
+      kommuner: ["København", "Hillerød", "Bornholm"],
+    },
+  ];
+
   if (loggedIn) {
     return (
       <main
         style={{
-          background: "#111",
+          background: "#0f0f0f",
           color: "white",
           minHeight: "100vh",
-          padding: "30px",
+          display: "flex",
           fontFamily: "Arial",
         }}
       >
-        <h1 style={{ marginBottom: "30px" }}>
-          Magasin Dashboard
-        </h1>
+        {/* SIDEBAR */}
 
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "20px",
-            marginBottom: "40px",
+            width: "260px",
+            background: "#161616",
+            padding: "25px",
+            borderRight: "1px solid #222",
           }}
         >
-          <div
-            style={{
-              background: "#1c1c1c",
-              padding: "20px",
-              borderRadius: "12px",
-            }}
-          >
-            <h3>Kommuner</h3>
-            <p>98</p>
+          <h2 style={{ marginBottom: "40px" }}>
+            Magasin System
+          </h2>
+
+          <div style={{ marginBottom: "30px" }}>
+            <p style={{ color: "#888", marginBottom: "10px" }}>
+              OVERBLIK
+            </p>
+
+            <div style={{ marginBottom: "12px" }}>
+              Dashboard
+            </div>
+
+            <div style={{ marginBottom: "12px" }}>
+              Deadlines
+            </div>
+
+            <div style={{ marginBottom: "12px" }}>
+              Omsætning
+            </div>
           </div>
 
-          <div
-            style={{
-              background: "#1c1c1c",
-              padding: "20px",
-              borderRadius: "12px",
-            }}
-          >
-            <h3>Solgte sider</h3>
-            <p>124</p>
-          </div>
+          <div>
+            <p style={{ color: "#888", marginBottom: "10px" }}>
+              REGIONER
+            </p>
 
-          <div
-            style={{
-              background: "#1c1c1c",
-              padding: "20px",
-              borderRadius: "12px",
-            }}
-          >
-            <h3>Omsætning</h3>
-            <p>245.000 kr.</p>
-          </div>
+            {regions.map((region) => (
+              <div
+                key={region.name}
+                style={{
+                  marginBottom: "18px",
+                }}
+              >
+                <div
+                  style={{
+                    fontWeight: "bold",
+                    marginBottom: "8px",
+                  }}
+                >
+                  {region.name}
+                </div>
 
-          <div
-            style={{
-              background: "#1c1c1c",
-              padding: "20px",
-              borderRadius: "12px",
-            }}
-          >
-            <h3>Deadlines</h3>
-            <p>12 aktive</p>
+                {region.kommuner.map((kommune) => (
+                  <div
+                    key={kommune}
+                    style={{
+                      paddingLeft: "10px",
+                      marginBottom: "6px",
+                      color: "#bbb",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {kommune}
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
 
+        {/* CONTENT */}
+
         <div
           style={{
-            background: "#1c1c1c",
-            padding: "20px",
-            borderRadius: "12px",
+            flex: 1,
+            padding: "30px",
           }}
         >
+          <h1 style={{ marginBottom: "30px" }}>
+            Dashboard
+          </h1>
+
+          {/* TOP CARDS */}
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: "20px",
+              marginBottom: "40px",
+            }}
+          >
+            <div
+              style={{
+                background: "#1b1b1b",
+                padding: "25px",
+                borderRadius: "14px",
+              }}
+            >
+              <h3>Kommuner</h3>
+              <p style={{ fontSize: "28px" }}>97</p>
+            </div>
+
+            <div
+              style={{
+                background: "#1b1b1b",
+                padding: "25px",
+                borderRadius: "14px",
+              }}
+            >
+              <h3>Aktive magasiner</h3>
+              <p style={{ fontSize: "28px" }}>24</p>
+            </div>
+
+            <div
+              style={{
+                background: "#1b1b1b",
+                padding: "25px",
+                borderRadius: "14px",
+              }}
+            >
+              <h3>Omsætning</h3>
+              <p style={{ fontSize: "28px" }}>
+                485.000 kr.
+              </p>
+            </div>
+
+            <div
+              style={{
+                background: "#1b1b1b",
+                padding: "25px",
+                borderRadius: "14px",
+              }}
+            >
+              <h3>Premium sider</h3>
+              <p style={{ fontSize: "28px" }}>18</p>
+            </div>
+          </div>
+
+          {/* KOMMUNE GRID */}
+
           <h2 style={{ marginBottom: "20px" }}>
-            Kommuner
+            Aktive kommuner
           </h2>
 
-          <table style={{ width: "100%" }}>
-            <thead>
-              <tr>
-                <th align="left">Kommune</th>
-                <th align="left">Status</th>
-                <th align="left">Fyldning</th>
-                <th align="left">Deadline</th>
-              </tr>
-            </thead>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "20px",
+            }}
+          >
+            {[
+              "Aalborg",
+              "Aarhus",
+              "Odense",
+              "Roskilde",
+              "Horsens",
+              "Kolding",
+            ].map((kommune) => (
+              <div
+                key={kommune}
+                style={{
+                  background: "#1b1b1b",
+                  padding: "20px",
+                  borderRadius: "14px",
+                }}
+              >
+                <h3>{kommune}</h3>
 
-            <tbody>
-              <tr>
-                <td>Aalborg</td>
-                <td>I salg</td>
-                <td>72%</td>
-                <td>14 maj</td>
-              </tr>
-
-              <tr>
-                <td>Aarhus</td>
-                <td>Under produktion</td>
-                <td>91%</td>
-                <td>18 maj</td>
-              </tr>
-
-              <tr>
-                <td>Odense</td>
-                <td>Ikke startet</td>
-                <td>12%</td>
-                <td>22 maj</td>
-              </tr>
-            </tbody>
-          </table>
+                <p>Status: I salg</p>
+                <p>Fyldning: 68%</p>
+                <p>Deadline: 18 maj</p>
+              </div>
+            ))}
+          </div>
         </div>
       </main>
     );
@@ -143,7 +242,7 @@ export default function Home() {
         }}
       >
         <h1 style={{ marginBottom: "30px" }}>
-          SeniorGuiden login
+          Magasin Login
         </h1>
 
         <input
