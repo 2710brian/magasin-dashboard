@@ -1,23 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-
 export default function Home() {
-  const router = useRouter();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const handleLogin = () => {
-    if (
-      email === "info@foodbroker.es" &&
-      password === "Malaga2027###"
-    ) {
-      router.push("/dashboard");
-    } else {
-      alert("Forkert login");
-    }
+    window.location.href = "/dashboard";
   };
 
   return (
@@ -53,9 +38,7 @@ export default function Home() {
 
         <input
           type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          placeholder="info@foodbroker.es"
           style={{
             width: "100%",
             padding: "14px",
@@ -71,9 +54,7 @@ export default function Home() {
 
         <input
           type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Malaga2027###"
           style={{
             width: "100%",
             padding: "14px",
