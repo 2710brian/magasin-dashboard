@@ -5,27 +5,164 @@ import { useState } from "react";
 export default function Home() {
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const kommuner = [
+    // REGION HOVEDSTADEN
+    {
+      navn: "København",
+      region: "Region Hovedstaden",
+      status: "I salg",
+      fyldning: 72,
+      deadline: "18 maj",
+    },
+    {
+      navn: "Frederiksberg",
+      region: "Region Hovedstaden",
+      status: "Under produktion",
+      fyldning: 84,
+      deadline: "22 maj",
+    },
+    {
+      navn: "Gentofte",
+      region: "Region Hovedstaden",
+      status: "Ikke startet",
+      fyldning: 22,
+      deadline: "28 maj",
+    },
+    {
+      navn: "Helsingør",
+      region: "Region Hovedstaden",
+      status: "I salg",
+      fyldning: 55,
+      deadline: "24 maj",
+    },
+    {
+      navn: "Hillerød",
+      region: "Region Hovedstaden",
+      status: "Klar til print",
+      fyldning: 96,
+      deadline: "12 maj",
+    },
+
+    // REGION SJÆLLAND
+    {
+      navn: "Roskilde",
+      region: "Region Sjælland",
+      status: "I salg",
+      fyldning: 61,
+      deadline: "19 maj",
+    },
+    {
+      navn: "Næstved",
+      region: "Region Sjælland",
+      status: "Under produktion",
+      fyldning: 82,
+      deadline: "20 maj",
+    },
+    {
+      navn: "Slagelse",
+      region: "Region Sjælland",
+      status: "Ikke startet",
+      fyldning: 18,
+      deadline: "30 maj",
+    },
+    {
+      navn: "Holbæk",
+      region: "Region Sjælland",
+      status: "I salg",
+      fyldning: 49,
+      deadline: "26 maj",
+    },
+
+    // REGION SYDDANMARK
+    {
+      navn: "Odense",
+      region: "Region Syddanmark",
+      status: "Under produktion",
+      fyldning: 88,
+      deadline: "17 maj",
+    },
+    {
+      navn: "Kolding",
+      region: "Region Syddanmark",
+      status: "I salg",
+      fyldning: 57,
+      deadline: "25 maj",
+    },
+    {
+      navn: "Esbjerg",
+      region: "Region Syddanmark",
+      status: "Ikke startet",
+      fyldning: 12,
+      deadline: "31 maj",
+    },
+    {
+      navn: "Vejle",
+      region: "Region Syddanmark",
+      status: "I salg",
+      fyldning: 69,
+      deadline: "21 maj",
+    },
+
+    // REGION MIDTJYLLAND
+    {
+      navn: "Aarhus",
+      region: "Region Midtjylland",
+      status: "Under produktion",
+      fyldning: 91,
+      deadline: "16 maj",
+    },
+    {
+      navn: "Randers",
+      region: "Region Midtjylland",
+      status: "I salg",
+      fyldning: 63,
+      deadline: "24 maj",
+    },
+    {
+      navn: "Horsens",
+      region: "Region Midtjylland",
+      status: "I salg",
+      fyldning: 58,
+      deadline: "27 maj",
+    },
+    {
+      navn: "Silkeborg",
+      region: "Region Midtjylland",
+      status: "Ikke startet",
+      fyldning: 15,
+      deadline: "2 juni",
+    },
+
+    // REGION NORDJYLLAND
+    {
+      navn: "Aalborg",
+      region: "Region Nordjylland",
+      status: "I salg",
+      fyldning: 73,
+      deadline: "20 maj",
+    },
+    {
+      navn: "Hjørring",
+      region: "Region Nordjylland",
+      status: "Ikke startet",
+      fyldning: 11,
+      deadline: "3 juni",
+    },
+    {
+      navn: "Frederikshavn",
+      region: "Region Nordjylland",
+      status: "Under produktion",
+      fyldning: 79,
+      deadline: "18 maj",
+    },
+  ];
+
   const regions = [
-    {
-      name: "Region Nordjylland",
-      kommuner: ["Aalborg", "Hjørring", "Frederikshavn"],
-    },
-    {
-      name: "Region Midtjylland",
-      kommuner: ["Aarhus", "Randers", "Horsens"],
-    },
-    {
-      name: "Region Syddanmark",
-      kommuner: ["Odense", "Kolding", "Esbjerg"],
-    },
-    {
-      name: "Region Sjælland",
-      kommuner: ["Roskilde", "Næstved", "Slagelse"],
-    },
-    {
-      name: "Region Hovedstaden",
-      kommuner: ["København", "Hillerød", "Bornholm"],
-    },
+    "Region Hovedstaden",
+    "Region Sjælland",
+    "Region Syddanmark",
+    "Region Midtjylland",
+    "Region Nordjylland",
   ];
 
   if (loggedIn) {
@@ -43,23 +180,24 @@ export default function Home() {
 
         <div
           style={{
-            width: "260px",
+            width: "280px",
             background: "#161616",
             padding: "25px",
             borderRight: "1px solid #222",
+            overflowY: "auto",
           }}
         >
           <h2 style={{ marginBottom: "40px" }}>
             Magasin System
           </h2>
 
-          <div style={{ marginBottom: "30px" }}>
-            <p style={{ color: "#888", marginBottom: "10px" }}>
-              OVERBLIK
-            </p>
-
+          <div style={{ marginBottom: "35px" }}>
             <div style={{ marginBottom: "12px" }}>
               Dashboard
+            </div>
+
+            <div style={{ marginBottom: "12px" }}>
+              Omsætning
             </div>
 
             <div style={{ marginBottom: "12px" }}>
@@ -67,47 +205,44 @@ export default function Home() {
             </div>
 
             <div style={{ marginBottom: "12px" }}>
-              Omsætning
+              Premium sider
             </div>
           </div>
 
-          <div>
-            <p style={{ color: "#888", marginBottom: "10px" }}>
-              REGIONER
-            </p>
-
-            {regions.map((region) => (
-              <div
-                key={region.name}
+          {regions.map((region) => (
+            <div
+              key={region}
+              style={{
+                marginBottom: "25px",
+              }}
+            >
+              <h3
                 style={{
-                  marginBottom: "18px",
+                  color: "#888",
+                  marginBottom: "12px",
                 }}
               >
-                <div
-                  style={{
-                    fontWeight: "bold",
-                    marginBottom: "8px",
-                  }}
-                >
-                  {region.name}
-                </div>
+                {region}
+              </h3>
 
-                {region.kommuner.map((kommune) => (
+              {kommuner
+                .filter((k) => k.region === region)
+                .map((kommune) => (
                   <div
-                    key={kommune}
+                    key={kommune.navn}
                     style={{
-                      paddingLeft: "10px",
+                      padding: "8px 10px",
+                      borderRadius: "8px",
                       marginBottom: "6px",
-                      color: "#bbb",
+                      background: "#1f1f1f",
                       cursor: "pointer",
                     }}
                   >
-                    {kommune}
+                    {kommune.navn}
                   </div>
                 ))}
-              </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
         {/* CONTENT */}
@@ -140,7 +275,9 @@ export default function Home() {
               }}
             >
               <h3>Kommuner</h3>
-              <p style={{ fontSize: "28px" }}>97</p>
+              <p style={{ fontSize: "30px" }}>
+                {kommuner.length}
+              </p>
             </div>
 
             <div
@@ -151,7 +288,7 @@ export default function Home() {
               }}
             >
               <h3>Aktive magasiner</h3>
-              <p style={{ fontSize: "28px" }}>24</p>
+              <p style={{ fontSize: "30px" }}>24</p>
             </div>
 
             <div
@@ -162,7 +299,7 @@ export default function Home() {
               }}
             >
               <h3>Omsætning</h3>
-              <p style={{ fontSize: "28px" }}>
+              <p style={{ fontSize: "30px" }}>
                 485.000 kr.
               </p>
             </div>
@@ -175,14 +312,14 @@ export default function Home() {
               }}
             >
               <h3>Premium sider</h3>
-              <p style={{ fontSize: "28px" }}>18</p>
+              <p style={{ fontSize: "30px" }}>18</p>
             </div>
           </div>
 
-          {/* KOMMUNE GRID */}
+          {/* KOMMUNER */}
 
           <h2 style={{ marginBottom: "20px" }}>
-            Aktive kommuner
+            Alle kommuner
           </h2>
 
           <div
@@ -192,27 +329,35 @@ export default function Home() {
               gap: "20px",
             }}
           >
-            {[
-              "Aalborg",
-              "Aarhus",
-              "Odense",
-              "Roskilde",
-              "Horsens",
-              "Kolding",
-            ].map((kommune) => (
+            {kommuner.map((kommune) => (
               <div
-                key={kommune}
+                key={kommune.navn}
                 style={{
                   background: "#1b1b1b",
                   padding: "20px",
                   borderRadius: "14px",
                 }}
               >
-                <h3>{kommune}</h3>
+                <h3>{kommune.navn}</h3>
 
-                <p>Status: I salg</p>
-                <p>Fyldning: 68%</p>
-                <p>Deadline: 18 maj</p>
+                <p
+                  style={{
+                    color: "#888",
+                    marginBottom: "15px",
+                  }}
+                >
+                  {kommune.region}
+                </p>
+
+                <p>Status: {kommune.status}</p>
+
+                <p>
+                  Fyldning: {kommune.fyldning}%
+                </p>
+
+                <p>
+                  Deadline: {kommune.deadline}
+                </p>
               </div>
             ))}
           </div>
