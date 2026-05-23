@@ -1,4 +1,27 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Home() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  if (loggedIn) {
+    return (
+      <main
+        style={{
+          background: "#111",
+          color: "white",
+          minHeight: "100vh",
+          padding: "40px",
+          fontFamily: "Arial",
+        }}
+      >
+        <h1>Dashboard</h1>
+        <p>Du er nu logget ind.</p>
+      </main>
+    );
+  }
+
   return (
     <main
       style={{
@@ -52,6 +75,7 @@ export default function Home() {
         />
 
         <button
+          onClick={() => setLoggedIn(true)}
           style={{
             width: "100%",
             padding: "12px",
