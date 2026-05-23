@@ -1,6 +1,25 @@
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    if (
+      email === "info@foodbroker.es" &&
+      password === "Malaga2027###"
+    ) {
+      router.push("/dashboard");
+    } else {
+      alert("Forkert login");
+    }
+  };
+
   return (
     <main
       style={{
@@ -35,6 +54,8 @@ export default function Home() {
         <input
           type="email"
           placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           style={{
             width: "100%",
             padding: "14px",
@@ -51,6 +72,8 @@ export default function Home() {
         <input
           type="password"
           placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           style={{
             width: "100%",
             padding: "14px",
@@ -64,23 +87,22 @@ export default function Home() {
           }}
         />
 
-        <Link href="/dashboard">
-          <button
-            style={{
-              width: "100%",
-              padding: "14px",
-              borderRadius: "8px",
-              border: "none",
-              background: "white",
-              color: "#111",
-              fontWeight: "bold",
-              cursor: "pointer",
-              fontSize: "16px",
-            }}
-          >
-            Login
-          </button>
-        </Link>
+        <button
+          onClick={handleLogin}
+          style={{
+            width: "100%",
+            padding: "14px",
+            borderRadius: "8px",
+            border: "none",
+            background: "white",
+            color: "#111",
+            fontWeight: "bold",
+            cursor: "pointer",
+            fontSize: "16px",
+          }}
+        >
+          Login
+        </button>
       </div>
     </main>
   );
