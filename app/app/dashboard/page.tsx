@@ -1,12 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 export default function Home() {
-  const router = useRouter();
-
   const handleLogin = () => {
-    router.push("/dashboard");
+    window.location.href = "/dashboard";
   };
 
   return (
@@ -27,9 +23,16 @@ export default function Home() {
           padding: "40px",
           borderRadius: "12px",
           width: "350px",
+          boxShadow: "0 0 30px rgba(0,0,0,0.5)",
         }}
       >
-        <h1 style={{ marginBottom: "30px" }}>
+        <h1
+          style={{
+            marginBottom: "30px",
+            fontSize: "42px",
+            fontWeight: "bold",
+          }}
+        >
           SeniorGuiden login
         </h1>
 
@@ -38,12 +41,14 @@ export default function Home() {
           placeholder="Email"
           style={{
             width: "100%",
-            padding: "12px",
+            padding: "14px",
             marginBottom: "15px",
             borderRadius: "8px",
             border: "none",
-            background: "#333",
+            background: "#2b2b2b",
             color: "white",
+            fontSize: "16px",
+            boxSizing: "border-box",
           }}
         />
 
@@ -52,12 +57,14 @@ export default function Home() {
           placeholder="Password"
           style={{
             width: "100%",
-            padding: "12px",
+            padding: "14px",
             marginBottom: "20px",
             borderRadius: "8px",
             border: "none",
-            background: "#333",
+            background: "#2b2b2b",
             color: "white",
+            fontSize: "16px",
+            boxSizing: "border-box",
           }}
         />
 
@@ -65,13 +72,14 @@ export default function Home() {
           onClick={handleLogin}
           style={{
             width: "100%",
-            padding: "12px",
+            padding: "14px",
             borderRadius: "8px",
             border: "none",
-            background: "#fff",
+            background: "white",
             color: "#111",
             fontWeight: "bold",
             cursor: "pointer",
+            fontSize: "16px",
           }}
         >
           Login
