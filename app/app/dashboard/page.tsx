@@ -1,26 +1,81 @@
-export default function Dashboard() {
+"use client";
+
+import { useRouter } from "next/navigation";
+
+export default function Home() {
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push("/dashboard");
+  };
+
   return (
     <main
       style={{
         background: "#111",
         color: "white",
         minHeight: "100vh",
-        padding: "40px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         fontFamily: "Arial",
       }}
     >
-      <h1>SeniorGuiden dashboard</h1>
-
       <div
         style={{
-          marginTop: "30px",
           background: "#1c1c1c",
-          padding: "25px",
+          padding: "40px",
           borderRadius: "12px",
+          width: "350px",
         }}
       >
-        <h2>Aalborg kommune</h2>
-        <p>62% fyldt</p>
+        <h1 style={{ marginBottom: "30px" }}>
+          SeniorGuiden login
+        </h1>
+
+        <input
+          type="email"
+          placeholder="Email"
+          style={{
+            width: "100%",
+            padding: "12px",
+            marginBottom: "15px",
+            borderRadius: "8px",
+            border: "none",
+            background: "#333",
+            color: "white",
+          }}
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          style={{
+            width: "100%",
+            padding: "12px",
+            marginBottom: "20px",
+            borderRadius: "8px",
+            border: "none",
+            background: "#333",
+            color: "white",
+          }}
+        />
+
+        <button
+          onClick={handleLogin}
+          style={{
+            width: "100%",
+            padding: "12px",
+            borderRadius: "8px",
+            border: "none",
+            background: "#fff",
+            color: "#111",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+        >
+          Login
+        </button>
       </div>
     </main>
   );
