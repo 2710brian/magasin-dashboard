@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 type MagazineViewProps = {
   setSelectedKommune: (
     kommune: string | null
@@ -7,6 +11,9 @@ type MagazineViewProps = {
 export default function MagazineView({
   setSelectedKommune,
 }: MagazineViewProps) {
+  const [selectedPage, setSelectedPage] =
+    useState<number | null>(null);
+
   const pages = Array.from(
     { length: 56 },
     (_, i) => {
@@ -32,6 +39,158 @@ export default function MagazineView({
       };
     }
   );
+
+  if (selectedPage) {
+    return (
+      <div>
+        {/* TOP */}
+
+        <div
+          style={{
+            display: "flex",
+
+            justifyContent:
+              "space-between",
+
+            alignItems: "center",
+
+            marginBottom: "30px",
+          }}
+        >
+          <div>
+            <h1>
+              Side {selectedPage}
+            </h1>
+
+            <p
+              style={{
+                color: "#888",
+              }}
+            >
+              Side editor
+            </p>
+          </div>
+
+          <button
+            onClick={() =>
+              setSelectedPage(
+                null
+              )
+            }
+            style={{
+              background:
+                "#1f1f1f",
+
+              border:
+                "1px solid #333",
+
+              color: "white",
+
+              padding:
+                "12px 18px",
+
+              borderRadius:
+                "10px",
+
+              cursor: "pointer",
+            }}
+          >
+            Tilbage til sider
+          </button>
+        </div>
+
+        {/* SIDE */}
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent:
+              "center",
+          }}
+        >
+          <div
+            style={{
+              width: "500px",
+
+              aspectRatio:
+                "210 / 297",
+
+              background:
+                "#1b1b1b",
+
+              borderRadius:
+                "14px",
+
+              padding: "20px",
+
+              display: "grid",
+
+              gridTemplateColumns:
+                "1fr 1fr",
+
+              gap: "12px",
+            }}
+          >
+            <div
+              style={{
+                background:
+                  "#22c55e",
+
+                borderRadius:
+                  "10px",
+
+                padding: "15px",
+              }}
+            >
+              Hansen VVS
+            </div>
+
+            <div
+              style={{
+                background:
+                  "#444",
+
+                borderRadius:
+                  "10px",
+
+                padding: "15px",
+              }}
+            >
+              LEDIG
+            </div>
+
+            <div
+              style={{
+                background:
+                  "#eab308",
+
+                borderRadius:
+                  "10px",
+
+                padding: "15px",
+              }}
+            >
+              Reserveret
+            </div>
+
+            <div
+              style={{
+                background:
+                  "#22c55e",
+
+                borderRadius:
+                  "10px",
+
+                padding: "15px",
+              }}
+            >
+              Café Nytorv
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -80,92 +239,6 @@ export default function MagazineView({
         </button>
       </div>
 
-      {/* STATS */}
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns:
-            "repeat(4, 1fr)",
-
-          gap: "20px",
-
-          marginBottom: "40px",
-        }}
-      >
-        <div
-          style={{
-            background: "#1b1b1b",
-            padding: "20px",
-            borderRadius: "14px",
-          }}
-        >
-          <h3>Solgte sider</h3>
-
-          <p
-            style={{
-              fontSize: "30px",
-            }}
-          >
-            34
-          </p>
-        </div>
-
-        <div
-          style={{
-            background: "#1b1b1b",
-            padding: "20px",
-            borderRadius: "14px",
-          }}
-        >
-          <h3>Ledige sider</h3>
-
-          <p
-            style={{
-              fontSize: "30px",
-            }}
-          >
-            22
-          </p>
-        </div>
-
-        <div
-          style={{
-            background: "#1b1b1b",
-            padding: "20px",
-            borderRadius: "14px",
-          }}
-        >
-          <h3>Premium</h3>
-
-          <p
-            style={{
-              fontSize: "30px",
-            }}
-          >
-            4
-          </p>
-        </div>
-
-        <div
-          style={{
-            background: "#1b1b1b",
-            padding: "20px",
-            borderRadius: "14px",
-          }}
-        >
-          <h3>Omsætning</h3>
-
-          <p
-            style={{
-              fontSize: "30px",
-            }}
-          >
-            148.000 kr.
-          </p>
-        </div>
-      </div>
-
       {/* SIDER */}
 
       <div
@@ -180,6 +253,11 @@ export default function MagazineView({
         {pages.map((page) => (
           <div
             key={page.side}
+            onClick={() =>
+              setSelectedPage(
+                page.side
+              )
+            }
             style={{
               background: "#1b1b1b",
 
@@ -187,14 +265,14 @@ export default function MagazineView({
 
               padding: "20px",
 
+              cursor: "pointer",
+
               border:
                 page.premium
                   ? "2px solid gold"
                   : "1px solid #2a2a2a",
             }}
           >
-            {/* TOP */}
-
             <div
               style={{
                 display: "flex",
@@ -222,8 +300,6 @@ export default function MagazineView({
               )}
             </div>
 
-            {/* MAGASIN SIDE */}
-
             <div
               style={{
                 background: "#111",
@@ -245,210 +321,18 @@ export default function MagazineView({
                 gap: "8px",
               }}
             >
-              {/* HELSIDE */}
+              <div
+                style={{
+                  flex: 1,
 
-              {page.layout ===
-                "1 helside" && (
-                <div
-                  style={{
-                    flex: 1,
+                  background:
+                    "#22c55e",
 
-                    background:
-                      "#22c55e",
-
-                    borderRadius:
-                      "6px",
-
-                    padding: "10px",
-
-                    display: "flex",
-
-                    flexDirection:
-                      "column",
-
-                    justifyContent:
-                      "space-between",
-                  }}
-                >
-                  <div>
-                    Hansen VVS
-                  </div>
-
-                  <div
-                    style={{
-                      fontSize:
-                        "12px",
-                    }}
-                  >
-                    Helside
-                  </div>
-                </div>
-              )}
-
-              {/* 2 HALVE */}
-
-              {page.layout ===
-                "2 halve" && (
-                <>
-                  <div
-                    style={{
-                      flex: 1,
-
-                      background:
-                        "#eab308",
-
-                      borderRadius:
-                        "6px",
-
-                      padding: "10px",
-
-                      display: "flex",
-
-                      flexDirection:
-                        "column",
-
-                      justifyContent:
-                        "space-between",
-                    }}
-                  >
-                    <div>
-                      XL Byg
-                    </div>
-
-                    <div
-                      style={{
-                        fontSize:
-                          "12px",
-                      }}
-                    >
-                      1/2 side
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      flex: 1,
-
-                      background:
-                        "#444",
-
-                      borderRadius:
-                        "6px",
-
-                      padding: "10px",
-
-                      display: "flex",
-
-                      alignItems:
-                        "center",
-
-                      justifyContent:
-                        "center",
-
-                      color:
-                        "#888",
-
-                      fontSize:
-                        "12px",
-                    }}
-                  >
-                    LEDIG
-                  </div>
-                </>
-              )}
-
-              {/* 4 KVART */}
-
-              {page.layout ===
-                "4 kvart" && (
-                <div
-                  style={{
-                    display:
-                      "grid",
-
-                    gridTemplateColumns:
-                      "1fr 1fr",
-
-                    gap: "8px",
-
-                    flex: 1,
-                  }}
-                >
-                  <div
-                    style={{
-                      background:
-                        "#22c55e",
-
-                      borderRadius:
-                        "6px",
-
-                      padding: "8px",
-
-                      fontSize:
-                        "11px",
-                    }}
-                  >
-                    Frisør Hansen
-                  </div>
-
-                  <div
-                    style={{
-                      background:
-                        "#eab308",
-
-                      borderRadius:
-                        "6px",
-
-                      padding: "8px",
-
-                      fontSize:
-                        "11px",
-                    }}
-                  >
-                    Reserveret
-                  </div>
-
-                  <div
-                    style={{
-                      background:
-                        "#444",
-
-                      borderRadius:
-                        "6px",
-
-                      padding: "8px",
-
-                      fontSize:
-                        "11px",
-
-                      color:
-                        "#999",
-                    }}
-                  >
-                    Ledig
-                  </div>
-
-                  <div
-                    style={{
-                      background:
-                        "#22c55e",
-
-                      borderRadius:
-                        "6px",
-
-                      padding: "8px",
-
-                      fontSize:
-                        "11px",
-                    }}
-                  >
-                    Café Nytorv
-                  </div>
-                </div>
-              )}
+                  borderRadius:
+                    "6px",
+                }}
+              />
             </div>
-
-            {/* FOOTER */}
 
             <div
               style={{
