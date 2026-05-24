@@ -5,7 +5,7 @@ import { useState } from "react";
 import PageEditor from "./PageEditor";
 import SidePreview from "./SidePreview";
 
-import { layouts } from "../data/layouts";
+import { pages } from "../data/pages";
 
 type MagazineViewProps = {
   setSelectedKommune: (
@@ -16,37 +16,11 @@ type MagazineViewProps = {
 export default function MagazineView({
   setSelectedKommune,
 }: MagazineViewProps) {
-  const [selectedPage, setSelectedPage] =
-    useState<number | null>(null);
-
-  const pages = Array.from(
-    { length: 56 },
-    (_, i) => {
-      const side = i + 1;
-
-      let layout =
-        layouts[0];
-
-      if (side % 5 === 0) {
-        layout = layouts[2];
-      } else if (
-        side % 3 === 0
-      ) {
-        layout = layouts[1];
-      }
-
-      return {
-        side,
-
-        layout,
-
-        premium:
-          side === 3 ||
-          side === 28 ||
-          side === 29 ||
-          side === 56,
-      };
-    }
+  const [
+    selectedPage,
+    setSelectedPage,
+  ] = useState<any | null>(
+    null
   );
 
   if (selectedPage) {
@@ -137,12 +111,10 @@ export default function MagazineView({
             premium={
               page.premium
             }
-            layout={
-              page.layout.name
-            }
+            ads={page.ads}
             onClick={() =>
               setSelectedPage(
-                page.side
+                page
               )
             }
           />
