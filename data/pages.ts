@@ -27,6 +27,9 @@ export const pages = Array.from(
 
                 color:
                   "#22c55e",
+
+                type:
+                  "quarter",
               },
 
               {
@@ -41,6 +44,9 @@ export const pages = Array.from(
 
                 color:
                   "#eab308",
+
+                type:
+                  "quarter",
               },
 
               {
@@ -55,6 +61,9 @@ export const pages = Array.from(
 
                 color:
                   "#444",
+
+                type:
+                  "quarter",
               },
 
               {
@@ -69,6 +78,9 @@ export const pages = Array.from(
 
                 color:
                   "#22c55e",
+
+                type:
+                  "quarter",
               },
             ]
           : side % 3 === 0
@@ -85,6 +97,9 @@ export const pages = Array.from(
 
                 color:
                   "#22c55e",
+
+                type:
+                  "half-horizontal",
               },
 
               {
@@ -99,6 +114,9 @@ export const pages = Array.from(
 
                 color:
                   "#444",
+
+                type:
+                  "half-horizontal",
               },
             ]
           : [
@@ -114,6 +132,9 @@ export const pages = Array.from(
 
                 color:
                   "#22c55e",
+
+                type:
+                  "helside",
               },
             ],
     };
