@@ -1,4 +1,12 @@
-export default function MagazineView() {
+type MagazineViewProps = {
+  setSelectedKommune: (
+    kommune: string | null
+  ) => void;
+};
+
+export default function MagazineView({
+  setSelectedKommune,
+}: MagazineViewProps) {
   const pages = Array.from(
     { length: 56 },
     (_, i) => {
@@ -51,6 +59,11 @@ export default function MagazineView() {
         </div>
 
         <button
+          onClick={() =>
+            setSelectedKommune(
+              null
+            )
+          }
           style={{
             background: "#1f1f1f",
             border: "1px solid #333",
@@ -172,8 +185,6 @@ export default function MagazineView() {
 
               padding: "20px",
 
-              minHeight: "260px",
-
               border:
                 page.premium
                   ? "2px solid gold"
@@ -209,17 +220,20 @@ export default function MagazineView() {
               )}
             </div>
 
-            {/* LAYOUT */}
+            {/* MAGASIN SIDE */}
 
             <div
               style={{
-                background: "#121212",
+                background: "#111",
 
                 borderRadius: "10px",
 
-                padding: "10px",
+                padding: "12px",
 
-                height: "140px",
+                width: "100%",
+
+                aspectRatio:
+                  "210 / 297",
 
                 display: "flex",
 
@@ -234,8 +248,10 @@ export default function MagazineView() {
                 <div
                   style={{
                     flex: 1,
+
                     background:
                       "#2a2a2a",
+
                     borderRadius:
                       "6px",
                   }}
@@ -248,8 +264,10 @@ export default function MagazineView() {
                   <div
                     style={{
                       flex: 1,
+
                       background:
                         "#2a2a2a",
+
                       borderRadius:
                         "6px",
                     }}
@@ -258,8 +276,10 @@ export default function MagazineView() {
                   <div
                     style={{
                       flex: 1,
+
                       background:
                         "#2a2a2a",
+
                       borderRadius:
                         "6px",
                     }}
@@ -271,7 +291,9 @@ export default function MagazineView() {
                 "4 kvart" && (
                 <div
                   style={{
-                    display: "grid",
+                    display:
+                      "grid",
+
                     gridTemplateColumns:
                       "1fr 1fr",
 
@@ -284,6 +306,7 @@ export default function MagazineView() {
                     style={{
                       background:
                         "#2a2a2a",
+
                       borderRadius:
                         "6px",
                     }}
@@ -293,6 +316,7 @@ export default function MagazineView() {
                     style={{
                       background:
                         "#2a2a2a",
+
                       borderRadius:
                         "6px",
                     }}
@@ -302,6 +326,7 @@ export default function MagazineView() {
                     style={{
                       background:
                         "#2a2a2a",
+
                       borderRadius:
                         "6px",
                     }}
@@ -311,6 +336,7 @@ export default function MagazineView() {
                     style={{
                       background:
                         "#2a2a2a",
+
                       borderRadius:
                         "6px",
                     }}
