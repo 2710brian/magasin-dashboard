@@ -102,12 +102,12 @@ export default function PageEditor({
             gridTemplateColumns:
               "1fr 1fr",
 
-            gridTemplateRows:
-              "1fr 1fr",
+            gridAutoRows:
+              "1fr",
 
             gap: "12px",
 
-            height: "100%",
+            height: "900px",
           }}
         >
           {selectedPage.ads.map(
