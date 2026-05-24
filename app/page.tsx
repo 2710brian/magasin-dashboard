@@ -11,116 +11,38 @@ export default function Home() {
 
   const regions = {
     "Region Hovedstaden": [
-      "Albertslund",
-      "Allerød",
-      "Ballerup",
-      "Bornholm",
-      "Brøndby",
-      "Dragør",
-      "Egedal",
-      "Fredensborg",
-      "Frederiksberg",
-      "Frederikssund",
-      "Furesø",
-      "Gentofte",
-      "Gladsaxe",
-      "Glostrup",
-      "Gribskov",
-      "Halsnæs",
-      "Helsingør",
-      "Herlev",
-      "Hillerød",
-      "Hvidovre",
-      "Høje-Taastrup",
-      "Hørsholm",
-      "Ishøj",
       "København",
-      "Lyngby-Taarbæk",
-      "Rudersdal",
-      "Rødovre",
-      "Tårnby",
-      "Vallensbæk",
+      "Frederiksberg",
+      "Hillerød",
+      "Gentofte",
     ],
 
     "Region Sjælland": [
-      "Faxe",
-      "Greve",
-      "Guldborgsund",
-      "Holbæk",
-      "Kalundborg",
-      "Køge",
-      "Lejre",
-      "Lolland",
-      "Næstved",
-      "Odsherred",
-      "Ringsted",
       "Roskilde",
+      "Næstved",
       "Slagelse",
-      "Solrød",
-      "Sorø",
-      "Stevns",
-      "Vordingborg",
+      "Holbæk",
     ],
 
     "Region Syddanmark": [
-      "Assens",
-      "Billund",
-      "Esbjerg",
-      "Fanø",
-      "Fredericia",
-      "Faaborg-Midtfyn",
-      "Haderslev",
-      "Kerteminde",
-      "Kolding",
-      "Langeland",
-      "Middelfart",
-      "Nordfyn",
-      "Nyborg",
       "Odense",
-      "Svendborg",
-      "Sønderborg",
-      "Tønder",
-      "Varde",
-      "Vejen",
+      "Kolding",
+      "Esbjerg",
       "Vejle",
-      "Ærø",
-      "Aabenraa",
     ],
 
     "Region Midtjylland": [
       "Aarhus",
-      "Favrskov",
-      "Hedensted",
-      "Herning",
-      "Holstebro",
-      "Horsens",
-      "Ikast-Brande",
-      "Lemvig",
-      "Norddjurs",
-      "Odder",
       "Randers",
-      "Ringkøbing-Skjern",
-      "Samsø",
+      "Horsens",
       "Silkeborg",
-      "Skanderborg",
-      "Skive",
-      "Struer",
-      "Syddjurs",
-      "Viborg",
     ],
 
     "Region Nordjylland": [
       "Aalborg",
-      "Brønderslev",
-      "Frederikshavn",
       "Hjørring",
-      "Jammerbugt",
-      "Læsø",
-      "Mariagerfjord",
-      "Morsø",
-      "Rebild",
-      "Thisted",
-      "Vesthimmerland",
+      "Frederikshavn",
+      "Brønderslev",
     ],
   };
 
@@ -166,6 +88,43 @@ export default function Home() {
   const aktiveKort = kommuner.filter(
     (kommune) => kommune.aktiv
   );
+
+  function generatePages() {
+    return Array.from(
+      { length: 56 },
+      (_, i) => {
+        const page = i + 1;
+
+        return {
+          side: page,
+
+          premium:
+            page === 3 ||
+            page === 28 ||
+            page === 56,
+
+          status:
+            page % 5 === 0
+              ? "solgt"
+              : page % 3 === 0
+              ? "reserveret"
+              : "ledig",
+        };
+      }
+    );
+  }
+
+  function getPageColor(status: string) {
+    if (status === "solgt") {
+      return "#22c55e";
+    }
+
+    if (status === "reserveret") {
+      return "#eab308";
+    }
+
+    return "#444";
+  }
 
   if (loggedIn) {
     return (
@@ -310,98 +269,176 @@ export default function Home() {
             }}
           >
             {aktiveKort.map(
-              (kommune) => (
-                <div
-                  key={
-                    kommune.navn
-                  }
-                  style={{
-                    background:
-                      "#1b1b1b",
+              (kommune) => {
+                const pages =
+                  generatePages();
 
-                    padding: "20px",
-
-                    borderRadius:
-                      "14px",
-
-                    border:
-                      "1px solid #2a2a2a",
-                  }}
-                >
+                return (
                   <div
+                    key={
+                      kommune.navn
+                    }
                     style={{
-                      display: "flex",
+                      background:
+                        "#1b1b1b",
 
-                      justifyContent:
-                        "space-between",
+                      padding:
+                        "20px",
 
-                      alignItems:
-                        "center",
+                      borderRadius:
+                        "14px",
 
-                      marginBottom:
-                        "15px",
+                      border:
+                        "1px solid #2a2a2a",
                     }}
                   >
-                    <h3>
-                      {
-                        kommune.navn
-                      }
-                    </h3>
+                    {/* HEADER */}
 
                     <div
                       style={{
-                        width:
-                          "12px",
+                        display:
+                          "flex",
 
-                        height:
-                          "12px",
+                        justifyContent:
+                          "space-between",
 
-                        borderRadius:
-                          "50%",
+                        alignItems:
+                          "center",
 
-                        background:
-                          "#22c55e",
+                        marginBottom:
+                          "15px",
                       }}
-                    />
+                    >
+                      <h3>
+                        {
+                          kommune.navn
+                        }
+                      </h3>
+
+                      <div
+                        style={{
+                          width:
+                            "12px",
+
+                          height:
+                            "12px",
+
+                          borderRadius:
+                            "50%",
+
+                          background:
+                            "#22c55e",
+                        }}
+                      />
+                    </div>
+
+                    <p
+                      style={{
+                        color:
+                          "#888",
+
+                        marginBottom:
+                          "12px",
+                      }}
+                    >
+                      {
+                        kommune.region
+                      }
+                    </p>
+
+                    <p>
+                      Fyldning:{" "}
+                      {
+                        kommune.fyldning
+                      }
+                      %
+                    </p>
+
+                    <p>
+                      Deadline:{" "}
+                      {
+                        kommune.deadline
+                      }
+                    </p>
+
+                    {/* PAGE GRID */}
+
+                    <div
+                      style={{
+                        marginTop:
+                          "20px",
+
+                        display:
+                          "grid",
+
+                        gridTemplateColumns:
+                          "repeat(8, 1fr)",
+
+                        gap: "6px",
+                      }}
+                    >
+                      {pages.map(
+                        (page) => (
+                          <div
+                            key={
+                              page.side
+                            }
+                            style={{
+                              height:
+                                "22px",
+
+                              borderRadius:
+                                "4px",
+
+                              background:
+                                getPageColor(
+                                  page.status
+                                ),
+
+                              border:
+                                page.premium
+                                  ? "2px solid gold"
+                                  : "none",
+                            }}
+                          />
+                        )
+                      )}
+                    </div>
+
+                    {/* LEGEND */}
+
+                    <div
+                      style={{
+                        display:
+                          "flex",
+
+                        gap: "15px",
+
+                        marginTop:
+                          "20px",
+
+                        fontSize:
+                          "12px",
+
+                        color:
+                          "#aaa",
+                      }}
+                    >
+                      <div>
+                        🟩 Solgt
+                      </div>
+
+                      <div>
+                        🟨 Reserveret
+                      </div>
+
+                      <div>
+                        ⬛ Ledig
+                      </div>
+                    </div>
                   </div>
-
-                  <p
-                    style={{
-                      color:
-                        "#888",
-
-                      marginBottom:
-                        "12px",
-                    }}
-                  >
-                    {
-                      kommune.region
-                    }
-                  </p>
-
-                  <p>
-                    Status:{" "}
-                    {
-                      kommune.status
-                    }
-                  </p>
-
-                  <p>
-                    Fyldning:{" "}
-                    {
-                      kommune.fyldning
-                    }
-                    %
-                  </p>
-
-                  <p>
-                    Deadline:{" "}
-                    {
-                      kommune.deadline
-                    }
-                  </p>
-                </div>
-              )
+                );
+              }
             )}
           </div>
         </div>
