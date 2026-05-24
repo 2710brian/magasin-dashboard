@@ -95,17 +95,19 @@ export default function PageEditor({
             borderRadius:
               "14px",
 
-            padding: "20px",
+            padding: "10px",
 
             display: "grid",
 
             gridTemplateColumns:
               "1fr 1fr",
 
-            gridAutoRows:
-              "1fr",
+            gridTemplateRows:
+              "1fr 1fr",
 
-            gap: "12px",
+            gap: "6px",
+
+            overflow: "hidden",
           }}
         >
           {selectedPage.ads.map(
