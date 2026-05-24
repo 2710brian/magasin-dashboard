@@ -2,49 +2,13 @@
 
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { regions } from "../data/kommuner";
 
 export default function Home() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   const [selectedKommune, setSelectedKommune] =
     useState("Aalborg");
-
-  const regions = {
-    "Region Hovedstaden": [
-      "København",
-      "Frederiksberg",
-      "Hillerød",
-      "Gentofte",
-    ],
-
-    "Region Sjælland": [
-      "Roskilde",
-      "Næstved",
-      "Slagelse",
-      "Holbæk",
-    ],
-
-    "Region Syddanmark": [
-      "Odense",
-      "Kolding",
-      "Esbjerg",
-      "Vejle",
-    ],
-
-    "Region Midtjylland": [
-      "Aarhus",
-      "Randers",
-      "Horsens",
-      "Silkeborg",
-    ],
-
-    "Region Nordjylland": [
-      "Aalborg",
-      "Hjørring",
-      "Frederikshavn",
-      "Brønderslev",
-    ],
-  };
 
   const aktiveKommuner = [
     "Aalborg",
@@ -147,8 +111,6 @@ export default function Home() {
           }
         />
 
-        {/* CONTENT */}
-
         <div
           style={{
             flex: 1,
@@ -163,8 +125,6 @@ export default function Home() {
           >
             Aktive magasiner
           </h1>
-
-          {/* TOP CARDS */}
 
           <div
             style={{
@@ -250,8 +210,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* AKTIVE KOMMUNER */}
-
           <h2
             style={{
               marginBottom: "20px",
@@ -292,8 +250,6 @@ export default function Home() {
                         "1px solid #2a2a2a",
                     }}
                   >
-                    {/* HEADER */}
-
                     <div
                       style={{
                         display:
@@ -361,8 +317,6 @@ export default function Home() {
                       }
                     </p>
 
-                    {/* PAGE GRID */}
-
                     <div
                       style={{
                         marginTop:
@@ -403,38 +357,6 @@ export default function Home() {
                           />
                         )
                       )}
-                    </div>
-
-                    {/* LEGEND */}
-
-                    <div
-                      style={{
-                        display:
-                          "flex",
-
-                        gap: "15px",
-
-                        marginTop:
-                          "20px",
-
-                        fontSize:
-                          "12px",
-
-                        color:
-                          "#aaa",
-                      }}
-                    >
-                      <div>
-                        🟩 Solgt
-                      </div>
-
-                      <div>
-                        🟨 Reserveret
-                      </div>
-
-                      <div>
-                        ⬛ Ledig
-                      </div>
                     </div>
                   </div>
                 );
