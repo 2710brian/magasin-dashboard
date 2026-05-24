@@ -6,6 +6,9 @@ import Sidebar from "../components/Sidebar";
 export default function Home() {
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const [selectedKommune, setSelectedKommune] =
+    useState("Aalborg");
+
   const regions = {
     "Region Hovedstaden": [
       "Albertslund",
@@ -143,75 +146,13 @@ export default function Home() {
           fontFamily: "Arial",
         }}
       >
-        {/* SIDEBAR */}
-
-        <div
-          style={{
-            width: "320px",
-            background: "#161616",
-            padding: "25px",
-            borderRight: "1px solid #222",
-            overflowY: "auto",
-            height: "100vh",
-          }}
-        >
-          <h2 style={{ marginBottom: "35px" }}>
-            Magasin System
-          </h2>
-
-          <div style={{ marginBottom: "35px" }}>
-            <div style={{ marginBottom: "12px" }}>
-              Dashboard
-            </div>
-
-            <div style={{ marginBottom: "12px" }}>
-              Omsætning
-            </div>
-
-            <div style={{ marginBottom: "12px" }}>
-              Deadlines
-            </div>
-
-            <div style={{ marginBottom: "12px" }}>
-              Premium sider
-            </div>
-          </div>
-
-          {Object.entries(regions).map(
-            ([region, kommuner]) => (
-              <div
-                key={region}
-                style={{
-                  marginBottom: "30px",
-                }}
-              >
-                <h3
-                  style={{
-                    color: "#888",
-                    marginBottom: "12px",
-                  }}
-                >
-                  {region}
-                </h3>
-
-                {kommuner.map((kommune) => (
-                  <div
-                    key={kommune}
-                    style={{
-                      padding: "10px",
-                      marginBottom: "8px",
-                      background: "#1f1f1f",
-                      borderRadius: "8px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {kommune}
-                  </div>
-                ))}
-              </div>
-            )
-          )}
-        </div>
+        <Sidebar
+          regions={regions}
+          selectedKommune={selectedKommune}
+          setSelectedKommune={
+            setSelectedKommune
+          }
+        />
 
         {/* CONTENT */}
 
@@ -223,7 +164,7 @@ export default function Home() {
           }}
         >
           <h1 style={{ marginBottom: "30px" }}>
-            Dashboard
+            {selectedKommune}
           </h1>
 
           {/* TOP CARDS */}
@@ -231,7 +172,8 @@ export default function Home() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
+              gridTemplateColumns:
+                "repeat(4, 1fr)",
               gap: "20px",
               marginBottom: "40px",
             }}
@@ -296,47 +238,58 @@ export default function Home() {
           {/* KOMMUNER */}
 
           <h2 style={{ marginBottom: "20px" }}>
-            Alle kommuner
+            Kommuneoversigt
           </h2>
 
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
+              gridTemplateColumns:
+                "repeat(3, 1fr)",
               gap: "20px",
             }}
           >
-            {kommuner.map((kommune) => (
-              <div
-                key={kommune.navn}
-                style={{
-                  background: "#1b1b1b",
-                  padding: "20px",
-                  borderRadius: "14px",
-                }}
-              >
-                <h3>{kommune.navn}</h3>
-
-                <p
+            {kommuner
+              .filter(
+                (kommune) =>
+                  kommune.navn ===
+                  selectedKommune
+              )
+              .map((kommune) => (
+                <div
+                  key={kommune.navn}
                   style={{
-                    color: "#888",
-                    marginBottom: "15px",
+                    background: "#1b1b1b",
+                    padding: "20px",
+                    borderRadius: "14px",
                   }}
                 >
-                  {kommune.region}
-                </p>
+                  <h3>{kommune.navn}</h3>
 
-                <p>Status: {kommune.status}</p>
+                  <p
+                    style={{
+                      color: "#888",
+                      marginBottom: "15px",
+                    }}
+                  >
+                    {kommune.region}
+                  </p>
 
-                <p>
-                  Fyldning: {kommune.fyldning}%
-                </p>
+                  <p>
+                    Status: {kommune.status}
+                  </p>
 
-                <p>
-                  Deadline: {kommune.deadline}
-                </p>
-              </div>
-            ))}
+                  <p>
+                    Fyldning:{" "}
+                    {kommune.fyldning}%
+                  </p>
+
+                  <p>
+                    Deadline:{" "}
+                    {kommune.deadline}
+                  </p>
+                </div>
+              ))}
           </div>
         </div>
       </main>
