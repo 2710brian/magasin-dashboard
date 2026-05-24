@@ -12,6 +12,19 @@ export default function PageEditor({
   selectedPage,
   setSelectedPage,
 }: PageEditorProps) {
+  const hasQuarterLayout =
+    selectedPage.ads.every(
+      (ad: any) =>
+        ad.type === "quarter"
+    );
+
+  const hasHalfHorizontal =
+    selectedPage.ads.every(
+      (ad: any) =>
+        ad.type ===
+        "half-horizontal"
+    );
+
   return (
     <div>
       {/* TOP */}
@@ -77,6 +90,7 @@ export default function PageEditor({
       <div
         style={{
           display: "flex",
+
           justifyContent:
             "center",
         }}
@@ -99,8 +113,7 @@ export default function PageEditor({
             display: "grid",
 
             gridTemplateColumns:
-              selectedPage.ads
-                .length === 4
+              hasQuarterLayout
                 ? "1fr 1fr"
                 : "1fr",
 
@@ -112,21 +125,34 @@ export default function PageEditor({
               ad: any,
               index: number
             ) => (
-              <AdBlock
+              <div
                 key={index}
-                title={
-                  ad.title
-                }
-                status={
-                  ad.status
-                }
-                price={
-                  ad.price
-                }
-                color={
-                  ad.color
-                }
-              />
+                style={{
+                  gridColumn:
+                    ad.type ===
+                    "helside"
+                      ? "1 / -1"
+                      : "auto",
+                }}
+              >
+                <AdBlock
+                  title={
+                    ad.title
+                  }
+                  status={
+                    ad.status
+                  }
+                  price={
+                    ad.price
+                  }
+                  color={
+                    ad.color
+                  }
+                  type={
+                    ad.type
+                  }
+                />
+              </div>
             )
           )}
         </div>
