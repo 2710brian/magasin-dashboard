@@ -6,6 +6,8 @@ type AdBlockProps = {
   price?: string;
 
   color?: string;
+
+  type?: string;
 };
 
 export default function AdBlock({
@@ -16,7 +18,39 @@ export default function AdBlock({
   price = "",
 
   color = "#444",
+
+  type = "quarter",
 }: AdBlockProps) {
+  let minHeight = "120px";
+
+  if (type === "helside") {
+    minHeight = "420px";
+  }
+
+  if (
+    type ===
+    "half-horizontal"
+  ) {
+    minHeight = "200px";
+  }
+
+  if (
+    type ===
+    "half-vertical"
+  ) {
+    minHeight = "420px";
+  }
+
+  if (type === "quarter") {
+    minHeight = "140px";
+  }
+
+  if (
+    type === "banner-top"
+  ) {
+    minHeight = "90px";
+  }
+
   return (
     <div
       style={{
@@ -33,7 +67,7 @@ export default function AdBlock({
         justifyContent:
           "space-between",
 
-        minHeight: "120px",
+        minHeight,
       }}
     >
       <div
@@ -54,6 +88,18 @@ export default function AdBlock({
         }}
       >
         {status}
+      </div>
+
+      <div
+        style={{
+          fontSize: "11px",
+
+          marginTop: "8px",
+
+          opacity: 0.7,
+        }}
+      >
+        {type}
       </div>
 
       {price && (
