@@ -21,34 +21,58 @@ export default function AdBlock({
 
   type = "quarter",
 }: AdBlockProps) {
-  let minHeight = "120px";
+  let gridColumn =
+    "span 1";
+
+  let gridRow =
+    "span 1";
 
   if (type === "helside") {
-    minHeight = "420px";
+    gridColumn =
+      "span 2";
+
+    gridRow =
+      "span 2";
   }
 
   if (
     type ===
     "half-horizontal"
   ) {
-    minHeight = "200px";
+    gridColumn =
+      "span 2";
+
+    gridRow =
+      "span 1";
   }
 
   if (
     type ===
     "half-vertical"
   ) {
-    minHeight = "420px";
+    gridColumn =
+      "span 1";
+
+    gridRow =
+      "span 2";
   }
 
   if (type === "quarter") {
-    minHeight = "140px";
+    gridColumn =
+      "span 1";
+
+    gridRow =
+      "span 1";
   }
 
   if (
     type === "banner-top"
   ) {
-    minHeight = "90px";
+    gridColumn =
+      "span 2";
+
+    gridRow =
+      "span 1";
   }
 
   return (
@@ -67,7 +91,11 @@ export default function AdBlock({
         justifyContent:
           "space-between",
 
-        minHeight,
+        gridColumn,
+
+        gridRow,
+
+        minHeight: "100%",
       }}
     >
       <div
