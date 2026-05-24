@@ -1,3 +1,5 @@
+import AdBlock from "./AdBlock";
+
 type PageEditorProps = {
   selectedPage: number;
 
@@ -100,61 +102,32 @@ export default function PageEditor({
             gap: "12px",
           }}
         >
-          <div
-            style={{
-              background:
-                "#22c55e",
+          <AdBlock
+            title="Hansen VVS"
+            status="Solgt"
+            price="12.500 kr."
+            color="#22c55e"
+          />
 
-              borderRadius:
-                "10px",
+          <AdBlock
+            title="LEDIG"
+            status="Ledig"
+            color="#444"
+          />
 
-              padding: "15px",
-            }}
-          >
-            Hansen VVS
-          </div>
+          <AdBlock
+            title="XL Byg"
+            status="Reserveret"
+            price="8.000 kr."
+            color="#eab308"
+          />
 
-          <div
-            style={{
-              background:
-                "#444",
-
-              borderRadius:
-                "10px",
-
-              padding: "15px",
-            }}
-          >
-            LEDIG
-          </div>
-
-          <div
-            style={{
-              background:
-                "#eab308",
-
-              borderRadius:
-                "10px",
-
-              padding: "15px",
-            }}
-          >
-            Reserveret
-          </div>
-
-          <div
-            style={{
-              background:
-                "#22c55e",
-
-              borderRadius:
-                "10px",
-
-              padding: "15px",
-            }}
-          >
-            Café Nytorv
-          </div>
+          <AdBlock
+            title="Café Nytorv"
+            status="Solgt"
+            price="6.500 kr."
+            color="#22c55e"
+          />
         </div>
       </div>
     </div>
