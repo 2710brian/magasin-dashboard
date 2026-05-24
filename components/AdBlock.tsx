@@ -95,12 +95,16 @@ export default function AdBlock({
 
         gridRow,
 
-        minHeight: "100%",
+        overflow: "hidden",
+
+        height: "100%",
       }}
     >
       <div
         style={{
           fontWeight: "bold",
+
+          fontSize: "22px",
         }}
       >
         {title}
@@ -108,11 +112,9 @@ export default function AdBlock({
 
       <div
         style={{
-          fontSize: "12px",
+          fontSize: "14px",
 
           opacity: 0.8,
-
-          marginTop: "10px",
         }}
       >
         {status}
@@ -120,11 +122,9 @@ export default function AdBlock({
 
       <div
         style={{
-          fontSize: "11px",
+          fontSize: "12px",
 
-          marginTop: "8px",
-
-          opacity: 0.7,
+          opacity: 0.6,
         }}
       >
         {type}
@@ -133,9 +133,7 @@ export default function AdBlock({
       {price && (
         <div
           style={{
-            marginTop: "10px",
-
-            fontSize: "13px",
+            fontSize: "18px",
 
             fontWeight: "bold",
           }}
