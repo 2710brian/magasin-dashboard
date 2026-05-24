@@ -12,19 +12,6 @@ export default function PageEditor({
   selectedPage,
   setSelectedPage,
 }: PageEditorProps) {
-  const hasQuarterLayout =
-    selectedPage.ads.every(
-      (ad: any) =>
-        ad.type === "quarter"
-    );
-
-  const hasHalfHorizontal =
-    selectedPage.ads.every(
-      (ad: any) =>
-        ad.type ===
-        "half-horizontal"
-    );
-
   return (
     <div>
       {/* TOP */}
@@ -113,11 +100,14 @@ export default function PageEditor({
             display: "grid",
 
             gridTemplateColumns:
-              hasQuarterLayout
-                ? "1fr 1fr"
-                : "1fr",
+              "1fr 1fr",
+
+            gridTemplateRows:
+              "1fr 1fr",
 
             gap: "12px",
+
+            height: "100%",
           }}
         >
           {selectedPage.ads.map(
@@ -125,34 +115,24 @@ export default function PageEditor({
               ad: any,
               index: number
             ) => (
-              <div
+              <AdBlock
                 key={index}
-                style={{
-                  gridColumn:
-                    ad.type ===
-                    "helside"
-                      ? "1 / -1"
-                      : "auto",
-                }}
-              >
-                <AdBlock
-                  title={
-                    ad.title
-                  }
-                  status={
-                    ad.status
-                  }
-                  price={
-                    ad.price
-                  }
-                  color={
-                    ad.color
-                  }
-                  type={
-                    ad.type
-                  }
-                />
-              </div>
+                title={
+                  ad.title
+                }
+                status={
+                  ad.status
+                }
+                price={
+                  ad.price
+                }
+                color={
+                  ad.color
+                }
+                type={
+                  ad.type
+                }
+              />
             )
           )}
         </div>
