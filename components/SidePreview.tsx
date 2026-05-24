@@ -3,7 +3,7 @@ type SidePreviewProps = {
 
   premium?: boolean;
 
-  layout: string;
+  ads: any[];
 
   onClick: () => void;
 };
@@ -13,10 +13,17 @@ export default function SidePreview({
 
   premium,
 
-  layout,
+  ads,
 
   onClick,
 }: SidePreviewProps) {
+  const layoutText =
+    ads.length === 1
+      ? "1 helside"
+      : ads.length === 2
+      ? "2 halve"
+      : "4 kvart";
+
   return (
     <div
       onClick={onClick}
@@ -73,22 +80,35 @@ export default function SidePreview({
 
           aspectRatio: "210 / 297",
 
-          display: "flex",
+          display: "grid",
 
-          flexDirection: "column",
+          gridTemplateColumns:
+            ads.length === 4
+              ? "1fr 1fr"
+              : "1fr",
 
           gap: "8px",
         }}
       >
-        <div
-          style={{
-            flex: 1,
+        {ads.map(
+          (ad, index) => (
+            <div
+              key={index}
+              style={{
+                background:
+                  ad.color,
 
-            background: "#22c55e",
+                borderRadius:
+                  "6px",
 
-            borderRadius: "6px",
-          }}
-        />
+                minHeight:
+                  ads.length === 1
+                    ? "300px"
+                    : "140px",
+              }}
+            />
+          )
+        )}
       </div>
 
       <div
@@ -100,7 +120,7 @@ export default function SidePreview({
           fontSize: "14px",
         }}
       >
-        Layout: {layout}
+        Layout: {layoutText}
       </div>
     </div>
   );
