@@ -7,29 +7,55 @@ type MagazineViewProps = {
 export default function MagazineView({
   setSelectedKommune,
 }: MagazineViewProps) {
-  const pages = Array.from(
-    { length: 56 },
-    (_, i) => {
-      const side = i + 1;
+  const pages = [
+    {
+      side: 1,
+      layout: "1 helside",
+      premium: false,
+    },
 
-      return {
-        side,
+    {
+      side: 2,
+      layout: "1 helside",
+      premium: false,
+    },
 
-        premium:
-          side === 3 ||
-          side === 28 ||
-          side === 29 ||
-          side === 56,
+    {
+      side: 3,
+      layout: "2 halve",
+      premium: true,
+    },
 
-        layout:
-          side % 5 === 0
-            ? "4 kvart"
-            : side % 3 === 0
-            ? "2 halve"
-            : "1 helside",
-      };
-    }
-  );
+    {
+      side: 4,
+      layout: "1 helside",
+      premium: false,
+    },
+
+    {
+      side: 5,
+      layout: "4 kvart",
+      premium: false,
+    },
+
+    {
+      side: 6,
+      layout: "2 halve",
+      premium: false,
+    },
+
+    {
+      side: 7,
+      layout: "1 helside",
+      premium: false,
+    },
+
+    {
+      side: 8,
+      layout: "4 kvart",
+      premium: false,
+    },
+  ];
 
   return (
     <div>
@@ -344,8 +370,6 @@ export default function MagazineView({
                 </div>
               )}
             </div>
-
-            {/* FOOTER */}
 
             <div
               style={{
