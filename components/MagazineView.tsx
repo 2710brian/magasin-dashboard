@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+
 import PageEditor from "./PageEditor";
+import SidePreview from "./SidePreview";
 
 type MagazineViewProps = {
   setSelectedKommune: (
@@ -106,6 +108,7 @@ export default function MagazineView({
       <div
         style={{
           display: "grid",
+
           gridTemplateColumns:
             "repeat(4, 1fr)",
 
@@ -113,99 +116,17 @@ export default function MagazineView({
         }}
       >
         {pages.map((page) => (
-          <div
+          <SidePreview
             key={page.side}
+            side={page.side}
+            premium={page.premium}
+            layout={page.layout}
             onClick={() =>
               setSelectedPage(
                 page.side
               )
             }
-            style={{
-              background: "#1b1b1b",
-
-              borderRadius: "14px",
-
-              padding: "20px",
-
-              cursor: "pointer",
-
-              border:
-                page.premium
-                  ? "2px solid gold"
-                  : "1px solid #2a2a2a",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-
-                justifyContent:
-                  "space-between",
-
-                marginBottom: "20px",
-              }}
-            >
-              <h3>
-                Side {page.side}
-              </h3>
-
-              {page.premium && (
-                <div
-                  style={{
-                    color: "gold",
-                    fontSize:
-                      "12px",
-                  }}
-                >
-                  PREMIUM
-                </div>
-              )}
-            </div>
-
-            <div
-              style={{
-                background: "#111",
-
-                borderRadius: "10px",
-
-                padding: "12px",
-
-                width: "100%",
-
-                aspectRatio:
-                  "210 / 297",
-
-                display: "flex",
-
-                flexDirection:
-                  "column",
-
-                gap: "8px",
-              }}
-            >
-              <div
-                style={{
-                  flex: 1,
-
-                  background:
-                    "#22c55e",
-
-                  borderRadius:
-                    "6px",
-                }}
-              />
-            </div>
-
-            <div
-              style={{
-                marginTop: "15px",
-                color: "#888",
-                fontSize: "14px",
-              }}
-            >
-              Layout: {page.layout}
-            </div>
-          </div>
+          />
         ))}
       </div>
     </div>
