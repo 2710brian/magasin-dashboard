@@ -3,13 +3,14 @@
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import MagazineCard from "../components/MagazineCard";
+import MagazineView from "../components/MagazineView";
 import { regions } from "../data/kommuner";
 
 export default function Home() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   const [selectedKommune, setSelectedKommune] =
-    useState("Aalborg");
+    useState<string | null>(null);
 
   const aktiveKommuner = [
     "Aalborg",
@@ -68,7 +69,7 @@ export default function Home() {
         <Sidebar
           regions={regions}
           selectedKommune={
-            selectedKommune
+            selectedKommune || ""
           }
           setSelectedKommune={
             setSelectedKommune
@@ -82,131 +83,151 @@ export default function Home() {
             overflowY: "auto",
           }}
         >
-          <h1
-            style={{
-              marginBottom: "30px",
-            }}
-          >
-            Aktive magasiner
-          </h1>
-
-          {/* TOP CARDS */}
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns:
-                "repeat(4, 1fr)",
-              gap: "20px",
-              marginBottom: "40px",
-            }}
-          >
-            <div
-              style={{
-                background: "#1b1b1b",
-                padding: "25px",
-                borderRadius: "14px",
-              }}
-            >
-              <h3>Kommuner</h3>
-
-              <p
+          {!selectedKommune && (
+            <>
+              <h1
                 style={{
-                  fontSize: "30px",
+                  marginBottom: "30px",
                 }}
               >
-                {kommuner.length}
-              </p>
-            </div>
+                Aktive magasiner
+              </h1>
 
-            <div
-              style={{
-                background: "#1b1b1b",
-                padding: "25px",
-                borderRadius: "14px",
-              }}
-            >
-              <h3>Aktive</h3>
+              {/* TOP CARDS */}
 
-              <p
+              <div
                 style={{
-                  fontSize: "30px",
+                  display: "grid",
+                  gridTemplateColumns:
+                    "repeat(4, 1fr)",
+                  gap: "20px",
+                  marginBottom: "40px",
                 }}
               >
-                {
-                  aktiveKort.length
-                }
-              </p>
-            </div>
+                <div
+                  style={{
+                    background: "#1b1b1b",
+                    padding: "25px",
+                    borderRadius: "14px",
+                  }}
+                >
+                  <h3>Kommuner</h3>
 
-            <div
-              style={{
-                background: "#1b1b1b",
-                padding: "25px",
-                borderRadius: "14px",
-              }}
-            >
-              <h3>Omsætning</h3>
+                  <p
+                    style={{
+                      fontSize: "30px",
+                    }}
+                  >
+                    {kommuner.length}
+                  </p>
+                </div>
 
-              <p
+                <div
+                  style={{
+                    background: "#1b1b1b",
+                    padding: "25px",
+                    borderRadius: "14px",
+                  }}
+                >
+                  <h3>Aktive</h3>
+
+                  <p
+                    style={{
+                      fontSize: "30px",
+                    }}
+                  >
+                    {
+                      aktiveKort.length
+                    }
+                  </p>
+                </div>
+
+                <div
+                  style={{
+                    background: "#1b1b1b",
+                    padding: "25px",
+                    borderRadius: "14px",
+                  }}
+                >
+                  <h3>Omsætning</h3>
+
+                  <p
+                    style={{
+                      fontSize: "30px",
+                    }}
+                  >
+                    1.245.000 kr.
+                  </p>
+                </div>
+
+                <div
+                  style={{
+                    background: "#1b1b1b",
+                    padding: "25px",
+                    borderRadius: "14px",
+                  }}
+                >
+                  <h3>Premium sider</h3>
+
+                  <p
+                    style={{
+                      fontSize: "30px",
+                    }}
+                  >
+                    42
+                  </p>
+                </div>
+              </div>
+
+              {/* AKTIVE MAGASINER */}
+
+              <h2
                 style={{
-                  fontSize: "30px",
+                  marginBottom: "20px",
                 }}
               >
-                1.245.000 kr.
-              </p>
-            </div>
+                Kommuner i arbejde
+              </h2>
 
-            <div
-              style={{
-                background: "#1b1b1b",
-                padding: "25px",
-                borderRadius: "14px",
-              }}
-            >
-              <h3>Premium sider</h3>
-
-              <p
+              <div
                 style={{
-                  fontSize: "30px",
+                  display: "grid",
+                  gridTemplateColumns:
+                    "repeat(3, 1fr)",
+                  gap: "20px",
                 }}
               >
-                42
-              </p>
-            </div>
-          </div>
+                {aktiveKort.map(
+                  (kommune) => (
+                    <div
+                      key={
+                        kommune.navn
+                      }
+                      onClick={() =>
+                        setSelectedKommune(
+                          kommune.navn
+                        )
+                      }
+                      style={{
+                        cursor:
+                          "pointer",
+                      }}
+                    >
+                      <MagazineCard
+                        kommune={
+                          kommune
+                        }
+                      />
+                    </div>
+                  )
+                )}
+              </div>
+            </>
+          )}
 
-          {/* AKTIVE MAGASINER */}
-
-          <h2
-            style={{
-              marginBottom: "20px",
-            }}
-          >
-            Kommuner i arbejde
-          </h2>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns:
-                "repeat(3, 1fr)",
-              gap: "20px",
-            }}
-          >
-            {aktiveKort.map(
-              (kommune) => (
-                <MagazineCard
-                  key={
-                    kommune.navn
-                  }
-                  kommune={
-                    kommune
-                  }
-                />
-              )
-            )}
-          </div>
+          {selectedKommune && (
+            <MagazineView />
+          )}
         </div>
       </main>
     );
