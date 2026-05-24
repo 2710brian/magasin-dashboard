@@ -80,9 +80,9 @@ export default function AdBlock({
       style={{
         background: color,
 
-        borderRadius: "10px",
+        borderRadius: "6px",
 
-        padding: "15px",
+        padding: "14px",
 
         display: "flex",
 
@@ -97,14 +97,17 @@ export default function AdBlock({
 
         overflow: "hidden",
 
-        height: "100%",
+        width: "100%",
+
+        boxSizing:
+          "border-box",
       }}
     >
       <div
         style={{
           fontWeight: "bold",
 
-          fontSize: "22px",
+          fontSize: "16px",
         }}
       >
         {title}
@@ -112,7 +115,7 @@ export default function AdBlock({
 
       <div
         style={{
-          fontSize: "14px",
+          fontSize: "12px",
 
           opacity: 0.8,
         }}
@@ -122,7 +125,7 @@ export default function AdBlock({
 
       <div
         style={{
-          fontSize: "12px",
+          fontSize: "11px",
 
           opacity: 0.6,
         }}
@@ -133,7 +136,7 @@ export default function AdBlock({
       {price && (
         <div
           style={{
-            fontSize: "18px",
+            fontSize: "14px",
 
             fontWeight: "bold",
           }}
