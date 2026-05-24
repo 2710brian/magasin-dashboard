@@ -1,10 +1,10 @@
 import AdBlock from "./AdBlock";
 
 type PageEditorProps = {
-  selectedPage: number;
+  selectedPage: any;
 
   setSelectedPage: (
-    page: number | null
+    page: any | null
   ) => void;
 };
 
@@ -30,7 +30,9 @@ export default function PageEditor({
       >
         <div>
           <h1>
-            Side {selectedPage}
+            Side {
+              selectedPage.side
+            }
           </h1>
 
           <p
@@ -97,37 +99,36 @@ export default function PageEditor({
             display: "grid",
 
             gridTemplateColumns:
-              "1fr 1fr",
+              selectedPage.ads
+                .length === 4
+                ? "1fr 1fr"
+                : "1fr",
 
             gap: "12px",
           }}
         >
-          <AdBlock
-            title="Hansen VVS"
-            status="Solgt"
-            price="12.500 kr."
-            color="#22c55e"
-          />
-
-          <AdBlock
-            title="LEDIG"
-            status="Ledig"
-            color="#444"
-          />
-
-          <AdBlock
-            title="XL Byg"
-            status="Reserveret"
-            price="8.000 kr."
-            color="#eab308"
-          />
-
-          <AdBlock
-            title="Café Nytorv"
-            status="Solgt"
-            price="6.500 kr."
-            color="#22c55e"
-          />
+          {selectedPage.ads.map(
+            (
+              ad: any,
+              index: number
+            ) => (
+              <AdBlock
+                key={index}
+                title={
+                  ad.title
+                }
+                status={
+                  ad.status
+                }
+                price={
+                  ad.price
+                }
+                color={
+                  ad.color
+                }
+              />
+            )
+          )}
         </div>
       </div>
     </div>
