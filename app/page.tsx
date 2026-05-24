@@ -93,14 +93,14 @@ export default function Home() {
                 Aktive magasiner
               </h1>
 
-              {/* TOP CARDS */}
-
               <div
                 style={{
                   display: "grid",
                   gridTemplateColumns:
                     "repeat(4, 1fr)",
+
                   gap: "20px",
+
                   marginBottom: "40px",
                 }}
               >
@@ -179,8 +179,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* AKTIVE MAGASINER */}
-
               <h2
                 style={{
                   marginBottom: "20px",
@@ -194,6 +192,7 @@ export default function Home() {
                   display: "grid",
                   gridTemplateColumns:
                     "repeat(3, 1fr)",
+
                   gap: "20px",
                 }}
               >
@@ -226,7 +225,11 @@ export default function Home() {
           )}
 
           {selectedKommune && (
-            <MagazineView />
+            <MagazineView
+              setSelectedKommune={
+                setSelectedKommune
+              }
+            />
           )}
         </div>
       </main>
