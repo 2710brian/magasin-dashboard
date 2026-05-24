@@ -124,15 +124,47 @@ export default function Home() {
     ],
   };
 
+  const aktiveKommuner = [
+    "Aalborg",
+    "Aarhus",
+    "Odense",
+    "Roskilde",
+    "Kolding",
+    "Horsens",
+    "Frederiksberg",
+    "Næstved",
+  ];
+
   const kommuner = Object.entries(regions).flatMap(
     ([region, kommuner]) =>
       kommuner.map((navn) => ({
         navn,
         region,
-        status: "I salg",
-        fyldning: Math.floor(Math.random() * 100),
-        deadline: "25 maj",
+
+        aktiv:
+          aktiveKommuner.includes(navn),
+
+        status:
+          aktiveKommuner.includes(navn)
+            ? "I salg"
+            : "Ikke startet",
+
+        fyldning:
+          aktiveKommuner.includes(navn)
+            ? Math.floor(
+                Math.random() * 100
+              )
+            : 0,
+
+        deadline:
+          aktiveKommuner.includes(navn)
+            ? "25 maj"
+            : "-",
       }))
+  );
+
+  const aktiveKort = kommuner.filter(
+    (kommune) => kommune.aktiv
   );
 
   if (loggedIn) {
@@ -148,7 +180,9 @@ export default function Home() {
       >
         <Sidebar
           regions={regions}
-          selectedKommune={selectedKommune}
+          selectedKommune={
+            selectedKommune
+          }
           setSelectedKommune={
             setSelectedKommune
           }
@@ -163,8 +197,12 @@ export default function Home() {
             overflowY: "auto",
           }}
         >
-          <h1 style={{ marginBottom: "30px" }}>
-            {selectedKommune}
+          <h1
+            style={{
+              marginBottom: "30px",
+            }}
+          >
+            Aktive magasiner
           </h1>
 
           {/* TOP CARDS */}
@@ -187,7 +225,11 @@ export default function Home() {
             >
               <h3>Kommuner</h3>
 
-              <p style={{ fontSize: "30px" }}>
+              <p
+                style={{
+                  fontSize: "30px",
+                }}
+              >
                 {kommuner.length}
               </p>
             </div>
@@ -199,10 +241,16 @@ export default function Home() {
                 borderRadius: "14px",
               }}
             >
-              <h3>Aktive magasiner</h3>
+              <h3>Aktive</h3>
 
-              <p style={{ fontSize: "30px" }}>
-                97
+              <p
+                style={{
+                  fontSize: "30px",
+                }}
+              >
+                {
+                  aktiveKort.length
+                }
               </p>
             </div>
 
@@ -215,7 +263,11 @@ export default function Home() {
             >
               <h3>Omsætning</h3>
 
-              <p style={{ fontSize: "30px" }}>
+              <p
+                style={{
+                  fontSize: "30px",
+                }}
+              >
                 1.245.000 kr.
               </p>
             </div>
@@ -229,16 +281,24 @@ export default function Home() {
             >
               <h3>Premium sider</h3>
 
-              <p style={{ fontSize: "30px" }}>
+              <p
+                style={{
+                  fontSize: "30px",
+                }}
+              >
                 42
               </p>
             </div>
           </div>
 
-          {/* KOMMUNER */}
+          {/* AKTIVE KOMMUNER */}
 
-          <h2 style={{ marginBottom: "20px" }}>
-            Kommuneoversigt
+          <h2
+            style={{
+              marginBottom: "20px",
+            }}
+          >
+            Kommuner i arbejde
           </h2>
 
           <div
@@ -249,47 +309,100 @@ export default function Home() {
               gap: "20px",
             }}
           >
-            {kommuner
-              .filter(
-                (kommune) =>
-                  kommune.navn ===
-                  selectedKommune
-              )
-              .map((kommune) => (
+            {aktiveKort.map(
+              (kommune) => (
                 <div
-                  key={kommune.navn}
+                  key={
+                    kommune.navn
+                  }
                   style={{
-                    background: "#1b1b1b",
+                    background:
+                      "#1b1b1b",
+
                     padding: "20px",
-                    borderRadius: "14px",
+
+                    borderRadius:
+                      "14px",
+
+                    border:
+                      "1px solid #2a2a2a",
                   }}
                 >
-                  <h3>{kommune.navn}</h3>
+                  <div
+                    style={{
+                      display: "flex",
+
+                      justifyContent:
+                        "space-between",
+
+                      alignItems:
+                        "center",
+
+                      marginBottom:
+                        "15px",
+                    }}
+                  >
+                    <h3>
+                      {
+                        kommune.navn
+                      }
+                    </h3>
+
+                    <div
+                      style={{
+                        width:
+                          "12px",
+
+                        height:
+                          "12px",
+
+                        borderRadius:
+                          "50%",
+
+                        background:
+                          "#22c55e",
+                      }}
+                    />
+                  </div>
 
                   <p
                     style={{
-                      color: "#888",
-                      marginBottom: "15px",
+                      color:
+                        "#888",
+
+                      marginBottom:
+                        "12px",
                     }}
                   >
-                    {kommune.region}
+                    {
+                      kommune.region
+                    }
                   </p>
 
                   <p>
-                    Status: {kommune.status}
+                    Status:{" "}
+                    {
+                      kommune.status
+                    }
                   </p>
 
                   <p>
                     Fyldning:{" "}
-                    {kommune.fyldning}%
+                    {
+                      kommune.fyldning
+                    }
+                    %
                   </p>
 
                   <p>
                     Deadline:{" "}
-                    {kommune.deadline}
+                    {
+                      kommune.deadline
+                    }
                   </p>
                 </div>
-              ))}
+              )
+            )}
           </div>
         </div>
       </main>
@@ -316,7 +429,11 @@ export default function Home() {
           width: "350px",
         }}
       >
-        <h1 style={{ marginBottom: "30px" }}>
+        <h1
+          style={{
+            marginBottom: "30px",
+          }}
+        >
           Magasin Login
         </h1>
 
@@ -349,7 +466,9 @@ export default function Home() {
         />
 
         <button
-          onClick={() => setLoggedIn(true)}
+          onClick={() =>
+            setLoggedIn(true)
+          }
           style={{
             width: "100%",
             padding: "12px",
