@@ -5,6 +5,8 @@ import { useState } from "react";
 import PageEditor from "./PageEditor";
 import SidePreview from "./SidePreview";
 
+import { layouts } from "../data/layouts";
+
 type MagazineViewProps = {
   setSelectedKommune: (
     kommune: string | null
@@ -22,16 +24,20 @@ export default function MagazineView({
     (_, i) => {
       const side = i + 1;
 
-      let layout = "1 helside";
+      let layout =
+        layouts[0];
 
       if (side % 5 === 0) {
-        layout = "4 kvart";
-      } else if (side % 3 === 0) {
-        layout = "2 halve";
+        layout = layouts[2];
+      } else if (
+        side % 3 === 0
+      ) {
+        layout = layouts[1];
       }
 
       return {
         side,
+
         layout,
 
         premium:
@@ -63,6 +69,7 @@ export default function MagazineView({
       <div
         style={{
           display: "flex",
+
           justifyContent:
             "space-between",
 
@@ -90,12 +97,20 @@ export default function MagazineView({
             )
           }
           style={{
-            background: "#1f1f1f",
-            border: "1px solid #333",
+            background:
+              "#1f1f1f",
+
+            border:
+              "1px solid #333",
+
             color: "white",
+
             padding:
               "12px 18px",
-            borderRadius: "10px",
+
+            borderRadius:
+              "10px",
+
             cursor: "pointer",
           }}
         >
@@ -119,8 +134,12 @@ export default function MagazineView({
           <SidePreview
             key={page.side}
             side={page.side}
-            premium={page.premium}
-            layout={page.layout}
+            premium={
+              page.premium
+            }
+            layout={
+              page.layout.name
+            }
             onClick={() =>
               setSelectedPage(
                 page.side
