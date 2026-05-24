@@ -245,6 +245,8 @@ export default function MagazineView({
                 gap: "8px",
               }}
             >
+              {/* HELSIDE */}
+
               {page.layout ===
                 "1 helside" && (
                 <div
@@ -252,13 +254,38 @@ export default function MagazineView({
                     flex: 1,
 
                     background:
-                      "#2a2a2a",
+                      "#22c55e",
 
                     borderRadius:
                       "6px",
+
+                    padding: "10px",
+
+                    display: "flex",
+
+                    flexDirection:
+                      "column",
+
+                    justifyContent:
+                      "space-between",
                   }}
-                />
+                >
+                  <div>
+                    Hansen VVS
+                  </div>
+
+                  <div
+                    style={{
+                      fontSize:
+                        "12px",
+                    }}
+                  >
+                    Helside
+                  </div>
+                </div>
               )}
+
+              {/* 2 HALVE */}
 
               {page.layout ===
                 "2 halve" && (
@@ -268,26 +295,69 @@ export default function MagazineView({
                       flex: 1,
 
                       background:
-                        "#2a2a2a",
+                        "#eab308",
 
                       borderRadius:
                         "6px",
+
+                      padding: "10px",
+
+                      display: "flex",
+
+                      flexDirection:
+                        "column",
+
+                      justifyContent:
+                        "space-between",
                     }}
-                  />
+                  >
+                    <div>
+                      XL Byg
+                    </div>
+
+                    <div
+                      style={{
+                        fontSize:
+                          "12px",
+                      }}
+                    >
+                      1/2 side
+                    </div>
+                  </div>
 
                   <div
                     style={{
                       flex: 1,
 
                       background:
-                        "#2a2a2a",
+                        "#444",
 
                       borderRadius:
                         "6px",
+
+                      padding: "10px",
+
+                      display: "flex",
+
+                      alignItems:
+                        "center",
+
+                      justifyContent:
+                        "center",
+
+                      color:
+                        "#888",
+
+                      fontSize:
+                        "12px",
                     }}
-                  />
+                  >
+                    LEDIG
+                  </div>
                 </>
               )}
+
+              {/* 4 KVART */}
 
               {page.layout ===
                 "4 kvart" && (
@@ -307,42 +377,73 @@ export default function MagazineView({
                   <div
                     style={{
                       background:
-                        "#2a2a2a",
+                        "#22c55e",
 
                       borderRadius:
                         "6px",
+
+                      padding: "8px",
+
+                      fontSize:
+                        "11px",
                     }}
-                  />
+                  >
+                    Frisør Hansen
+                  </div>
 
                   <div
                     style={{
                       background:
-                        "#2a2a2a",
+                        "#eab308",
 
                       borderRadius:
                         "6px",
+
+                      padding: "8px",
+
+                      fontSize:
+                        "11px",
                     }}
-                  />
+                  >
+                    Reserveret
+                  </div>
 
                   <div
                     style={{
                       background:
-                        "#2a2a2a",
+                        "#444",
 
                       borderRadius:
                         "6px",
+
+                      padding: "8px",
+
+                      fontSize:
+                        "11px",
+
+                      color:
+                        "#999",
                     }}
-                  />
+                  >
+                    Ledig
+                  </div>
 
                   <div
                     style={{
                       background:
-                        "#2a2a2a",
+                        "#22c55e",
 
                       borderRadius:
                         "6px",
+
+                      padding: "8px",
+
+                      fontSize:
+                        "11px",
                     }}
-                  />
+                  >
+                    Café Nytorv
+                  </div>
                 </div>
               )}
             </div>
