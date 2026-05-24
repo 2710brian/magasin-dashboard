@@ -106,8 +106,6 @@ export default function PageEditor({
               "1fr",
 
             gap: "12px",
-
-            height: "900px",
           }}
         >
           {selectedPage.ads.map(
