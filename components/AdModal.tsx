@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 import ContactTab from "./tabs/ContactTab";
+
+import SalesTab from "./tabs/SalesTab";
 
 type AdModalProps = {
   ad: any;
@@ -10,6 +14,10 @@ export default function AdModal({
   ad,
   onClose,
 }: AdModalProps) {
+
+  const [activeTab, setActiveTab] =
+    useState("contact");
+
   return (
     <div
       style={{
@@ -190,36 +198,62 @@ export default function AdModal({
             fontWeight: 600,
           }}
         >
-          <div
-            style={{
-              borderBottom:
-                "3px solid black",
+          <TabButton
+            active={
+              activeTab ===
+              "contact"
+            }
 
-              paddingBottom:
-                "12px",
-            }}
+            onClick={() =>
+              setActiveTab(
+                "contact"
+              )
+            }
           >
             Kontakt
-          </div>
+          </TabButton>
 
-          <div>
-            Geografi
-          </div>
+          <TabButton
+            active={
+              activeTab ===
+              "sales"
+            }
 
-          <div>
+            onClick={() =>
+              setActiveTab(
+                "sales"
+              )
+            }
+          >
             Salg
-          </div>
+          </TabButton>
 
-          <div>
+          <TabButton>
+            Geografi
+          </TabButton>
+
+          <TabButton>
             Materialer
-          </div>
+          </TabButton>
 
-          <div>
+          <TabButton>
             Noter
-          </div>
+          </TabButton>
         </div>
 
-        <ContactTab ad={ad} />
+        {/* CONTENT */}
+
+        {activeTab ===
+          "contact" && (
+          <ContactTab
+            ad={ad}
+          />
+        )}
+
+        {activeTab ===
+          "sales" && (
+          <SalesTab ad={ad} />
+        )}
 
         {/* BOTTOM */}
 
@@ -308,6 +342,31 @@ export default function AdModal({
           </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function TabButton({
+  children,
+  active = false,
+  onClick,
+}: any) {
+  return (
+    <div
+      onClick={onClick}
+      style={{
+        cursor: "pointer",
+
+        paddingBottom:
+          "12px",
+
+        borderBottom:
+          active
+            ? "3px solid black"
+            : "3px solid transparent",
+      }}
+    >
+      {children}
     </div>
   );
 }
