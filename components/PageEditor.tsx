@@ -39,7 +39,7 @@ export default function PageEditor({
         <div>
           <h1>
             Side {
-              selectedPage.side
+              selectedPage?.side
             }
           </h1>
 
