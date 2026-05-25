@@ -14,6 +14,10 @@ type AdModalProps = {
   onClose: () => void;
 
   refreshAds?: () => Promise<void>;
+
+  onSaved?: (
+    updatedAd: any
+  ) => void;
 };
 
 const tabs = [
@@ -64,6 +68,7 @@ export default function AdModal({
   ad,
   onClose,
   refreshAds,
+  onSaved,
 }: AdModalProps) {
 
   const [activeTab, setActiveTab] =
@@ -78,7 +83,9 @@ export default function AdModal({
     useState(false);
 
   useEffect(() => {
+
     setEditedAd(ad);
+
   }, [ad]);
 
   const ActiveTab =
@@ -118,6 +125,13 @@ export default function AdModal({
         await response.json();
 
       console.log(data);
+
+      if (onSaved) {
+
+        onSaved(
+          data.ad
+        );
+      }
 
       if (refreshAds) {
 
@@ -202,6 +216,7 @@ export default function AdModal({
           }}
         >
           <div>
+
             <div
               style={{
                 color: "#777",
@@ -466,78 +481,6 @@ export default function AdModal({
           />
         )}
 
-        {/* DATES */}
-
-        <div
-          style={{
-            marginTop: "40px",
-
-            display: "grid",
-
-            gridTemplateColumns:
-              "1fr 1fr 1fr",
-
-            gap: "20px",
-          }}
-        >
-          <DateField
-            label="Oprettet"
-            value={
-              editedAd.createdAt ||
-              ""
-            }
-            onChange={(e: any) =>
-              setEditedAd(
-                (
-                  prev: any
-                ) => ({
-                  ...prev,
-                  createdAt:
-                    e.target.value,
-                })
-              )
-            }
-          />
-
-          <DateField
-            label="Kontaktet"
-            value={
-              editedAd.contactedAt ||
-              ""
-            }
-            onChange={(e: any) =>
-              setEditedAd(
-                (
-                  prev: any
-                ) => ({
-                  ...prev,
-                  contactedAt:
-                    e.target.value,
-                })
-              )
-            }
-          />
-
-          <DateField
-            label="Deadline"
-            value={
-              editedAd.deadline ||
-              ""
-            }
-            onChange={(e: any) =>
-              setEditedAd(
-                (
-                  prev: any
-                ) => ({
-                  ...prev,
-                  deadline:
-                    e.target.value,
-                })
-              )
-            }
-          />
-        </div>
-
         {/* BOTTOM */}
 
         <div
@@ -553,24 +496,35 @@ export default function AdModal({
             onClick={
               saveAd
             }
+
             disabled={
               saving
             }
+
             style={{
               flex: 1,
+
               background:
                 "#ff4d4d",
+
               color: "white",
+
               border: "none",
+
               padding:
                 "18px",
+
               borderRadius:
                 "12px",
+
               fontSize:
                 "16px",
+
               fontWeight:
                 "bold",
+
               cursor: "pointer",
+
               opacity:
                 saving
                   ? 0.7
@@ -583,37 +537,26 @@ export default function AdModal({
           </button>
 
           <button
-            style={{
-              width: "220px",
-              background:
-                "#f1f1f1",
-              border:
-                "1px solid #ccc",
-              padding:
-                "18px",
-              borderRadius:
-                "12px",
-              cursor: "pointer",
-              fontWeight:
-                700,
-            }}
-          >
-            SLET
-          </button>
-
-          <button
             onClick={onClose}
+
             style={{
               width: "180px",
+
               background:
                 "#111",
+
               color: "white",
+
               border: "none",
+
               padding:
                 "18px",
+
               borderRadius:
                 "12px",
+
               cursor: "pointer",
+
               fontWeight:
                 700,
             }}
@@ -622,45 +565,6 @@ export default function AdModal({
           </button>
         </div>
       </div>
-    </div>
-  );
-}
-
-function DateField({
-  label,
-  value,
-  onChange,
-}: any) {
-  return (
-    <div>
-      <div
-        style={{
-          fontWeight: 700,
-          marginBottom:
-            "8px",
-        }}
-      >
-        {label}
-      </div>
-
-      <input
-        type="date"
-        value={value}
-        onChange={onChange}
-        style={{
-          width: "100%",
-          background:
-            "#f5f5f5",
-          border:
-            "1px solid #ddd",
-          borderRadius:
-            "10px",
-          padding:
-            "14px",
-          boxSizing:
-            "border-box",
-        }}
-      />
     </div>
   );
 }
