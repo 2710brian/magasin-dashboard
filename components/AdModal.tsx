@@ -122,9 +122,11 @@ export default function AdModal({
 
       console.log(data);
 
-      alert(
-        "Annonce gemt!"
-      );
+    alert(
+  "Annonce gemt!"
+);
+
+window.location.reload();
 
     } catch (error) {
 
