@@ -13,7 +13,7 @@ type AdModalProps = {
 
   onClose: () => void;
 
-  refreshAds?: () => void;
+  refreshAds?: () => Promise<void>;
 };
 
 const tabs = [
@@ -120,12 +120,15 @@ export default function AdModal({
       console.log(data);
 
       if (refreshAds) {
+
         await refreshAds();
       }
 
       alert(
         "Annonce gemt!"
       );
+
+      onClose();
 
     } catch (error) {
 
