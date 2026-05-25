@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import PageEditor from "./PageEditor";
 import SidePreview from "./SidePreview";
@@ -24,7 +27,100 @@ export default function MagazineView({
     null
   );
 
+  const [
+    mergedPages,
+    setMergedPages,
+  ] = useState(pages);
+
+  useEffect(() => {
+
+    async function loadAds() {
+
+      try {
+
+        const response =
+          await fetch(
+            "/api/get-ads"
+          );
+
+        const data =
+          await response.json();
+
+        if (!data.success) {
+          return;
+        }
+
+        const updatedPages =
+          pages.map((page) => {
+
+            const updatedAds =
+              page.ads.map(
+                (
+                  localAd,
+                  index
+                ) => {
+
+                  const dbAd =
+                    data.ads.find(
+                      (
+                        ad: any
+                      ) =>
+                        ad.page ===
+                          page.side &&
+                        ad.clientid ===
+                          localAd.clientId
+                    );
+
+                  if (!dbAd) {
+                    return localAd;
+                  }
+
+                  return {
+                    ...localAd,
+
+                    id: dbAd.id,
+
+                    title:
+                      dbAd.title,
+
+                    status:
+                      dbAd.status,
+
+                    price:
+                      dbAd.price,
+
+                    color:
+                      dbAd.color,
+
+                    type:
+                      dbAd.type,
+                  };
+                }
+              );
+
+            return {
+              ...page,
+
+              ads: updatedAds,
+            };
+          });
+
+        setMergedPages(
+          updatedPages
+        );
+
+      } catch (error) {
+
+        console.error(error);
+      }
+    }
+
+    loadAds();
+
+  }, []);
+
   if (selectedPage) {
+
     return (
       <PageEditor
         selectedPage={
@@ -64,7 +160,8 @@ export default function MagazineView({
               color: "#888",
             }}
           >
-            56 sider • Under produktion
+            56 sider • Under
+            produktion
           </p>
         </div>
 
@@ -109,25 +206,29 @@ export default function MagazineView({
           gap: "20px",
         }}
       >
-        {pages.map((page) => (
-          <SidePreview
-            key={page.side}
+        {mergedPages.map(
+          (page) => (
+            <SidePreview
+              key={page.side}
 
-            side={page.side}
+              side={
+                page.side
+              }
 
-            premium={
-              page.premium
-            }
+              premium={
+                page.premium
+              }
 
-            ads={page.ads}
+              ads={page.ads}
 
-            onClick={() =>
-              setSelectedPage(
-                page
-              )
-            }
-          />
-        ))}
+              onClick={() =>
+                setSelectedPage(
+                  page
+                )
+              }
+            />
+          )
+        )}
       </div>
     </div>
   );
