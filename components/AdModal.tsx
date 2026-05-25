@@ -1,3 +1,5 @@
+import ContactTab from "./tabs/ContactTab";
+
 type AdModalProps = {
   ad: any;
 
@@ -217,104 +219,7 @@ export default function AdModal({
           </div>
         </div>
 
-        {/* GRID */}
-
-        <div
-          style={{
-            display: "grid",
-
-            gridTemplateColumns:
-              "1fr 1fr",
-
-            gap: "24px",
-          }}
-        >
-          <Field
-            label="Virksomhed"
-          >
-            <input
-              defaultValue={
-                ad.title
-              }
-              style={inputStyle}
-            />
-          </Field>
-
-          <Field label="CIF / VAT">
-            <input
-              style={inputStyle}
-            />
-          </Field>
-
-          <Field label="Kontaktperson">
-            <input
-              style={inputStyle}
-            />
-          </Field>
-
-          <Field label="Email">
-            <input
-              style={inputStyle}
-            />
-          </Field>
-
-          <Field label="Telefon">
-            <input
-              style={inputStyle}
-            />
-          </Field>
-
-          <Field label="Website">
-            <input
-              style={inputStyle}
-            />
-          </Field>
-
-          <Field label="Status">
-            <select
-              defaultValue={
-                ad.status
-              }
-              style={inputStyle}
-            >
-              <option>
-                Solgt
-              </option>
-
-              <option>
-                Reserveret
-              </option>
-
-              <option>
-                Ledig
-              </option>
-            </select>
-          </Field>
-
-          <Field label="Annonce type">
-            <input
-              defaultValue={
-                ad.type
-              }
-              style={inputStyle}
-            />
-          </Field>
-
-          <Field label="Pris">
-            <input
-              defaultValue={
-                ad.price
-              }
-              style={inputStyle}
-            />
-          </Field>
-
-          <Field label="QR URL">
-            <input
-              style={inputStyle}
-            />
-          </Field>
-        </div>
+        <ContactTab ad={ad} />
 
         {/* BOTTOM */}
 
@@ -406,41 +311,3 @@ export default function AdModal({
     </div>
   );
 }
-
-function Field({
-  label,
-  children,
-}: any) {
-  return (
-    <div>
-      <div
-        style={{
-          marginBottom: "8px",
-
-          fontWeight: 600,
-        }}
-      >
-        {label}
-      </div>
-
-      {children}
-    </div>
-  );
-}
-
-const inputStyle = {
-  width: "100%",
-
-  background: "#f5f5f5",
-
-  border: "1px solid #dcdcdc",
-
-  color: "#111",
-
-  padding: "14px",
-
-  borderRadius: "10px",
-
-  boxSizing:
-  "border-box" as const,
-};
