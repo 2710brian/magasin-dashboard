@@ -27,78 +27,11 @@ export default function MagazineView({
     null
   );
 
-  const aktiveKommuner = [
-    "Aalborg",
-    "Aarhus",
-    "Odense",
-    "Roskilde",
-    "Kolding",
-    "Horsens",
-    "Frederiksberg",
-    "Næstved",
-  ];
-
-  const isActive =
-    aktiveKommuner.includes(
-      kommune || ""
-    );
-
   useEffect(() => {
     console.log(
       "MagazineView loaded"
     );
   }, []);
-
-  if (!isActive) {
-    return (
-      <div
-        style={{
-          padding: "40px",
-          color: "white",
-        }}
-      >
-        <h1>
-          {kommune}
-        </h1>
-
-        <p
-          style={{
-            color: "#888",
-            marginTop: "10px",
-            marginBottom:
-              "30px",
-          }}
-        >
-          Dette magasin er
-          ikke startet endnu.
-        </p>
-
-        <button
-          style={{
-            background:
-              "#22c55e",
-
-            border: "none",
-
-            color: "white",
-
-            padding:
-              "14px 24px",
-
-            borderRadius:
-              "10px",
-
-            cursor: "pointer",
-
-            fontWeight:
-              "bold",
-          }}
-        >
-          Start magasin
-        </button>
-      </div>
-    );
-  }
 
   if (selectedPage) {
     return (
