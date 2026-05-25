@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import AdBlock from "./AdBlock";
-
 import AdModal from "./AdModal";
 
 type PageEditorProps = {
@@ -17,8 +16,12 @@ export default function PageEditor({
   setSelectedPage,
 }: PageEditorProps) {
 
-  const [selectedAd, setSelectedAd] =
-    useState<any | null>(null);
+  const [
+    selectedAd,
+    setSelectedAd,
+  ] = useState<any | null>(
+    null
+  );
 
   return (
     <div>
@@ -31,9 +34,11 @@ export default function PageEditor({
           justifyContent:
             "space-between",
 
-          alignItems: "center",
+          alignItems:
+            "center",
 
-          marginBottom: "30px",
+          marginBottom:
+            "30px",
         }}
       >
         <div>
@@ -73,7 +78,8 @@ export default function PageEditor({
             borderRadius:
               "10px",
 
-            cursor: "pointer",
+            cursor:
+              "pointer",
           }}
         >
           Tilbage til sider
@@ -115,7 +121,8 @@ export default function PageEditor({
 
             gap: "6px",
 
-            overflow: "hidden",
+            overflow:
+              "hidden",
           }}
         >
           {selectedPage.ads.map(
