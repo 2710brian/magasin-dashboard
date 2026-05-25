@@ -5,73 +5,133 @@ import type {
 
 import pool from "../../lib/db";
 
-import { pages } from "../../data/pages";
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
 
+  if (
+    req.method !== "POST"
+  ) {
+
+    return res.status(405).json({
+      error:
+        "Method not allowed",
+    });
+  }
+
   try {
 
-    await pool.query(`
-      DELETE FROM ads
-    `);
+    const ad = req.body;
 
-    for (const page of pages) {
+    console.log(
+      "SAVE AD:",
+      ad
+    );
 
-      for (
-        let i = 0;
-        i < page.slots;
-        i++
-      ) {
+    // UPDATE existing ad
 
+    if (ad.id) {
+
+      const result =
         await pool.query(
           `
-          INSERT INTO ads (
-            page,
-            title,
-            status,
-            price,
-            color,
-            type,
-            clientid,
-            createdat,
-            updatedat
-          )
+          UPDATE ads
+          SET
+            title = $1,
+            status = $2,
+            price = $3,
+            color = $4,
+            type = $5,
+            updatedat = $6
+          WHERE id = $7
 
-          VALUES (
-            $1,$2,$3,$4,$5,
-            $6,$7,$8,$9
-          )
+          RETURNING *
         `,
           [
-            page.side,
+            ad.title || "",
 
-            "LEDIG",
+            ad.status || "",
 
-            "Ledig",
+            ad.price || "",
 
-            "",
+            ad.color || "",
 
-            "#444",
-
-            page.layout,
-
-            i + 1,
+            ad.type || "",
 
             new Date().toISOString(),
 
-            new Date().toISOString(),
+            ad.id,
           ]
         );
-      }
+
+      console.log(
+        "UPDATED:",
+        result.rows
+      );
+
+      return res.status(200).json({
+        success: true,
+
+        mode: "updated",
+
+        ad:
+          result.rows[0],
+      });
     }
+
+    // CREATE fallback
+
+    const result =
+      await pool.query(
+        `
+        INSERT INTO ads (
+          page,
+          title,
+          status,
+          price,
+          color,
+          type,
+          clientid,
+          createdat,
+          updatedat
+        )
+
+        VALUES (
+          $1,$2,$3,$4,$5,
+          $6,$7,$8,$9
+        )
+
+        RETURNING *
+      `,
+        [
+          ad.page,
+
+          ad.title || "",
+
+          ad.status || "",
+
+          ad.price || "",
+
+          ad.color || "",
+
+          ad.type || "",
+
+          ad.clientId || 1,
+
+          new Date().toISOString(),
+
+          new Date().toISOString(),
+        ]
+      );
 
     return res.status(200).json({
       success: true,
-      message:
-        "Ads seeded successfully",
+
+      mode: "created",
+
+      ad:
+        result.rows[0],
     });
 
   } catch (error) {
@@ -80,8 +140,9 @@ export default async function handler(
 
     return res.status(500).json({
       success: false,
+
       error:
-        "Failed to seed ads",
+        "Failed to save ad",
     });
   }
 }
