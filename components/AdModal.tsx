@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react";
 
 import ContactTab from "./tabs/ContactTab";
-
 import SalesTab from "./tabs/SalesTab";
-
 import GeographyTab from "./tabs/GeographyTab";
-
 import MaterialsTab from "./tabs/MaterialsTab";
-
 import NotesTab from "./tabs/NotesTab";
-
 import ProductionTab from "./tabs/ProductionTab";
-
 import MarketingTab from "./tabs/MarketingTab";
 
 type AdModalProps = {
   ad: any;
 
   onClose: () => void;
+
+  refreshAds?: () => void;
 };
 
 const tabs = [
@@ -67,6 +63,7 @@ const tabs = [
 export default function AdModal({
   ad,
   onClose,
+  refreshAds,
 }: AdModalProps) {
 
   const [activeTab, setActiveTab] =
@@ -122,10 +119,13 @@ export default function AdModal({
 
       console.log(data);
 
-    alert(
-  "Annonce gemt!"
-);
+      if (refreshAds) {
+        await refreshAds();
+      }
 
+      alert(
+        "Annonce gemt!"
+      );
 
     } catch (error) {
 
@@ -479,19 +479,16 @@ export default function AdModal({
         >
           <DateField
             label="Oprettet"
-
             value={
               editedAd.createdAt ||
               ""
             }
-
             onChange={(e: any) =>
               setEditedAd(
                 (
                   prev: any
                 ) => ({
                   ...prev,
-
                   createdAt:
                     e.target.value,
                 })
@@ -501,19 +498,16 @@ export default function AdModal({
 
           <DateField
             label="Kontaktet"
-
             value={
               editedAd.contactedAt ||
               ""
             }
-
             onChange={(e: any) =>
               setEditedAd(
                 (
                   prev: any
                 ) => ({
                   ...prev,
-
                   contactedAt:
                     e.target.value,
                 })
@@ -523,19 +517,16 @@ export default function AdModal({
 
           <DateField
             label="Deadline"
-
             value={
               editedAd.deadline ||
               ""
             }
-
             onChange={(e: any) =>
               setEditedAd(
                 (
                   prev: any
                 ) => ({
                   ...prev,
-
                   deadline:
                     e.target.value,
                 })
@@ -559,35 +550,24 @@ export default function AdModal({
             onClick={
               saveAd
             }
-
             disabled={
               saving
             }
-
             style={{
               flex: 1,
-
               background:
                 "#ff4d4d",
-
               color: "white",
-
               border: "none",
-
               padding:
                 "18px",
-
               borderRadius:
                 "12px",
-
               fontSize:
                 "16px",
-
               fontWeight:
                 "bold",
-
               cursor: "pointer",
-
               opacity:
                 saving
                   ? 0.7
@@ -602,21 +582,15 @@ export default function AdModal({
           <button
             style={{
               width: "220px",
-
               background:
                 "#f1f1f1",
-
               border:
                 "1px solid #ccc",
-
               padding:
                 "18px",
-
               borderRadius:
                 "12px",
-
               cursor: "pointer",
-
               fontWeight:
                 700,
             }}
@@ -626,25 +600,17 @@ export default function AdModal({
 
           <button
             onClick={onClose}
-
             style={{
               width: "180px",
-
               background:
                 "#111",
-
               color: "white",
-
               border: "none",
-
               padding:
                 "18px",
-
               borderRadius:
                 "12px",
-
               cursor: "pointer",
-
               fontWeight:
                 700,
             }}
@@ -667,7 +633,6 @@ function DateField({
       <div
         style={{
           fontWeight: 700,
-
           marginBottom:
             "8px",
         }}
@@ -677,26 +642,18 @@ function DateField({
 
       <input
         type="date"
-
         value={value}
-
         onChange={onChange}
-
         style={{
           width: "100%",
-
           background:
             "#f5f5f5",
-
           border:
             "1px solid #ddd",
-
           borderRadius:
             "10px",
-
           padding:
             "14px",
-
           boxSizing:
             "border-box",
         }}
