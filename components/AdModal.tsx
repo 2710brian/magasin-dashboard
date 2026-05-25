@@ -454,6 +454,43 @@ export default function AdModal({
   );
 }
 
+const tabs = [
+  {
+    id: "contact",
+    label: "Kontakt",
+  },
+
+  {
+    id: "geography",
+    label: "Geografi",
+  },
+
+  {
+    id: "sales",
+    label: "Salg",
+  },
+
+  {
+    id: "marketing",
+    label: "Marketing",
+  },
+
+  {
+    id: "materials",
+    label: "Materialer",
+  },
+
+  {
+    id: "production",
+    label: "Produktion",
+  },
+
+  {
+    id: "notes",
+    label: "Noter",
+  },
+];
+
 function TabButton({
   children,
   active = false,
