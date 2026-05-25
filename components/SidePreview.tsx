@@ -1,46 +1,104 @@
-type SidePreviewProps = {
-  side: number;
+"use client";
 
-  premium?: boolean;
+import {
+  useEffect,
+  useState,
+} from "react";
 
-  ads: any[];
+import PageEditor from "./PageEditor";
+import SidePreview from "./SidePreview";
 
-  onClick: () => void;
+type MagazineViewProps = {
+  setSelectedKommune: (
+    kommune: string | null
+  ) => void;
+
+  kommune?: string;
 };
 
-export default function SidePreview({
-  side,
+export default function MagazineView({
+  setSelectedKommune,
+  kommune,
+}: MagazineViewProps) {
 
-  premium,
+  const [
+    selectedPage,
+    setSelectedPage,
+  ] = useState<any | null>(
+    null
+  );
 
-  ads,
+  const [dbAds, setDbAds] =
+    useState<any[]>([]);
 
-  onClick,
-}: SidePreviewProps) {
-  const layoutText =
-    ads.length === 1
-      ? "1 helside"
-      : ads.length === 2
-      ? "2 halve"
-      : "4 kvart";
+  useEffect(() => {
+    fetch("/api/get-ads")
+      .then((res) =>
+        res.json()
+      )
+      .then((data) => {
+        if (data.success) {
+          setDbAds(data.ads);
+
+          console.log(
+            "DB ADS:",
+            data.ads
+          );
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  const groupedPages: {
+    [key: number]: any[];
+  } = {};
+
+  dbAds.forEach((ad) => {
+    if (
+      !groupedPages[ad.page]
+    ) {
+      groupedPages[ad.page] =
+        [];
+    }
+
+    groupedPages[
+      ad.page
+    ].push(ad);
+  });
+
+  const pages = Object.keys(
+    groupedPages
+  ).map((pageNumber) => ({
+    side: Number(
+      pageNumber
+    ),
+
+    premium: false,
+
+    ads: groupedPages[
+      Number(pageNumber)
+    ],
+  }));
+
+  if (selectedPage) {
+    return (
+      <PageEditor
+        selectedPage={
+          selectedPage
+        }
+        setSelectedPage={
+          setSelectedPage
+        }
+      />
+    );
+  }
 
   return (
-    <div
-      onClick={onClick}
-      style={{
-        background: "#1b1b1b",
+    <div>
+      {/* HEADER */}
 
-        borderRadius: "14px",
-
-        padding: "20px",
-
-        cursor: "pointer",
-
-        border: premium
-          ? "2px solid gold"
-          : "1px solid #2a2a2a",
-      }}
-    >
       <div
         style={{
           display: "flex",
@@ -48,79 +106,85 @@ export default function SidePreview({
           justifyContent:
             "space-between",
 
-          marginBottom: "20px",
+          alignItems:
+            "center",
+
+          marginBottom:
+            "30px",
         }}
       >
-        <h3>Side {side}</h3>
+        <div>
+          <h1>
+            {kommune}
+          </h1>
 
-        {premium && (
-          <div
+          <p
             style={{
-              color: "gold",
-
-              fontSize: "12px",
+              color: "#888",
             }}
           >
-            PREMIUM
-          </div>
-        )}
+            {pages.length}
+            {" "}sider • Under
+            produktion
+          </p>
+        </div>
+
+        <button
+          onClick={() =>
+            setSelectedKommune(
+              null
+            )
+          }
+          style={{
+            background:
+              "#1f1f1f",
+
+            border:
+              "1px solid #333",
+
+            color: "white",
+
+            padding:
+              "12px 18px",
+
+            borderRadius:
+              "10px",
+
+            cursor:
+              "pointer",
+          }}
+        >
+          Tilbage
+        </button>
       </div>
 
-      {/* MINI PREVIEW */}
+      {/* SIDER */}
 
       <div
         style={{
-          background: "#111",
-
-          borderRadius: "10px",
-
-          padding: "12px",
-
-          width: "100%",
-
-          aspectRatio: "210 / 297",
-
           display: "grid",
 
           gridTemplateColumns:
-            ads.length === 4
-              ? "1fr 1fr"
-              : "1fr",
+            "repeat(4, 1fr)",
 
-          gap: "8px",
+          gap: "20px",
         }}
       >
-        {ads.map(
-          (ad, index) => (
-            <div
-              key={index}
-              style={{
-                background:
-                  ad.color,
-
-                borderRadius:
-                  "6px",
-
-                minHeight:
-                  ads.length === 1
-                    ? "300px"
-                    : "140px",
-              }}
-            />
-          )
-        )}
-      </div>
-
-      <div
-        style={{
-          marginTop: "15px",
-
-          color: "#888",
-
-          fontSize: "14px",
-        }}
-      >
-        Layout: {layoutText}
+        {pages.map((page) => (
+          <SidePreview
+            key={page.side}
+            side={page.side}
+            premium={
+              page.premium
+            }
+            ads={page.ads}
+            onClick={() =>
+              setSelectedPage(
+                page
+              )
+            }
+          />
+        ))}
       </div>
     </div>
   );
