@@ -185,6 +185,24 @@ export default function AdModal({
               }
             </div>
 
+            <div
+              style={{
+                color: "#777",
+
+                fontSize: "14px",
+
+                marginBottom:
+                  "16px",
+              }}
+            >
+              Oprettet:
+              {" "}
+              {
+                editedAd.createdAt ||
+                ""
+              }
+            </div>
+
             <h1
               style={{
                 fontSize: "48px",
@@ -229,12 +247,34 @@ export default function AdModal({
 
                 background:
                   "#fafafa",
+
+                overflow:
+                  "hidden",
               }}
             >
-              LOGO
+              {editedAd.logo ? (
+                <img
+                  src={
+                    editedAd.logo
+                  }
+                  alt="logo"
+                  style={{
+                    width:
+                      "100%",
+
+                    height:
+                      "100%",
+
+                    objectFit:
+                      "contain",
+                  }}
+                />
+              ) : (
+                "LOGO"
+              )}
             </div>
 
-            <button
+            <label
               style={{
                 background:
                   "#111",
@@ -253,10 +293,58 @@ export default function AdModal({
 
                 fontWeight:
                   600,
+
+                display:
+                  "inline-block",
               }}
             >
               Upload logo
-            </button>
+
+              <input
+                type="file"
+
+                accept="image/*"
+
+                style={{
+                  display:
+                    "none",
+                }}
+
+                onChange={(
+                  e: any
+                ) => {
+                  const file =
+                    e.target
+                      .files?.[0];
+
+                  if (
+                    !file
+                  )
+                    return;
+
+                  const reader =
+                    new FileReader();
+
+                  reader.onload =
+                    () => {
+                      setEditedAd(
+                        (
+                          prev: any
+                        ) => ({
+                          ...prev,
+
+                          logo:
+                            reader.result,
+                        })
+                      );
+                    };
+
+                  reader.readAsDataURL(
+                    file
+                  );
+                }}
+              />
+            </label>
           </div>
         </div>
 
@@ -337,30 +425,69 @@ export default function AdModal({
             gap: "20px",
           }}
         >
-          <DateBox
+          <DateField
             label="Oprettet"
 
             value={
               editedAd.createdAt ||
-              "2026-05-25"
+              ""
+            }
+
+            onChange={(e: any) =>
+              setEditedAd(
+                (
+                  prev: any
+                ) => ({
+                  ...prev,
+
+                  createdAt:
+                    e.target.value,
+                })
+              )
             }
           />
 
-          <DateBox
+          <DateField
             label="Kontaktet"
 
             value={
               editedAd.contactedAt ||
-              "2026-05-25"
+              ""
+            }
+
+            onChange={(e: any) =>
+              setEditedAd(
+                (
+                  prev: any
+                ) => ({
+                  ...prev,
+
+                  contactedAt:
+                    e.target.value,
+                })
+              )
             }
           />
 
-          <DateBox
+          <DateField
             label="Deadline"
 
             value={
               editedAd.deadline ||
-              "2026-06-01"
+              ""
+            }
+
+            onChange={(e: any) =>
+              setEditedAd(
+                (
+                  prev: any
+                ) => ({
+                  ...prev,
+
+                  deadline:
+                    e.target.value,
+                })
+              )
             }
           />
         </div>
@@ -469,9 +596,10 @@ export default function AdModal({
   );
 }
 
-function DateBox({
+function DateField({
   label,
   value,
+  onChange,
 }: any) {
   return (
     <div>
@@ -486,8 +614,16 @@ function DateBox({
         {label}
       </div>
 
-      <div
+      <input
+        type="date"
+
+        value={value}
+
+        onChange={onChange}
+
         style={{
+          width: "100%",
+
           background:
             "#f5f5f5",
 
@@ -499,10 +635,11 @@ function DateBox({
 
           padding:
             "14px",
+
+          boxSizing:
+            "border-box",
         }}
-      >
-        {value}
-      </div>
+      />
     </div>
   );
 }
