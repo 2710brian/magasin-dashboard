@@ -20,6 +20,43 @@ type AdModalProps = {
   onClose: () => void;
 };
 
+const tabs = [
+  {
+    id: "contact",
+    label: "Kontakt",
+  },
+
+  {
+    id: "geography",
+    label: "Geografi",
+  },
+
+  {
+    id: "sales",
+    label: "Salg",
+  },
+
+  {
+    id: "marketing",
+    label: "Marketing",
+  },
+
+  {
+    id: "materials",
+    label: "Materialer",
+  },
+
+  {
+    id: "production",
+    label: "Produktion",
+  },
+
+  {
+    id: "notes",
+    label: "Noter",
+  },
+];
+
 export default function AdModal({
   ad,
   onClose,
@@ -210,110 +247,24 @@ export default function AdModal({
             flexWrap: "wrap",
           }}
         >
-          <TabButton
-            active={
-              activeTab ===
-              "contact"
-            }
+          {tabs.map((tab) => (
+            <TabButton
+              key={tab.id}
 
-            onClick={() =>
-              setActiveTab(
-                "contact"
-              )
-            }
-          >
-            Kontakt
-          </TabButton>
+              active={
+                activeTab ===
+                tab.id
+              }
 
-          <TabButton
-            active={
-              activeTab ===
-              "geography"
-            }
-
-            onClick={() =>
-              setActiveTab(
-                "geography"
-              )
-            }
-          >
-            Geografi
-          </TabButton>
-
-          <TabButton
-            active={
-              activeTab ===
-              "sales"
-            }
-
-            onClick={() =>
-              setActiveTab(
-                "sales"
-              )
-            }
-          >
-            Salg
-          </TabButton>
-
-          <TabButton
-            active={
-              activeTab ===
-              "marketing"
-            }
-
-            onClick={() =>
-              setActiveTab(
-                "marketing"
-              )
-            }
-          >
-            Marketing
-          </TabButton>
-
-          <TabButton
-            active={
-              activeTab ===
-              "materials"
-            }
-
-            onClick={() =>
-              setActiveTab(
-                "materials"
-              )
-            }
-          >
-            Materialer
-          </TabButton>
-
-          <TabButton
-            active={
-              activeTab ===
-              "production"
-            }
-
-            onClick={() =>
-              setActiveTab(
-                "production"
-              )
-            }
-          >
-            Produktion
-          </TabButton>
-
-          <TabButton
-            active={
-              activeTab ===
-              "notes"
-            }
-
-            onClick={() =>
-              setActiveTab(
-                "notes"
-              )
-            }
-          >
-            Noter
-          </TabButton>
+              onClick={() =>
+                setActiveTab(
+                  tab.id
+                )
+              }
+            >
+              {tab.label}
+            </TabButton>
+          ))}
         </div>
 
         {/* CONTENT */}
@@ -453,43 +404,6 @@ export default function AdModal({
     </div>
   );
 }
-
-const tabs = [
-  {
-    id: "contact",
-    label: "Kontakt",
-  },
-
-  {
-    id: "geography",
-    label: "Geografi",
-  },
-
-  {
-    id: "sales",
-    label: "Salg",
-  },
-
-  {
-    id: "marketing",
-    label: "Marketing",
-  },
-
-  {
-    id: "materials",
-    label: "Materialer",
-  },
-
-  {
-    id: "production",
-    label: "Produktion",
-  },
-
-  {
-    id: "notes",
-    label: "Noter",
-  },
-];
 
 function TabButton({
   children,
