@@ -8,8 +8,6 @@ import {
 import PageEditor from "./PageEditor";
 import SidePreview from "./SidePreview";
 
-import { pages } from "../data/pages";
-
 type MagazineViewProps = {
   setSelectedKommune: (
     kommune: string | null
@@ -33,32 +31,99 @@ export default function MagazineView({
   const [dbAds, setDbAds] =
     useState<any[]>([]);
 
-  useEffect(() => {
-    fetch("/api/get-ads")
-      .then((res) =>
-        res.json()
-      )
-      .then((data) => {
-        if (data.success) {
-          setDbAds(data.ads);
+  async function loadAds() {
 
-          console.log(
-            "DB ADS:",
-            data.ads
+    try {
+
+      const response =
+        await fetch(
+          "/api/get-ads"
+        );
+
+      const data =
+        await response.json();
+
+      if (data.success) {
+
+        const ads =
+          data.ads.map(
+            (ad: any) => ({
+              ...ad,
+
+              id: ad.id,
+            })
           );
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+
+        setDbAds(ads);
+
+        console.log(
+          "DB ADS:",
+          ads
+        );
+      }
+
+    } catch (error) {
+
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    loadAds();
   }, []);
 
+  const groupedPages: {
+    [key: number]: any[];
+  } = {};
+
+  dbAds.forEach((ad) => {
+
+    if (
+      !groupedPages[ad.page]
+    ) {
+
+      groupedPages[
+        ad.page
+      ] = [];
+    }
+
+    groupedPages[
+      ad.page
+    ].push({
+      ...ad,
+      id: ad.id,
+    });
+  });
+
+  const pages = Object.keys(
+    groupedPages
+  ).map((pageNumber) => ({
+    side: Number(
+      pageNumber
+    ),
+
+    premium: false,
+
+    ads: groupedPages[
+      Number(pageNumber)
+    ],
+  }));
+
   if (selectedPage) {
+
+    const freshPage =
+      pages.find(
+        (p) =>
+          p.side ===
+          selectedPage.side
+      ) || selectedPage;
+
     return (
       <PageEditor
         selectedPage={
-          selectedPage
+          freshPage
         }
+
         setSelectedPage={
           setSelectedPage
         }
@@ -94,7 +159,8 @@ export default function MagazineView({
               color: "#888",
             }}
           >
-            56 sider • Under
+            {pages.length}
+            {" "}sider • Under
             produktion
           </p>
         </div>
@@ -143,11 +209,15 @@ export default function MagazineView({
         {pages.map((page) => (
           <SidePreview
             key={page.side}
+
             side={page.side}
+
             premium={
               page.premium
             }
+
             ads={page.ads}
+
             onClick={() =>
               setSelectedPage(
                 page
