@@ -43,8 +43,20 @@ export default async function handler(
             price = $3,
             color = $4,
             type = $5,
-            updatedat = $6
-          WHERE id = $7
+
+            vat = $6,
+            contactperson = $7,
+            email = $8,
+            phone = $9,
+            website = $10,
+            facebook = $11,
+            instagram = $12,
+            linkedin = $13,
+            tiktok = $14,
+
+            updatedat = $15
+
+          WHERE id = $16
 
           RETURNING *
         `,
@@ -58,6 +70,24 @@ export default async function handler(
             ad.color || "",
 
             ad.type || "",
+
+            ad.vat || "",
+
+            ad.contactPerson || "",
+
+            ad.email || "",
+
+            ad.phone || "",
+
+            ad.website || "",
+
+            ad.facebook || "",
+
+            ad.instagram || "",
+
+            ad.linkedin || "",
+
+            ad.tiktok || "",
 
             new Date().toISOString(),
 
@@ -92,6 +122,17 @@ export default async function handler(
           price,
           color,
           type,
+
+          vat,
+          contactperson,
+          email,
+          phone,
+          website,
+          facebook,
+          instagram,
+          linkedin,
+          tiktok,
+
           clientid,
           createdat,
           updatedat
@@ -99,7 +140,9 @@ export default async function handler(
 
         VALUES (
           $1,$2,$3,$4,$5,
-          $6,$7,$8,$9
+          $6,$7,$8,$9,$10,
+          $11,$12,$13,$14,$15,
+          $16,$17,$18
         )
 
         RETURNING *
@@ -116,6 +159,24 @@ export default async function handler(
           ad.color || "",
 
           ad.type || "",
+
+          ad.vat || "",
+
+          ad.contactPerson || "",
+
+          ad.email || "",
+
+          ad.phone || "",
+
+          ad.website || "",
+
+          ad.facebook || "",
+
+          ad.instagram || "",
+
+          ad.linkedin || "",
+
+          ad.tiktok || "",
 
           ad.clientId || 1,
 
