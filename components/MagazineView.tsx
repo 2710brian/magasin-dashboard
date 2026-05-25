@@ -1,6 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import PageEditor from "./PageEditor";
 import SidePreview from "./SidePreview";
@@ -27,10 +30,27 @@ export default function MagazineView({
     null
   );
 
+  const [dbAds, setDbAds] =
+    useState<any[]>([]);
+
   useEffect(() => {
-    console.log(
-      "MagazineView loaded"
-    );
+    fetch("/api/get-ads")
+      .then((res) =>
+        res.json()
+      )
+      .then((data) => {
+        if (data.success) {
+          setDbAds(data.ads);
+
+          console.log(
+            "DB ADS:",
+            data.ads
+          );
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   if (selectedPage) {
@@ -57,9 +77,11 @@ export default function MagazineView({
           justifyContent:
             "space-between",
 
-          alignItems: "center",
+          alignItems:
+            "center",
 
-          marginBottom: "30px",
+          marginBottom:
+            "30px",
         }}
       >
         <div>
@@ -98,7 +120,8 @@ export default function MagazineView({
             borderRadius:
               "10px",
 
-            cursor: "pointer",
+            cursor:
+              "pointer",
           }}
         >
           Tilbage
