@@ -1,9 +1,12 @@
 type SalesTabProps = {
   ad: any;
+
+  setAd: any;
 };
 
 export default function SalesTab({
   ad,
+  setAd,
 }: SalesTabProps) {
   return (
     <div
@@ -18,9 +21,24 @@ export default function SalesTab({
     >
       <Field label="Status">
         <select
-          defaultValue={
-            ad.status
+          value={
+            ad.status || ""
           }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                status:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={inputStyle}
         >
           <option>
@@ -39,24 +57,73 @@ export default function SalesTab({
 
       <Field label="Annonce type">
         <input
-          defaultValue={
-            ad.type
+          value={
+            ad.type || ""
           }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                type:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={inputStyle}
         />
       </Field>
 
       <Field label="Pris">
         <input
-          defaultValue={
-            ad.price
+          value={
+            ad.price || ""
           }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                price:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={inputStyle}
         />
       </Field>
 
       <Field label="Premium placering">
         <select
+          value={
+            ad.premiumPlacement ||
+            "Nej"
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                premiumPlacement:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={inputStyle}
         >
           <option>
@@ -71,12 +138,49 @@ export default function SalesTab({
 
       <Field label="Sælger">
         <input
+          value={
+            ad.seller || ""
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                seller:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={inputStyle}
         />
       </Field>
 
       <Field label="Pipeline">
         <select
+          value={
+            ad.pipeline ||
+            "Lead"
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                pipeline:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={inputStyle}
         >
           <option>
@@ -100,12 +204,49 @@ export default function SalesTab({
       <Field label="Deadline">
         <input
           type="date"
+
+          value={
+            ad.deadline || ""
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                deadline:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={inputStyle}
         />
       </Field>
 
       <Field label="QR URL">
         <input
+          value={
+            ad.qrurl || ""
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                qrurl:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={inputStyle}
         />
       </Field>
