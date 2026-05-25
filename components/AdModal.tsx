@@ -77,6 +77,11 @@ export default function AdModal({
   const [editedAd, setEditedAd] =
     useState({
       ...ad,
+
+      contactPerson:
+        ad.contactperson ||
+        ad.contactPerson ||
+        "",
     });
 
   const [saving, setSaving] =
@@ -84,7 +89,14 @@ export default function AdModal({
 
   useEffect(() => {
 
-    setEditedAd(ad);
+    setEditedAd({
+      ...ad,
+
+      contactPerson:
+        ad.contactperson ||
+        ad.contactPerson ||
+        "",
+    });
 
   }, [ad]);
 
@@ -537,6 +549,32 @@ export default function AdModal({
           </button>
 
           <button
+            style={{
+              width: "220px",
+
+              background:
+                "#f1f1f1",
+
+              border:
+                "1px solid #ccc",
+
+              padding:
+                "18px",
+
+              borderRadius:
+                "12px",
+
+              cursor:
+                "pointer",
+
+              fontWeight:
+                700,
+            }}
+          >
+            SLET
+          </button>
+
+          <button
             onClick={onClose}
 
             style={{
@@ -555,7 +593,8 @@ export default function AdModal({
               borderRadius:
                 "12px",
 
-              cursor: "pointer",
+              cursor:
+                "pointer",
 
               fontWeight:
                 700,
