@@ -1,24 +1,20 @@
 "use client";
 
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useState } from "react";
 
 import PageEditor from "./PageEditor";
 import SidePreview from "./SidePreview";
+
+import { pages } from "../data/pages";
 
 type MagazineViewProps = {
   setSelectedKommune: (
     kommune: string | null
   ) => void;
-
-  kommune?: string;
 };
 
 export default function MagazineView({
   setSelectedKommune,
-  kommune,
 }: MagazineViewProps) {
 
   const [
@@ -28,110 +24,18 @@ export default function MagazineView({
     null
   );
 
-  const [pages, setPages] =
-    useState<any[]>([]);
-
-  async function loadAds() {
-
-    try {
-
-      const response =
-        await fetch(
-          "/api/get-ads"
-        );
-
-      const data =
-        await response.json();
-
-      if (!data.success) {
-        return;
-      }
-
-      const groupedPages: {
-        [key: number]: any[];
-      } = {};
-
-      data.ads.forEach(
-        (ad: any) => {
-
-          if (
-            !groupedPages[
-              ad.page
-            ]
-          ) {
-
-            groupedPages[
-              ad.page
-            ] = [];
-          }
-
-          groupedPages[
-            ad.page
-          ].push(ad);
+  if (selectedPage) {
+    return (
+      <PageEditor
+        selectedPage={
+          selectedPage
         }
-      );
 
-      const builtPages =
-        Object.keys(
-          groupedPages
-        ).map(
-          (
-            pageNumber
-          ) => ({
-            side: Number(
-              pageNumber
-            ),
-
-            premium: false,
-
-            ads: groupedPages[
-              Number(
-                pageNumber
-              )
-            ],
-          })
-        );
-
-      setPages(
-        builtPages
-      );
-
-    } catch (error) {
-
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    loadAds();
-  }, []);
-
-  if (
-    selectedPage &&
-    pages.length > 0
-  ) {
-
-    const freshPage =
-      pages.find(
-        (p) =>
-          p.side ===
-          selectedPage.side
-      );
-
-    if (freshPage) {
-
-      return (
-        <PageEditor
-          selectedPage={
-            freshPage
-          }
-
-          setSelectedPage={
-            setSelectedPage
-          }
-        />
-      );
-    }
+        setSelectedPage={
+          setSelectedPage
+        }
+      />
+    );
   }
 
   return (
@@ -153,18 +57,14 @@ export default function MagazineView({
         }}
       >
         <div>
-          <h1>
-            {kommune}
-          </h1>
+          <h1>Aalborg</h1>
 
           <p
             style={{
               color: "#888",
             }}
           >
-            {pages.length}
-            {" "}sider • Under
-            produktion
+            56 sider • Under produktion
           </p>
         </div>
 
@@ -230,5 +130,5 @@ export default function MagazineView({
         ))}
       </div>
     </div>
-  ); 
+  );
 }
