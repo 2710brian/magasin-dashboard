@@ -1,24 +1,20 @@
 "use client";
 
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useState } from "react";
 
 import PageEditor from "./PageEditor";
 import SidePreview from "./SidePreview";
+
+import { pages } from "../data/pages";
 
 type MagazineViewProps = {
   setSelectedKommune: (
     kommune: string | null
   ) => void;
-
-  kommune?: string;
 };
 
 export default function MagazineView({
   setSelectedKommune,
-  kommune,
 }: MagazineViewProps) {
 
   const [
@@ -28,100 +24,11 @@ export default function MagazineView({
     null
   );
 
-  const [dbAds, setDbAds] =
-    useState<any[]>([]);
-
-  async function loadAds() {
-
-    try {
-
-      const response =
-        await fetch(
-          "/api/get-ads"
-        );
-
-      const data =
-        await response.json();
-
-      if (data.success) {
-
-        const ads =
-          data.ads.map(
-            (ad: any) => ({
-              ...ad,
-
-              id: ad.id,
-            })
-          );
-
-        setDbAds(ads);
-
-        console.log(
-          "DB ADS:",
-          ads
-        );
-      }
-
-    } catch (error) {
-
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    loadAds();
-  }, []);
-
-  const groupedPages: {
-    [key: number]: any[];
-  } = {};
-
-  dbAds.forEach((ad) => {
-
-    if (
-      !groupedPages[ad.page]
-    ) {
-
-      groupedPages[
-        ad.page
-      ] = [];
-    }
-
-    groupedPages[
-      ad.page
-    ].push({
-      ...ad,
-      id: ad.id,
-    });
-  });
-
-  const pages = Object.keys(
-    groupedPages
-  ).map((pageNumber) => ({
-    side: Number(
-      pageNumber
-    ),
-
-    premium: false,
-
-    ads: groupedPages[
-      Number(pageNumber)
-    ],
-  }));
-
   if (selectedPage) {
-
-    const freshPage =
-      pages.find(
-        (p) =>
-          p.side ===
-          selectedPage.side
-      ) || selectedPage;
-
     return (
       <PageEditor
         selectedPage={
-          freshPage
+          selectedPage
         }
 
         setSelectedPage={
@@ -150,18 +57,14 @@ export default function MagazineView({
         }}
       >
         <div>
-          <h1>
-            {kommune}
-          </h1>
+          <h1>Aalborg</h1>
 
           <p
             style={{
               color: "#888",
             }}
           >
-            {pages.length}
-            {" "}sider • Under
-            produktion
+            56 sider • Under produktion
           </p>
         </div>
 
