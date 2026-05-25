@@ -94,7 +94,7 @@ export default function AdModal({
   const ActiveComponent =
     ActiveTab?.component;
 
-  async function saveClient() {
+  async function saveAd() {
 
     try {
 
@@ -102,7 +102,7 @@ export default function AdModal({
 
       const response =
         await fetch(
-          "/api/save-client",
+          "/api/save-ad",
           {
             method: "POST",
 
@@ -123,7 +123,7 @@ export default function AdModal({
       console.log(data);
 
       alert(
-        "Klient gemt!"
+        "Annonce gemt!"
       );
 
     } catch (error) {
@@ -556,7 +556,7 @@ export default function AdModal({
         >
           <button
             onClick={
-              saveClient
+              saveAd
             }
 
             disabled={
@@ -595,7 +595,7 @@ export default function AdModal({
           >
             {saving
               ? "GEMMER..."
-              : "GEM KLIENT"}
+              : "GEM ANNONCE"}
           </button>
 
           <button
