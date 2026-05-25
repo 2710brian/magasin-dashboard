@@ -51,22 +51,24 @@ export default function MagazineView({
       const updatedPages =
         pages.map((page) => {
 
+          const dbAdsForPage =
+            data.ads.filter(
+              (ad: any) =>
+                ad.page ===
+                page.side
+            );
+
           const updatedAds =
             page.ads.map(
               (
-                localAd
+                localAd,
+                index
               ) => {
 
                 const dbAd =
-                  data.ads.find(
-                    (
-                      ad: any
-                    ) =>
-                      ad.page ===
-                        page.side &&
-                      ad.clientid ===
-                        localAd.clientId
-                  );
+                  dbAdsForPage[
+                    index
+                  ];
 
                 if (!dbAd) {
                   return localAd;
