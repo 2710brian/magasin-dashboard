@@ -21,9 +21,9 @@ export default function MagazineView({
 }: MagazineViewProps) {
 
   const [
-    selectedPage,
-    setSelectedPage,
-  ] = useState<any | null>(
+    selectedPageSide,
+    setSelectedPageSide,
+  ] = useState<number | null>(
     null
   );
 
@@ -116,24 +116,38 @@ export default function MagazineView({
     loadAds();
   }, []);
 
-  if (selectedPage) {
+  const selectedPage =
+    mergedPages.find(
+      (page) =>
+        page.side ===
+        selectedPageSide
+    );
 
-    const freshPage =
-      mergedPages.find(
-        (p) =>
-          p.side ===
-          selectedPage.side
-      ) || selectedPage;
+  if (selectedPage) {
 
     return (
       <PageEditor
         selectedPage={
-          freshPage
+          selectedPage
         }
 
-        setSelectedPage={
-          setSelectedPage
-        }
+        setSelectedPage={(
+          page: any
+        ) => {
+
+          if (!page) {
+
+            setSelectedPageSide(
+              null
+            );
+
+            return;
+          }
+
+          setSelectedPageSide(
+            page.side
+          );
+        }}
 
         refreshAds={
           loadAds
@@ -144,8 +158,6 @@ export default function MagazineView({
 
   return (
     <div>
-      {/* HEADER */}
-
       <div
         style={{
           display: "flex",
@@ -202,8 +214,6 @@ export default function MagazineView({
         </button>
       </div>
 
-      {/* SIDER */}
-
       <div
         style={{
           display: "grid",
@@ -230,8 +240,8 @@ export default function MagazineView({
               ads={page.ads}
 
               onClick={() =>
-                setSelectedPage(
-                  page
+                setSelectedPageSide(
+                  page.side
                 )
               }
             />
