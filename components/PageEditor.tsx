@@ -131,12 +131,16 @@ export default function PageEditor({
               index: number
             ) => (
               <div
-                key={index}
+                key={
+                  ad.id ||
+                  index
+                }
 
                 onClick={() =>
-                  setSelectedAd(
-                    ad
-                  )
+                  setSelectedAd({
+                    ...ad,
+                    id: ad.id,
+                  })
                 }
 
                 style={{
