@@ -57,6 +57,26 @@ const tabs = [
   },
 ];
 
+const tabComponents: any = {
+  contact: ContactTab,
+
+  geography:
+    GeographyTab,
+
+  sales: SalesTab,
+
+  marketing:
+    MarketingTab,
+
+  materials:
+    MaterialsTab,
+
+  production:
+    ProductionTab,
+
+  notes: NotesTab,
+};
+
 export default function AdModal({
   ad,
   onClose,
@@ -64,6 +84,11 @@ export default function AdModal({
 
   const [activeTab, setActiveTab] =
     useState("contact");
+
+  const ActiveComponent =
+    tabComponents[
+      activeTab
+    ];
 
   return (
     <div
@@ -269,50 +294,9 @@ export default function AdModal({
 
         {/* CONTENT */}
 
-        {activeTab ===
-          "contact" && (
-          <ContactTab
-            ad={ad}
-          />
-        )}
-
-        {activeTab ===
-          "geography" && (
-          <GeographyTab
-            ad={ad}
-          />
-        )}
-
-        {activeTab ===
-          "sales" && (
-          <SalesTab ad={ad} />
-        )}
-
-        {activeTab ===
-          "marketing" && (
-          <MarketingTab
-            ad={ad}
-          />
-        )}
-
-        {activeTab ===
-          "materials" && (
-          <MaterialsTab
-            ad={ad}
-          />
-        )}
-
-        {activeTab ===
-          "production" && (
-          <ProductionTab
-            ad={ad}
-          />
-        )}
-
-        {activeTab ===
-          "notes" && (
-          <NotesTab ad={ad} />
-        )}
+        <ActiveComponent
+          ad={ad}
+        />
 
         {/* BOTTOM */}
 
