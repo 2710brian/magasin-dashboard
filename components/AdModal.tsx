@@ -26,23 +26,28 @@ export default function AdModal({
         alignItems: "center",
 
         zIndex: 9999,
+
+        padding: "30px",
       }}
     >
       <div
         style={{
-          width: "900px",
+          width: "1200px",
 
-          maxHeight: "90vh",
+          maxHeight: "92vh",
 
           overflowY: "auto",
 
-          background: "#1b1b1b",
+          background: "#ffffff",
 
-          borderRadius: "16px",
+          borderRadius: "18px",
 
           padding: "30px",
 
-          color: "white",
+          color: "#111",
+
+          border:
+            "4px solid #111",
         }}
       >
         {/* TOP */}
@@ -54,36 +59,113 @@ export default function AdModal({
             justifyContent:
               "space-between",
 
-            alignItems: "center",
+            alignItems:
+              "flex-start",
 
             marginBottom: "30px",
           }}
         >
-          <h2>
-            {ad.title}
-          </h2>
+          <div>
+            <div
+              style={{
+                fontSize: "13px",
 
-          <button
-            onClick={onClose}
+                color: "#666",
+
+                marginBottom:
+                  "10px",
+              }}
+            >
+              Client ID:
+              1001
+            </div>
+
+            <div
+              style={{
+                fontSize: "13px",
+
+                color: "#666",
+
+                marginBottom:
+                  "20px",
+              }}
+            >
+              Annonce ID:
+              AD-2044
+            </div>
+
+            <h1
+              style={{
+                margin: 0,
+
+                fontSize:
+                  "42px",
+              }}
+            >
+              {ad.title}
+            </h1>
+          </div>
+
+          <div
             style={{
-              background:
-                "#333",
-
-              color: "white",
-
-              border: "none",
-
-              padding:
-                "10px 14px",
-
-              borderRadius:
-                "8px",
-
-              cursor: "pointer",
+              textAlign: "center",
             }}
           >
-            Luk
-          </button>
+            <div
+              style={{
+                width: "120px",
+
+                height:
+                  "120px",
+
+                background:
+                  "#f2f2f2",
+
+                border:
+                  "2px dashed #ccc",
+
+                borderRadius:
+                  "14px",
+
+                display: "flex",
+
+                alignItems:
+                  "center",
+
+                justifyContent:
+                  "center",
+
+                marginBottom:
+                  "10px",
+
+                overflow:
+                  "hidden",
+              }}
+            >
+              LOGO
+            </div>
+
+            <button
+              style={{
+                background:
+                  "#111",
+
+                color: "white",
+
+                border: "none",
+
+                padding:
+                  "10px 16px",
+
+                borderRadius:
+                  "10px",
+
+                cursor: "pointer",
+              }}
+            >
+              Upload logo
+            </button>
+          </div>
         </div>
 
         {/* TABS */}
@@ -92,34 +174,47 @@ export default function AdModal({
           style={{
             display: "flex",
 
-            gap: "20px",
-
-            marginBottom: "30px",
+            gap: "30px",
 
             borderBottom:
-              "1px solid #333",
+              "1px solid #ddd",
 
             paddingBottom:
-              "12px",
+              "14px",
+
+            marginBottom:
+              "30px",
+
+            fontWeight: 600,
           }}
         >
-          <div>
+          <div
+            style={{
+              borderBottom:
+                "3px solid black",
+
+              paddingBottom:
+                "12px",
+            }}
+          >
             Kontakt
           </div>
 
           <div>
-            Annonce
+            Geografi
           </div>
 
           <div>
-            Materiale
+            Salg
           </div>
 
           <div>
-            Produktion
+            Materialer
           </div>
 
-          <div>Noter</div>
+          <div>
+            Noter
+          </div>
         </div>
 
         {/* GRID */}
@@ -131,27 +226,51 @@ export default function AdModal({
             gridTemplateColumns:
               "1fr 1fr",
 
-            gap: "20px",
+            gap: "24px",
           }}
         >
-          <div>
-            <label>
-              Virksomhed
-            </label>
-
+          <Field
+            label="Virksomhed"
+          >
             <input
               defaultValue={
                 ad.title
               }
               style={inputStyle}
             />
-          </div>
+          </Field>
 
-          <div>
-            <label>
-              Status
-            </label>
+          <Field label="CIF / VAT">
+            <input
+              style={inputStyle}
+            />
+          </Field>
 
+          <Field label="Kontaktperson">
+            <input
+              style={inputStyle}
+            />
+          </Field>
+
+          <Field label="Email">
+            <input
+              style={inputStyle}
+            />
+          </Field>
+
+          <Field label="Telefon">
+            <input
+              style={inputStyle}
+            />
+          </Field>
+
+          <Field label="Website">
+            <input
+              style={inputStyle}
+            />
+          </Field>
+
+          <Field label="Status">
             <select
               defaultValue={
                 ad.status
@@ -170,73 +289,141 @@ export default function AdModal({
                 Ledig
               </option>
             </select>
-          </div>
+          </Field>
 
-          <div>
-            <label>
-              Pris
-            </label>
-
-            <input
-              defaultValue={
-                ad.price
-              }
-              style={inputStyle}
-            />
-          </div>
-
-          <div>
-            <label>
-              Type
-            </label>
-
+          <Field label="Annonce type">
             <input
               defaultValue={
                 ad.type
               }
               style={inputStyle}
             />
-          </div>
+          </Field>
 
-          <div>
-            <label>
-              Kontaktperson
-            </label>
+          <Field label="Pris">
+            <input
+              defaultValue={
+                ad.price
+              }
+              style={inputStyle}
+            />
+          </Field>
 
+          <Field label="QR URL">
             <input
               style={inputStyle}
             />
-          </div>
+          </Field>
+        </div>
 
-          <div>
-            <label>Email</label>
+        {/* BOTTOM */}
 
-            <input
-              style={inputStyle}
-            />
-          </div>
+        <div
+          style={{
+            marginTop: "40px",
 
-          <div>
-            <label>
-              Telefon
-            </label>
+            display: "flex",
 
-            <input
-              style={inputStyle}
-            />
-          </div>
+            gap: "20px",
+          }}
+        >
+          <button
+            style={{
+              flex: 1,
 
-          <div>
-            <label>
-              Website
-            </label>
+              background:
+                "#ff4d4d",
 
-            <input
-              style={inputStyle}
-            />
-          </div>
+              color: "white",
+
+              border: "none",
+
+              padding:
+                "18px",
+
+              borderRadius:
+                "12px",
+
+              fontSize:
+                "16px",
+
+              fontWeight:
+                "bold",
+
+              cursor: "pointer",
+            }}
+          >
+            GEM KLIENT
+          </button>
+
+          <button
+            style={{
+              width: "220px",
+
+              background:
+                "#f1f1f1",
+
+              border:
+                "1px solid #ccc",
+
+              padding:
+                "18px",
+
+              borderRadius:
+                "12px",
+
+              cursor: "pointer",
+            }}
+          >
+            SLET
+          </button>
+
+          <button
+            onClick={onClose}
+            style={{
+              width: "180px",
+
+              background:
+                "#111",
+
+              color: "white",
+
+              border: "none",
+
+              padding:
+                "18px",
+
+              borderRadius:
+                "12px",
+
+              cursor: "pointer",
+            }}
+          >
+            LUK
+          </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function Field({
+  label,
+  children,
+}: any) {
+  return (
+    <div>
+      <div
+        style={{
+          marginBottom: "8px",
+
+          fontWeight: 600,
+        }}
+      >
+        {label}
+      </div>
+
+      {children}
     </div>
   );
 }
@@ -244,15 +431,16 @@ export default function AdModal({
 const inputStyle = {
   width: "100%",
 
-  background: "#111",
+  background: "#f5f5f5",
 
-  border: "1px solid #333",
+  border: "1px solid #dcdcdc",
 
-  color: "white",
+  color: "#111",
 
-  padding: "12px",
+  padding: "14px",
 
-  borderRadius: "8px",
+  borderRadius: "10px",
 
-  marginTop: "8px",
+  boxSizing:
+    "border-box",
 };
