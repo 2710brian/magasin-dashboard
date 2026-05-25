@@ -442,5 +442,5 @@ const inputStyle = {
   borderRadius: "10px",
 
   boxSizing:
-    "border-box",
+  "border-box" as const,
 };
