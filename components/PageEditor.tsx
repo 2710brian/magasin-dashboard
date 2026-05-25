@@ -20,32 +20,59 @@ export default function PageEditor({
 }: PageEditorProps) {
 
   const [
+    localPage,
+    setLocalPage,
+  ] = useState(
+    selectedPage
+  );
+
+  const [
     selectedAdId,
     setSelectedAdId,
   ] = useState<
     number | null
   >(null);
 
+  useEffect(() => {
+
+    setLocalPage(
+      selectedPage
+    );
+
+  }, [selectedPage]);
+
   const selectedAd =
-    selectedPage.ads.find(
+    localPage.ads.find(
       (ad: any) =>
         ad.id ===
         selectedAdId
     );
 
-  useEffect(() => {
+  function handleAdSaved(
+    updatedAd: any
+  ) {
 
-    if (
-      selectedPage.ads.length >
-      0
-    ) {
+    const updatedAds =
+      localPage.ads.map(
+        (ad: any) => {
 
-      setSelectedAdId(
-        null
+          if (
+            ad.id ===
+            updatedAd.id
+          ) {
+
+            return updatedAd;
+          }
+
+          return ad;
+        }
       );
-    }
 
-  }, [selectedPage]);
+    setLocalPage({
+      ...localPage,
+      ads: updatedAds,
+    });
+  }
 
   return (
     <div>
@@ -70,7 +97,7 @@ export default function PageEditor({
 
           <h1>
             Side {
-              selectedPage?.side
+              localPage?.side
             }
           </h1>
 
@@ -147,13 +174,13 @@ export default function PageEditor({
               "grid",
 
             gridTemplateColumns:
-              selectedPage.layout ===
+              localPage.layout ===
               "quarter"
                 ? "1fr 1fr"
                 : "1fr",
 
             gridTemplateRows:
-              selectedPage.layout ===
+              localPage.layout ===
               "quarter"
                 ? "1fr 1fr"
                 : "1fr",
@@ -164,7 +191,7 @@ export default function PageEditor({
               "hidden",
           }}
         >
-          {selectedPage.ads.map(
+          {localPage.ads.map(
             (
               ad: any,
               index: number
@@ -221,6 +248,10 @@ export default function PageEditor({
 
           refreshAds={
             refreshAds
+          }
+
+          onSaved={
+            handleAdSaved
           }
 
           onClose={() =>
