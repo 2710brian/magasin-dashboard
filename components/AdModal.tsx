@@ -23,7 +23,7 @@ type AdModalProps = {
 const tabs = [
   {
     id: "contact",
-    label: "Kontakt",
+    label: "Kontakt", 
   },
 
   {
