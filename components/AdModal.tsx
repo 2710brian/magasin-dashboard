@@ -1,121 +1,198 @@
-type ContactTabProps = {
+import { useState } from "react";
+
+import ContactTab from "./tabs/ContactTab";
+
+import SalesTab from "./tabs/SalesTab";
+
+import GeographyTab from "./tabs/GeographyTab";
+
+import MaterialsTab from "./tabs/MaterialsTab";
+
+import NotesTab from "./tabs/NotesTab";
+
+import ProductionTab from "./tabs/ProductionTab";
+
+import MarketingTab from "./tabs/MarketingTab";
+
+type AdModalProps = {
   ad: any;
+
+  onClose: () => void;
 };
 
-export default function ContactTab({
+const tabs = [
+  {
+    id: "contact",
+    label: "Kontakt",
+    component: ContactTab,
+  },
+
+  {
+    id: "geography",
+    label: "Geografi",
+    component: GeographyTab,
+  },
+
+  {
+    id: "sales",
+    label: "Salg",
+    component: SalesTab,
+  },
+
+  {
+    id: "marketing",
+    label: "Marketing",
+    component: MarketingTab,
+  },
+
+  {
+    id: "materials",
+    label: "Materialer",
+    component: MaterialsTab,
+  },
+
+  {
+    id: "production",
+    label: "Produktion",
+    component: ProductionTab,
+  },
+
+  {
+    id: "notes",
+    label: "Noter",
+    component: NotesTab,
+  },
+];
+
+export default function AdModal({
   ad,
-}: ContactTabProps) {
-  return (
-    <div
-      style={{
-        display: "grid",
+  onClose,
+}: AdModalProps) {
 
-        gridTemplateColumns:
-          "1fr 1fr",
+  const [activeTab, setActiveTab] =
+    useState("contact");
 
-        gap: "24px",
-      }}
-    >
-      <Field label="Virksomhed">
-        <input
-          defaultValue={
-            ad.title
-          }
-          style={inputStyle}
-        />
-      </Field>
+  const [editedAd, setEditedAd] =
+    useState({
+      ...ad,
+    });
 
-      <Field label="CIF / VAT">
-        <input
-          style={inputStyle}
-        />
-      </Field>
+  const ActiveTab =
+    tabs.find(
+      (tab) =>
+        tab.id ===
+        activeTab
+    );
 
-      <Field label="Kontaktperson">
-        <input
-          style={inputStyle}
-        />
-      </Field>
+  const ActiveComponent =
+    ActiveTab?.component;
 
-      <Field label="Email">
-        <input
-          style={inputStyle}
-        />
-      </Field>
-
-      <Field label="Telefon">
-        <input
-          style={inputStyle}
-        />
-      </Field>
-
-      <Field label="Website">
-        <input
-          style={inputStyle}
-        />
-      </Field>
-
-      <Field label="Facebook">
-        <input
-          style={inputStyle}
-        />
-      </Field>
-
-      <Field label="Instagram">
-        <input
-          style={inputStyle}
-        />
-      </Field>
-
-      <Field label="LinkedIn">
-        <input
-          style={inputStyle}
-        />
-      </Field>
-
-      <Field label="TikTok">
-        <input
-          style={inputStyle}
-        />
-      </Field>
-    </div>
-  );
-}
-
-function Field({
-  label,
-  children,
-}: any) {
   return (
     <div>
       <div
         style={{
-          marginBottom: "8px",
-
-          fontWeight: 600,
+          position: "fixed",
+          inset: 0,
+          background:
+            "rgba(0,0,0,0.7)",
+          display: "flex",
+          justifyContent:
+            "center",
+          alignItems: "center",
+          zIndex: 9999,
+          padding: "30px",
         }}
       >
-        {label}
-      </div>
+        <div
+          style={{
+            width: "1200px",
+            maxHeight: "92vh",
+            overflowY: "auto",
+            background: "#ffffff",
+            borderRadius: "18px",
+            padding: "30px",
+            color: "#111",
+            border:
+              "4px solid #111",
+          }}
+        >
+          <h1>
+            {editedAd.title}
+          </h1>
 
-      {children}
+          <div
+            style={{
+              display: "flex",
+              gap: "30px",
+              borderBottom:
+                "1px solid #ddd",
+              paddingBottom:
+                "14px",
+              marginBottom:
+                "30px",
+              fontWeight: 600,
+              flexWrap: "wrap",
+            }}
+          >
+            {tabs.map((tab) => (
+              <div
+                key={tab.id}
+                onClick={() =>
+                  setActiveTab(
+                    tab.id
+                  )
+                }
+                style={{
+                  cursor:
+                    "pointer",
+                  paddingBottom:
+                    "12px",
+                  borderBottom:
+                    activeTab ===
+                    tab.id
+                      ? "3px solid black"
+                      : "3px solid transparent",
+                }}
+              >
+                {tab.label}
+              </div>
+            ))}
+          </div>
+
+          {ActiveComponent && (
+            <ActiveComponent
+              ad={editedAd}
+              setAd={
+                setEditedAd
+              }
+            />
+          )}
+
+          <div
+            style={{
+              marginTop: "40px",
+              display: "flex",
+              gap: "20px",
+            }}
+          >
+            <button
+              onClick={() =>
+                console.log(
+                  editedAd
+                )
+              }
+            >
+              GEM KLIENT
+            </button>
+
+            <button
+              onClick={onClose}
+            >
+              LUK
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
-
-const inputStyle = {
-  width: "100%",
-
-  background: "#f5f5f5",
-
-  border: "1px solid #dcdcdc",
-
-  color: "#111",
-
-  padding: "14px",
-
-  borderRadius: "10px",
-
-  boxSizing:
-    "border-box" as const,
-};
