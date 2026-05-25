@@ -10,7 +10,7 @@ type PageEditorProps = {
     page: any | null
   ) => void;
 
-  refreshAds?: () => void;
+  refreshAds?: () => Promise<void>;
 };
 
 export default function PageEditor({
