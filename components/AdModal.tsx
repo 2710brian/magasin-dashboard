@@ -126,7 +126,6 @@ export default function AdModal({
   "Annonce gemt!"
 );
 
-window.location.reload();
 
     } catch (error) {
 
