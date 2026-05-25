@@ -32,103 +32,111 @@ export default function MagazineView({
     setMergedPages,
   ] = useState(pages);
 
-  useEffect(() => {
+  async function loadAds() {
 
-    async function loadAds() {
+    try {
 
-      try {
-
-        const response =
-          await fetch(
-            "/api/get-ads"
-          );
-
-        const data =
-          await response.json();
-
-        if (!data.success) {
-          return;
-        }
-
-        const updatedPages =
-          pages.map((page) => {
-
-            const updatedAds =
-              page.ads.map(
-                (
-                  localAd,
-                  index
-                ) => {
-
-                  const dbAd =
-                    data.ads.find(
-                      (
-                        ad: any
-                      ) =>
-                        ad.page ===
-                          page.side &&
-                        ad.clientid ===
-                          localAd.clientId
-                    );
-
-                  if (!dbAd) {
-                    return localAd;
-                  }
-
-                  return {
-                    ...localAd,
-
-                    id: dbAd.id,
-
-                    title:
-                      dbAd.title,
-
-                    status:
-                      dbAd.status,
-
-                    price:
-                      dbAd.price,
-
-                    color:
-                      dbAd.color,
-
-                    type:
-                      dbAd.type,
-                  };
-                }
-              );
-
-            return {
-              ...page,
-
-              ads: updatedAds,
-            };
-          });
-
-        setMergedPages(
-          updatedPages
+      const response =
+        await fetch(
+          "/api/get-ads"
         );
 
-      } catch (error) {
+      const data =
+        await response.json();
 
-        console.error(error);
+      if (!data.success) {
+        return;
       }
+
+      const updatedPages =
+        pages.map((page) => {
+
+          const updatedAds =
+            page.ads.map(
+              (
+                localAd
+              ) => {
+
+                const dbAd =
+                  data.ads.find(
+                    (
+                      ad: any
+                    ) =>
+                      ad.page ===
+                        page.side &&
+                      ad.clientid ===
+                        localAd.clientId
+                  );
+
+                if (!dbAd) {
+                  return localAd;
+                }
+
+                return {
+                  ...localAd,
+
+                  id: dbAd.id,
+
+                  title:
+                    dbAd.title,
+
+                  status:
+                    dbAd.status,
+
+                  price:
+                    dbAd.price,
+
+                  color:
+                    dbAd.color,
+
+                  type:
+                    dbAd.type,
+                };
+              }
+            );
+
+          return {
+            ...page,
+
+            ads: updatedAds,
+          };
+        });
+
+      setMergedPages(
+        updatedPages
+      );
+
+    } catch (error) {
+
+      console.error(error);
     }
+  }
 
+  useEffect(() => {
     loadAds();
-
   }, []);
 
   if (selectedPage) {
 
+    const freshPage =
+      mergedPages.find(
+        (p) =>
+          p.side ===
+          selectedPage.side
+      ) || selectedPage;
+
     return (
       <PageEditor
         selectedPage={
-          selectedPage
+          freshPage
         }
 
         setSelectedPage={
           setSelectedPage
+        }
+
+        refreshAds={
+          loadAds
         }
       />
     );
