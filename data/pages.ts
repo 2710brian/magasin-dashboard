@@ -16,6 +16,8 @@ export const pages = Array.from(
         side % 5 === 0
           ? [
               {
+                clientId: 1,
+
                 title:
                   "Frisør Hansen",
 
@@ -33,6 +35,8 @@ export const pages = Array.from(
               },
 
               {
+                clientId: 2,
+
                 title:
                   "Reserveret",
 
@@ -50,6 +54,8 @@ export const pages = Array.from(
               },
 
               {
+                clientId: 3,
+
                 title:
                   "LEDIG",
 
@@ -67,6 +73,8 @@ export const pages = Array.from(
               },
 
               {
+                clientId: 4,
+
                 title:
                   "Café Nytorv",
 
@@ -86,6 +94,8 @@ export const pages = Array.from(
           : side % 3 === 0
           ? [
               {
+                clientId: 5,
+
                 title:
                   "XL Byg",
 
@@ -103,6 +113,8 @@ export const pages = Array.from(
               },
 
               {
+                clientId: 6,
+
                 title:
                   "LEDIG",
 
@@ -121,6 +133,8 @@ export const pages = Array.from(
             ]
           : [
               {
+                clientId: 7,
+
                 title:
                   "Hansen VVS",
 
