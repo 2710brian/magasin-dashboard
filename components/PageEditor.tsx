@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 import AdBlock from "./AdBlock";
+
+import AdModal from "./AdModal";
 
 type PageEditorProps = {
   selectedPage: any;
@@ -12,6 +16,10 @@ export default function PageEditor({
   selectedPage,
   setSelectedPage,
 }: PageEditorProps) {
+
+  const [selectedAd, setSelectedAd] =
+    useState<any | null>(null);
+
   return (
     <div>
       {/* TOP */}
@@ -115,28 +123,54 @@ export default function PageEditor({
               ad: any,
               index: number
             ) => (
-              <AdBlock
+              <div
                 key={index}
-                title={
-                  ad.title
+
+                onClick={() =>
+                  setSelectedAd(
+                    ad
+                  )
                 }
-                status={
-                  ad.status
-                }
-                price={
-                  ad.price
-                }
-                color={
-                  ad.color
-                }
-                type={
-                  ad.type
-                }
-              />
+
+                style={{
+                  cursor:
+                    "pointer",
+                }}
+              >
+                <AdBlock
+                  title={
+                    ad.title
+                  }
+                  status={
+                    ad.status
+                  }
+                  price={
+                    ad.price
+                  }
+                  color={
+                    ad.color
+                  }
+                  type={
+                    ad.type
+                  }
+                />
+              </div>
             )
           )}
         </div>
       </div>
+
+      {selectedAd && (
+        <AdModal
+          ad={selectedAd}
+
+          onClose={() =>
+            setSelectedAd(
+              null
+            )
+          }
+        />
+      )}
     </div>
   );
 }
