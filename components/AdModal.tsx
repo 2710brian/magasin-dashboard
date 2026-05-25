@@ -77,6 +77,9 @@ export default function AdModal({
       ...ad,
     });
 
+  const [saving, setSaving] =
+    useState(false);
+
   useEffect(() => {
     setEditedAd(ad);
   }, [ad]);
@@ -90,6 +93,52 @@ export default function AdModal({
 
   const ActiveComponent =
     ActiveTab?.component;
+
+  async function saveClient() {
+
+    try {
+
+      setSaving(true);
+
+      const response =
+        await fetch(
+          "/api/save-client",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+
+            body: JSON.stringify(
+              editedAd
+            ),
+          }
+        );
+
+      const data =
+        await response.json();
+
+      console.log(data);
+
+      alert(
+        "Klient gemt!"
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Fejl ved gem"
+      );
+
+    } finally {
+
+      setSaving(false);
+    }
+  }
 
   return (
     <div
@@ -313,6 +362,7 @@ export default function AdModal({
                 onChange={(
                   e: any
                 ) => {
+
                   const file =
                     e.target
                       .files?.[0];
@@ -327,6 +377,7 @@ export default function AdModal({
 
                   reader.onload =
                     () => {
+
                       setEditedAd(
                         (
                           prev: any
@@ -504,10 +555,12 @@ export default function AdModal({
           }}
         >
           <button
-            onClick={() =>
-              console.log(
-                editedAd
-              )
+            onClick={
+              saveClient
+            }
+
+            disabled={
+              saving
             }
 
             style={{
@@ -533,9 +586,16 @@ export default function AdModal({
                 "bold",
 
               cursor: "pointer",
+
+              opacity:
+                saving
+                  ? 0.7
+                  : 1,
             }}
           >
-            GEM KLIENT
+            {saving
+              ? "GEMMER..."
+              : "GEM KLIENT"}
           </button>
 
           <button
