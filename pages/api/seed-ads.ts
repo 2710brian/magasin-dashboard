@@ -11,14 +11,21 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+
   try {
-    // clear old ads
+
     await pool.query(`
       DELETE FROM ads
     `);
 
     for (const page of pages) {
-      for (const ad of page.ads) {
+
+      for (
+        let i = 0;
+        i < page.slots;
+        i++
+      ) {
+
         await pool.query(
           `
           INSERT INTO ads (
@@ -40,13 +47,21 @@ export default async function handler(
         `,
           [
             page.side,
-            ad.title || "",
-            ad.status || "",
-            ad.price || "",
-            ad.color || "",
-            ad.type || "",
-            ad.clientId || null,
+
+            "LEDIG",
+
+            "Ledig",
+
+            "",
+
+            "#444",
+
+            page.layout,
+
+            i + 1,
+
             new Date().toISOString(),
+
             new Date().toISOString(),
           ]
         );
@@ -58,12 +73,15 @@ export default async function handler(
       message:
         "Ads seeded successfully",
     });
+
   } catch (error) {
+
     console.error(error);
 
     return res.status(500).json({
       success: false,
-      error: "Failed to seed ads",
+      error:
+        "Failed to seed ads",
     });
   }
 }
