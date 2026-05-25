@@ -54,9 +54,15 @@ export default async function handler(
             linkedin = $13,
             tiktok = $14,
 
-            updatedat = $15
+            premiumplacement = $15,
+            seller = $16,
+            pipeline = $17,
+            deadline = $18,
+            qrurl = $19,
 
-          WHERE id = $16
+            updatedat = $20
+
+          WHERE id = $21
 
           RETURNING *
         `,
@@ -88,6 +94,16 @@ export default async function handler(
             ad.linkedin || "",
 
             ad.tiktok || "",
+
+            ad.premiumPlacement || "",
+
+            ad.seller || "",
+
+            ad.pipeline || "",
+
+            ad.deadline || "",
+
+            ad.qrurl || "",
 
             new Date().toISOString(),
 
@@ -133,6 +149,12 @@ export default async function handler(
           linkedin,
           tiktok,
 
+          premiumplacement,
+          seller,
+          pipeline,
+          deadline,
+          qrurl,
+
           clientid,
           createdat,
           updatedat
@@ -142,7 +164,8 @@ export default async function handler(
           $1,$2,$3,$4,$5,
           $6,$7,$8,$9,$10,
           $11,$12,$13,$14,$15,
-          $16,$17,$18
+          $16,$17,$18,$19,$20,
+          $21,$22,$23
         )
 
         RETURNING *
@@ -177,6 +200,16 @@ export default async function handler(
           ad.linkedin || "",
 
           ad.tiktok || "",
+
+          ad.premiumPlacement || "",
+
+          ad.seller || "",
+
+          ad.pipeline || "",
+
+          ad.deadline || "",
+
+          ad.qrurl || "",
 
           ad.clientId || 1,
 
