@@ -9,96 +9,140 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== "POST") {
+
+  if (
+    req.method !== "POST"
+  ) {
+
     return res.status(405).json({
-      error: "Method not allowed",
+      error:
+        "Method not allowed",
     });
   }
 
   try {
+
     const ad = req.body;
 
+    console.log(
+      "SAVE AD:",
+      ad
+    );
+
     // UPDATE existing ad
+
     if (ad.id) {
-      await pool.query(
-        `
-        UPDATE ads
-        SET
-          page = $1,
-          title = $2,
-          status = $3,
-          price = $4,
-          color = $5,
-          type = $6,
-          clientid = $7,
-          updatedat = $8
-        WHERE id = $9
-      `,
-        [
-          ad.page,
-          ad.title || "",
-          ad.status || "",
-          ad.price || "",
-          ad.color || "",
-          ad.type || "",
-          ad.clientId || null,
-          new Date().toISOString(),
-          ad.id,
-        ]
+
+      const result =
+        await pool.query(
+          `
+          UPDATE ads
+          SET
+            title = $1,
+            status = $2,
+            price = $3,
+            color = $4,
+            type = $5,
+            updatedat = $6
+          WHERE id = $7
+
+          RETURNING *
+        `,
+          [
+            ad.title || "",
+
+            ad.status || "",
+
+            ad.price || "",
+
+            ad.color || "",
+
+            ad.type || "",
+
+            new Date().toISOString(),
+
+            ad.id,
+          ]
+        );
+
+      console.log(
+        "UPDATED:",
+        result.rows
       );
 
       return res.status(200).json({
         success: true,
+
         mode: "updated",
+
+        ad:
+          result.rows[0],
       });
     }
 
-    // CREATE new ad
-    const result = await pool.query(
-      `
-      INSERT INTO ads (
-        page,
-        title,
-        status,
-        price,
-        color,
-        type,
-        clientid,
-        createdat,
-        updatedat
-      )
+    // CREATE fallback
 
-      VALUES (
-        $1,$2,$3,$4,$5,
-        $6,$7,$8,$9
-      )
+    const result =
+      await pool.query(
+        `
+        INSERT INTO ads (
+          page,
+          title,
+          status,
+          price,
+          color,
+          type,
+          clientid,
+          createdat,
+          updatedat
+        )
 
-      RETURNING id
-    `,
-      [
-        ad.page,
-        ad.title || "",
-        ad.status || "",
-        ad.price || "",
-        ad.color || "",
-        ad.type || "",
-        ad.clientId || null,
-        new Date().toISOString(),
-        new Date().toISOString(),
-      ]
-    );
+        VALUES (
+          $1,$2,$3,$4,$5,
+          $6,$7,$8,$9
+        )
+
+        RETURNING *
+      `,
+        [
+          ad.page,
+
+          ad.title || "",
+
+          ad.status || "",
+
+          ad.price || "",
+
+          ad.color || "",
+
+          ad.type || "",
+
+          ad.clientId || 1,
+
+          new Date().toISOString(),
+
+          new Date().toISOString(),
+        ]
+      );
 
     return res.status(200).json({
       success: true,
+
       mode: "created",
-      id: result.rows[0].id,
+
+      ad:
+        result.rows[0],
     });
+
   } catch (error) {
+
     console.error(error);
 
     return res.status(500).json({
       success: false,
-      error: "Failed to save ad",
+
+      error:
+        "Failed to save ad",
     });
   }
 }
