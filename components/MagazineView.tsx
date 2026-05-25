@@ -230,5 +230,5 @@ export default function MagazineView({
         ))}
       </div>
     </div>
-  );
+  ); 
 }
