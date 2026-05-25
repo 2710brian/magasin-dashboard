@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import AdBlock from "./AdBlock";
 import AdModal from "./AdModal";
@@ -20,14 +20,36 @@ export default function PageEditor({
 }: PageEditorProps) {
 
   const [
-    selectedAd,
-    setSelectedAd,
-  ] = useState<any | null>(
-    null
-  );
+    selectedAdId,
+    setSelectedAdId,
+  ] = useState<
+    number | null
+  >(null);
+
+  const selectedAd =
+    selectedPage.ads.find(
+      (ad: any) =>
+        ad.id ===
+        selectedAdId
+    );
+
+  useEffect(() => {
+
+    if (
+      selectedPage.ads.length >
+      0
+    ) {
+
+      setSelectedAdId(
+        null
+      );
+    }
+
+  }, [selectedPage]);
 
   return (
     <div>
+
       {/* TOP */}
 
       <div
@@ -45,6 +67,7 @@ export default function PageEditor({
         }}
       >
         <div>
+
           <h1>
             Side {
               selectedPage?.side
@@ -53,11 +76,13 @@ export default function PageEditor({
 
           <p
             style={{
-              color: "#888",
+              color:
+                "#888",
             }}
           >
             Side editor
           </p>
+
         </div>
 
         <button
@@ -73,7 +98,8 @@ export default function PageEditor({
             border:
               "1px solid #333",
 
-            color: "white",
+            color:
+              "white",
 
             padding:
               "12px 18px",
@@ -93,7 +119,8 @@ export default function PageEditor({
 
       <div
         style={{
-          display: "flex",
+          display:
+            "flex",
 
           justifyContent:
             "center",
@@ -101,7 +128,8 @@ export default function PageEditor({
       >
         <div
           style={{
-            width: "500px",
+            width:
+              "500px",
 
             aspectRatio:
               "210 / 297",
@@ -112,15 +140,23 @@ export default function PageEditor({
             borderRadius:
               "14px",
 
-            padding: "10px",
+            padding:
+              "10px",
 
-            display: "grid",
+            display:
+              "grid",
 
             gridTemplateColumns:
-              "1fr 1fr",
+              selectedPage.layout ===
+              "quarter"
+                ? "1fr 1fr"
+                : "1fr",
 
             gridTemplateRows:
-              "1fr 1fr",
+              selectedPage.layout ===
+              "quarter"
+                ? "1fr 1fr"
+                : "1fr",
 
             gap: "6px",
 
@@ -133,6 +169,7 @@ export default function PageEditor({
               ad: any,
               index: number
             ) => (
+
               <div
                 key={
                   ad.id ||
@@ -140,8 +177,8 @@ export default function PageEditor({
                 }
 
                 onClick={() =>
-                  setSelectedAd(
-                    ad
+                  setSelectedAdId(
+                    ad.id
                   )
                 }
 
@@ -178,6 +215,7 @@ export default function PageEditor({
       </div>
 
       {selectedAd && (
+
         <AdModal
           ad={selectedAd}
 
@@ -186,7 +224,7 @@ export default function PageEditor({
           }
 
           onClose={() =>
-            setSelectedAd(
+            setSelectedAdId(
               null
             )
           }
