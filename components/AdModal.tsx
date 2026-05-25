@@ -6,6 +6,8 @@ import SalesTab from "./tabs/SalesTab";
 
 import GeographyTab from "./tabs/GeographyTab";
 
+import MaterialsTab from "./tabs/MaterialsTab";
+
 type AdModalProps = {
   ad: any;
 
@@ -245,7 +247,18 @@ export default function AdModal({
             Salg
           </TabButton>
 
-          <TabButton>
+          <TabButton
+            active={
+              activeTab ===
+              "materials"
+            }
+
+            onClick={() =>
+              setActiveTab(
+                "materials"
+              )
+            }
+          >
             Materialer
           </TabButton>
 
@@ -273,6 +286,13 @@ export default function AdModal({
         {activeTab ===
           "sales" && (
           <SalesTab ad={ad} />
+        )}
+
+        {activeTab ===
+          "materials" && (
+          <MaterialsTab
+            ad={ad}
+          />
         )}
 
         {/* BOTTOM */}
