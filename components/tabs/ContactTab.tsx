@@ -19,7 +19,7 @@ export default function ContactTab({
         gap: "24px",
       }}
     >
-      <Field label="Virksomhed">
+      <Field label="Virksomhed"> 
         <input
           value={
             ad.title || ""
