@@ -9,11 +9,14 @@ type PageEditorProps = {
   setSelectedPage: (
     page: any | null
   ) => void;
+
+  refreshAds?: () => void;
 };
 
 export default function PageEditor({
   selectedPage,
   setSelectedPage,
+  refreshAds,
 }: PageEditorProps) {
 
   const [
@@ -137,10 +140,9 @@ export default function PageEditor({
                 }
 
                 onClick={() =>
-                  setSelectedAd({
-                    ...ad,
-                    id: ad.id,
-                  })
+                  setSelectedAd(
+                    ad
+                  )
                 }
 
                 style={{
@@ -152,15 +154,19 @@ export default function PageEditor({
                   title={
                     ad.title
                   }
+
                   status={
                     ad.status
                   }
+
                   price={
                     ad.price
                   }
+
                   color={
                     ad.color
                   }
+
                   type={
                     ad.type
                   }
@@ -174,6 +180,10 @@ export default function PageEditor({
       {selectedAd && (
         <AdModal
           ad={selectedAd}
+
+          refreshAds={
+            refreshAds
+          }
 
           onClose={() =>
             setSelectedAd(
