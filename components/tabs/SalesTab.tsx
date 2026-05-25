@@ -8,6 +8,12 @@ export default function SalesTab({
   ad,
   setAd,
 }: SalesTabProps) {
+
+  const premiumValue =
+    ad.premiumPlacement ||
+    ad.premiumplacement ||
+    "Nej";
+
   return (
     <div
       style={{
@@ -106,8 +112,7 @@ export default function SalesTab({
       <Field label="Premium placering">
         <select
           value={
-            ad.premiumPlacement ||
-            "Nej"
+            premiumValue
           }
 
           onChange={(e) =>
