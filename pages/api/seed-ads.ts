@@ -1,0 +1,69 @@
+import type {
+  NextApiRequest,
+  NextApiResponse,
+} from "next";
+
+import pool from "../../lib/db";
+
+import { pages } from "../../data/pages";
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  try {
+    // clear old ads
+    await pool.query(`
+      DELETE FROM ads
+    `);
+
+    for (const page of pages) {
+      for (const ad of page.ads) {
+        await pool.query(
+          `
+          INSERT INTO ads (
+            page,
+            title,
+            status,
+            price,
+            color,
+            type,
+            clientid,
+            createdat,
+            updatedat
+          )
+
+          VALUES (
+            $1,$2,$3,$4,$5,
+            $6,$7,$8,$9
+          )
+        `,
+          [
+            page.side,
+            ad.title || "",
+            ad.status || "",
+            ad.price || "",
+            ad.color || "",
+            ad.type || "",
+            ad.clientId || null,
+            new Date().toISOString(),
+            new Date().toISOString(),
+          ]
+        );
+      }
+    }
+
+    return res.status(200).json({
+      success: true,
+      message:
+        "Ads seeded successfully",
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      error: "Failed to seed ads",
+    });
+  }
+}
