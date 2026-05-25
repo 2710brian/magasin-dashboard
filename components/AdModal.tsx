@@ -10,6 +10,8 @@ import MaterialsTab from "./tabs/MaterialsTab";
 
 import NotesTab from "./tabs/NotesTab";
 
+import ProductionTab from "./tabs/ProductionTab";
+
 type AdModalProps = {
   ad: any;
 
@@ -202,6 +204,8 @@ export default function AdModal({
               "30px",
 
             fontWeight: 600,
+
+            flexWrap: "wrap",
           }}
         >
           <TabButton
@@ -267,6 +271,21 @@ export default function AdModal({
           <TabButton
             active={
               activeTab ===
+              "production"
+            }
+
+            onClick={() =>
+              setActiveTab(
+                "production"
+              )
+            }
+          >
+            Produktion
+          </TabButton>
+
+          <TabButton
+            active={
+              activeTab ===
               "notes"
             }
 
@@ -304,6 +323,13 @@ export default function AdModal({
         {activeTab ===
           "materials" && (
           <MaterialsTab
+            ad={ad}
+          />
+        )}
+
+        {activeTab ===
+          "production" && (
+          <ProductionTab
             ad={ad}
           />
         )}
