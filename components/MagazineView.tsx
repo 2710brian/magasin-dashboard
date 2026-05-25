@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import PageEditor from "./PageEditor";
 import SidePreview from "./SidePreview";
@@ -16,12 +16,19 @@ type MagazineViewProps = {
 export default function MagazineView({
   setSelectedKommune,
 }: MagazineViewProps) {
+
   const [
     selectedPage,
     setSelectedPage,
   ] = useState<any | null>(
     null
   );
+
+  useEffect(() => {
+    console.log(
+      "MagazineView loaded"
+    );
+  }, []);
 
   if (selectedPage) {
     return (
