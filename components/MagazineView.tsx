@@ -28,9 +28,9 @@ export default function MagazineView({
   );
 
   const [
-    mergedPages,
-    setMergedPages,
-  ] = useState(pages);
+    dbAds,
+    setDbAds,
+  ] = useState<any[]>([]);
 
   async function loadAds() {
 
@@ -44,82 +44,49 @@ export default function MagazineView({
       const data =
         await response.json();
 
-      if (!data.success) {
-        return;
+      if (
+        data.success
+      ) {
+
+        setDbAds(
+          data.ads
+        );
       }
-
-      const updatedPages =
-        pages.map((page) => {
-
-          const dbAdsForPage =
-            data.ads.filter(
-              (ad: any) =>
-                ad.page ===
-                page.side
-            );
-
-          const updatedAds =
-            page.ads.map(
-              (
-                localAd,
-                index
-              ) => {
-
-                const dbAd =
-                  dbAdsForPage[
-                    index
-                  ];
-
-                if (!dbAd) {
-                  return localAd;
-                }
-
-                return {
-                  ...localAd,
-
-                  id: dbAd.id,
-
-                  title:
-                    dbAd.title,
-
-                  status:
-                    dbAd.status,
-
-                  price:
-                    dbAd.price,
-
-                  color:
-                    dbAd.color,
-
-                  type:
-                    dbAd.type,
-                };
-              }
-            );
-
-          return {
-            ...page,
-
-            ads: updatedAds,
-          };
-        });
-
-      setMergedPages(
-        updatedPages
-      );
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        error
+      );
     }
   }
 
   useEffect(() => {
+
     loadAds();
+
   }, []);
 
+  const builtPages =
+    pages.map((page) => {
+
+      const ads =
+        dbAds.filter(
+          (ad) =>
+            ad.page ===
+            page.side
+        );
+
+      return {
+
+        ...page,
+
+        ads,
+      };
+    });
+
   const selectedPage =
-    mergedPages.find(
+    builtPages.find(
       (page) =>
         page.side ===
         selectedPageSide
@@ -160,6 +127,9 @@ export default function MagazineView({
 
   return (
     <div>
+
+      {/* HEADER */}
+
       <div
         style={{
           display: "flex",
@@ -175,16 +145,21 @@ export default function MagazineView({
         }}
       >
         <div>
-          <h1>Aalborg</h1>
+
+          <h1>
+            Aalborg
+          </h1>
 
           <p
             style={{
-              color: "#888",
+              color:
+                "#888",
             }}
           >
             56 sider • Under
             produktion
           </p>
+
         </div>
 
         <button
@@ -200,7 +175,8 @@ export default function MagazineView({
             border:
               "1px solid #333",
 
-            color: "white",
+            color:
+              "white",
 
             padding:
               "12px 18px",
@@ -216,20 +192,27 @@ export default function MagazineView({
         </button>
       </div>
 
+      {/* SIDER */}
+
       <div
         style={{
-          display: "grid",
+          display:
+            "grid",
 
           gridTemplateColumns:
             "repeat(4, 1fr)",
 
-          gap: "20px",
+          gap:
+            "20px",
         }}
       >
-        {mergedPages.map(
+        {builtPages.map(
           (page) => (
+
             <SidePreview
-              key={page.side}
+              key={
+                page.side
+              }
 
               side={
                 page.side
@@ -239,7 +222,9 @@ export default function MagazineView({
                 page.premium
               }
 
-              ads={page.ads}
+              ads={
+                page.ads
+              }
 
               onClick={() =>
                 setSelectedPageSide(
