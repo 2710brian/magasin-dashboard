@@ -73,85 +73,193 @@ export default async function handler(
             languages = $30,
             timezone = $31,
 
-            updatedat = $32
+            googleads_active = $32,
+            googleads_budget = $33,
+            googleads_start = $34,
+            googleads_end = $35,
+            googleads_manager = $36,
+            googleads_comment = $37,
 
-          WHERE id = $33
+            seo_active = $38,
+            seo_budget = $39,
+            seo_start = $40,
+            seo_end = $41,
+            seo_manager = $42,
+            seo_comment = $43,
+
+            emailmarketing_active = $44,
+            emailmarketing_budget = $45,
+            emailmarketing_start = $46,
+            emailmarketing_end = $47,
+            emailmarketing_manager = $48,
+            emailmarketing_comment = $49,
+
+            affiliate_active = $50,
+            affiliate_budget = $51,
+            affiliate_start = $52,
+            affiliate_end = $53,
+            affiliate_manager = $54,
+            affiliate_comment = $55,
+
+            metaads_active = $56,
+            metaads_budget = $57,
+            metaads_start = $58,
+            metaads_end = $59,
+            metaads_manager = $60,
+            metaads_comment = $61,
+
+            tiktokads_active = $62,
+            tiktokads_budget = $63,
+            tiktokads_start = $64,
+            tiktokads_end = $65,
+            tiktokads_manager = $66,
+            tiktokads_comment = $67,
+
+            linkedin_active = $68,
+            linkedin_budget = $69,
+            linkedin_start = $70,
+            linkedin_end = $71,
+            linkedin_manager = $72,
+            linkedin_comment = $73,
+
+            radio_active = $74,
+            radio_budget = $75,
+            radio_start = $76,
+            radio_end = $77,
+            radio_manager = $78,
+            radio_comment = $79,
+
+            tv_active = $80,
+            tv_budget = $81,
+            tv_start = $82,
+            tv_end = $83,
+            tv_manager = $84,
+            tv_comment = $85,
+
+            print_active = $86,
+            print_budget = $87,
+            print_start = $88,
+            print_end = $89,
+            print_manager = $90,
+            print_comment = $91,
+
+            updatedat = $92
+
+          WHERE id = $93
 
           RETURNING *
         `,
           [
             ad.title || "",
-
             ad.status || "",
-
             ad.price || "",
-
             ad.color || "",
-
             ad.type || "",
 
             ad.vat || "",
-
             ad.contactPerson || "",
-
             ad.email || "",
-
             ad.phone || "",
-
             ad.website || "",
-
             ad.facebook || "",
-
             ad.instagram || "",
-
             ad.linkedin || "",
-
             ad.tiktok || "",
 
             ad.premiumPlacement || "",
-
             ad.seller || "",
-
             ad.pipeline || "",
-
             ad.deadline || "",
-
             ad.qrurl || "",
 
             ad.country || "",
-
             ad.region || "",
-
             ad.province || "",
-
             ad.municipality || "",
-
             ad.city || "",
-
             ad.zipcode || "",
-
             ad.address || "",
-
             ad.area || "",
-
             ad.industry || "",
-
             ad.subindustry || "",
-
             ad.languages || "",
-
             ad.timezone || "",
+
+            ad.googleads_active || "",
+            ad.googleads_budget || "",
+            ad.googleads_start || "",
+            ad.googleads_end || "",
+            ad.googleads_manager || "",
+            ad.googleads_comment || "",
+
+            ad.seo_active || "",
+            ad.seo_budget || "",
+            ad.seo_start || "",
+            ad.seo_end || "",
+            ad.seo_manager || "",
+            ad.seo_comment || "",
+
+            ad.emailmarketing_active || "",
+            ad.emailmarketing_budget || "",
+            ad.emailmarketing_start || "",
+            ad.emailmarketing_end || "",
+            ad.emailmarketing_manager || "",
+            ad.emailmarketing_comment || "",
+
+            ad.affiliate_active || "",
+            ad.affiliate_budget || "",
+            ad.affiliate_start || "",
+            ad.affiliate_end || "",
+            ad.affiliate_manager || "",
+            ad.affiliate_comment || "",
+
+            ad.metaads_active || "",
+            ad.metaads_budget || "",
+            ad.metaads_start || "",
+            ad.metaads_end || "",
+            ad.metaads_manager || "",
+            ad.metaads_comment || "",
+
+            ad.tiktokads_active || "",
+            ad.tiktokads_budget || "",
+            ad.tiktokads_start || "",
+            ad.tiktokads_end || "",
+            ad.tiktokads_manager || "",
+            ad.tiktokads_comment || "",
+
+            ad.linkedin_active || "",
+            ad.linkedin_budget || "",
+            ad.linkedin_start || "",
+            ad.linkedin_end || "",
+            ad.linkedin_manager || "",
+            ad.linkedin_comment || "",
+
+            ad.radio_active || "",
+            ad.radio_budget || "",
+            ad.radio_start || "",
+            ad.radio_end || "",
+            ad.radio_manager || "",
+            ad.radio_comment || "",
+
+            ad.tv_active || "",
+            ad.tv_budget || "",
+            ad.tv_start || "",
+            ad.tv_end || "",
+            ad.tv_manager || "",
+            ad.tv_comment || "",
+
+            ad.print_active || "",
+            ad.print_budget || "",
+            ad.print_start || "",
+            ad.print_end || "",
+            ad.print_manager || "",
+            ad.print_comment || "",
 
             new Date().toISOString(),
 
             ad.id,
           ]
         );
-
-      console.log(
-        "UPDATED:",
-        result.rows
-      );
 
       return res.status(200).json({
         success: true,
@@ -163,145 +271,8 @@ export default async function handler(
       });
     }
 
-    // CREATE fallback
-
-    const result =
-      await pool.query(
-        `
-        INSERT INTO ads (
-          page,
-          title,
-          status,
-          price,
-          color,
-          type,
-
-          vat,
-          contactperson,
-          email,
-          phone,
-          website,
-          facebook,
-          instagram,
-          linkedin,
-          tiktok,
-
-          premiumplacement,
-          seller,
-          pipeline,
-          deadline,
-          qrurl,
-
-          country,
-          region,
-          province,
-          municipality,
-          city,
-          zipcode,
-          address,
-          area,
-          industry,
-          subindustry,
-          languages,
-          timezone,
-
-          clientid,
-          createdat,
-          updatedat
-        )
-
-        VALUES (
-          $1,$2,$3,$4,$5,
-          $6,$7,$8,$9,$10,
-          $11,$12,$13,$14,$15,
-          $16,$17,$18,$19,$20,
-          $21,$22,$23,$24,$25,
-          $26,$27,$28,$29,$30,
-          $31,$32,$33,$34,$35
-        )
-
-        RETURNING *
-      `,
-        [
-          ad.page,
-
-          ad.title || "",
-
-          ad.status || "",
-
-          ad.price || "",
-
-          ad.color || "",
-
-          ad.type || "",
-
-          ad.vat || "",
-
-          ad.contactPerson || "",
-
-          ad.email || "",
-
-          ad.phone || "",
-
-          ad.website || "",
-
-          ad.facebook || "",
-
-          ad.instagram || "",
-
-          ad.linkedin || "",
-
-          ad.tiktok || "",
-
-          ad.premiumPlacement || "",
-
-          ad.seller || "",
-
-          ad.pipeline || "",
-
-          ad.deadline || "",
-
-          ad.qrurl || "",
-
-          ad.country || "",
-
-          ad.region || "",
-
-          ad.province || "",
-
-          ad.municipality || "",
-
-          ad.city || "",
-
-          ad.zipcode || "",
-
-          ad.address || "",
-
-          ad.area || "",
-
-          ad.industry || "",
-
-          ad.subindustry || "",
-
-          ad.languages || "",
-
-          ad.timezone || "",
-
-          ad.clientId || 1,
-
-          new Date().toISOString(),
-
-          new Date().toISOString(),
-        ]
-      );
-
     return res.status(200).json({
       success: true,
-
-      mode: "created",
-
-      ad:
-        result.rows[0],
     });
 
   } catch (error) {
