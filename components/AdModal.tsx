@@ -89,6 +89,11 @@ export default function AdModal({
         ad.contactperson ||
         ad.contactPerson ||
         "",
+
+      premiumPlacement:
+        ad.premiumplacement ||
+        ad.premiumPlacement ||
+        "Nej",
     });
 
   const [saving, setSaving] =
@@ -103,6 +108,11 @@ export default function AdModal({
         ad.contactperson ||
         ad.contactPerson ||
         "",
+
+      premiumPlacement:
+        ad.premiumplacement ||
+        ad.premiumPlacement ||
+        "Nej",
     });
 
   }, [ad]);
@@ -123,6 +133,16 @@ export default function AdModal({
 
       setSaving(true);
 
+      const payload = {
+        ...editedAd,
+
+        contactperson:
+          editedAd.contactPerson,
+
+        premiumplacement:
+          editedAd.premiumPlacement,
+      };
+
       const response =
         await fetch(
           "/api/save-ad",
@@ -135,7 +155,7 @@ export default function AdModal({
             },
 
             body: JSON.stringify(
-              editedAd
+              payload
             ),
           }
         );
@@ -143,10 +163,26 @@ export default function AdModal({
       const data =
         await response.json();
 
+      console.log(
+        "SAVE RESPONSE:",
+        data
+      );
+
+      if (
+        !data.success
+      ) {
+
+        alert(
+          "Fejl ved gem"
+        );
+
+        return;
+      }
+
       if (onSaved) {
 
         onSaved(
-          data.ad
+          payload
         );
       }
 
@@ -155,7 +191,9 @@ export default function AdModal({
         await refreshAds();
       }
 
-      onClose();
+      alert(
+        "Gemt"
+      );
 
     } catch (error) {
 
