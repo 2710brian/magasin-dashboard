@@ -68,8 +68,10 @@ export default function CRMView() {
         const text = `
           ${ad.title || ""}
           ${ad.email || ""}
-          ${ad.phone || ""}
           ${ad.website || ""}
+          ${ad.phone || ""}
+          ${ad.city || ""}
+          ${ad.country || ""}
         `.toLowerCase();
 
         return text.includes(
@@ -100,18 +102,23 @@ export default function CRMView() {
       >
         <div>
 
-          <h1>
+          <h1
+            style={{
+              marginBottom:
+                "8px",
+            }}
+          >
             CRM
           </h1>
 
-          <p
+          <div
             style={{
               color:
                 "#777",
             }}
           >
             Kundedatabase
-          </p>
+          </div>
 
         </div>
 
@@ -147,20 +154,64 @@ export default function CRMView() {
         />
       </div>
 
-      {/* GRID */}
+      {/* TABLE */}
 
       <div
         style={{
-          display:
-            "grid",
+          background:
+            "#181818",
 
-          gridTemplateColumns:
-            "repeat(3, 1fr)",
+          border:
+            "1px solid #2a2a2a",
 
-          gap:
-            "20px",
+          borderRadius:
+            "16px",
+
+          overflow:
+            "hidden",
         }}
       >
+
+        {/* HEADER */}
+
+        <div
+          style={{
+            display:
+              "grid",
+
+            gridTemplateColumns:
+              "80px 2fr 1.5fr 1fr 1fr 1fr 1fr",
+
+            background:
+              "#202020",
+
+            padding:
+              "16px",
+
+            fontWeight:
+              "bold",
+
+            borderBottom:
+              "1px solid #2d2d2d",
+          }}
+        >
+          <div>ID</div>
+
+          <div>Virksomhed</div>
+
+          <div>Website</div>
+
+          <div>Land</div>
+
+          <div>Status</div>
+
+          <div>Affiliate</div>
+
+          <div>Pipeline</div>
+        </div>
+
+        {/* ROWS */}
+
         {filteredAds.map(
           (ad) => (
 
@@ -174,104 +225,98 @@ export default function CRMView() {
               }
 
               style={{
-                background:
-                  "#1f1f1f",
+                display:
+                  "grid",
 
-                border:
-                  "1px solid #333",
-
-                borderRadius:
-                  "16px",
+                gridTemplateColumns:
+                  "80px 2fr 1.5fr 1fr 1fr 1fr 1fr",
 
                 padding:
-                  "24px",
+                  "18px 16px",
+
+                borderBottom:
+                  "1px solid #252525",
 
                 cursor:
                   "pointer",
+
+                alignItems:
+                  "center",
+
+                transition:
+                  "0.2s",
+              }}
+
+              onMouseEnter={(
+                e
+              ) => {
+
+                (
+                  e.currentTarget
+                    .style
+                ).background =
+                  "#202020";
+              }}
+
+              onMouseLeave={(
+                e
+              ) => {
+
+                (
+                  e.currentTarget
+                    .style
+                ).background =
+                  "transparent";
               }}
             >
+              <div>
+                {ad.id}
+              </div>
+
               <div
                 style={{
-                  fontSize:
-                    "24px",
-
                   fontWeight:
-                    "bold",
-
-                  marginBottom:
-                    "10px",
+                    600,
                 }}
               >
-                {ad.title}
+                {ad.title ||
+                  "-"}
               </div>
 
               <div
                 style={{
                   color:
                     "#888",
-
-                  marginBottom:
-                    "10px",
                 }}
               >
-                {ad.email}
+                {ad.website ||
+                  "-"}
               </div>
 
-              <div
-                style={{
-                  color:
-                    "#888",
-
-                  marginBottom:
-                    "10px",
-                }}
-              >
-                {ad.phone}
+              <div>
+                {ad.country ||
+                  "-"}
               </div>
 
-              <div
-                style={{
-                  color:
-                    "#888",
-
-                  marginBottom:
-                    "16px",
-                }}
-              >
-                {ad.website}
+              <div>
+                <Badge>
+                  {ad.status ||
+                    "-"}
+                </Badge>
               </div>
 
-              <div
-                style={{
-                  display:
-                    "flex",
+              <div>
+                <Badge>
+                  {ad.affiliate_status ||
+                    "-"}
+                </Badge>
+              </div>
 
-                  gap:
-                    "10px",
-
-                  flexWrap:
-                    "wrap",
-                }}
-              >
-                {ad.affiliate_status && (
-                  <Badge>
-                    {
-                      ad.affiliate_status
-                    }
-                  </Badge>
-                )}
-
-                {ad.pipeline && (
-                  <Badge>
-                    {ad.pipeline}
-                  </Badge>
-                )}
-
-                {ad.country && (
-                  <Badge>
-                    {ad.country}
-                  </Badge>
-                )}
+              <div>
+                <Badge>
+                  {ad.pipeline ||
+                    "-"}
+                </Badge>
               </div>
             </div>
           )
@@ -284,12 +329,6 @@ export default function CRMView() {
 
         <AdModal
           ad={selectedAd}
-
-          onClose={() =>
-            setSelectedAd(
-              null
-            )
-          }
 
           refreshAds={
             loadAds
@@ -325,6 +364,12 @@ export default function CRMView() {
               updatedAd
             );
           }}
+
+          onClose={() =>
+            setSelectedAd(
+              null
+            )
+          }
         />
       )}
     </div>
@@ -338,8 +383,20 @@ function Badge({
   return (
     <div
       style={{
+        display:
+          "inline-flex",
+
+        alignItems:
+          "center",
+
+        justifyContent:
+          "center",
+
         background:
-          "#333",
+          "#2d2d2d",
+
+        color:
+          "#ddd",
 
         padding:
           "8px 12px",
@@ -350,8 +407,8 @@ function Badge({
         fontSize:
           "13px",
 
-        color:
-          "#ddd",
+        minWidth:
+          "90px",
       }}
     >
       {children}
