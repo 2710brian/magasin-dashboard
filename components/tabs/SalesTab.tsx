@@ -71,27 +71,5 @@ export default function SalesTab({
           }
 
           onChange={(e) =>
-            setAd(
-              (
-                prev: any
-              ) => ({
-                ...prev,
-
-                type:
-                  e.target
-                    .value,
-              })
-            )
-          }
-
-          style={
-            compactInputStyle
-          }
-        />
-      </Field>
-
-      <Field label="Pris">
-        <input
-          value={
-            ad.price || ""
+           
          
