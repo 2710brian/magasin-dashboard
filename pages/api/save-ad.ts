@@ -150,9 +150,24 @@ const allowedFields = [
   "affiliate_traffic",
   "affiliate_feed",
 
-  "affiliate_networks",
-  "affiliate_countries",
-];
+"affiliate_networks",
+"affiliate_countries",
+
+// PRODUCTION
+
+"production_materialreceived",
+"production_proofsent",
+"production_approved",
+"production_readyforprint",
+
+"production_status",
+"production_manager",
+
+"production_deadline",
+"production_printdate",
+"production_distributiondate",
+
+"production_comment",
 
 export default async function handler(
   req: NextApiRequest,
