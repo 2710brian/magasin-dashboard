@@ -7,6 +7,7 @@ import MaterialsTab from "./tabs/MaterialsTab";
 import NotesTab from "./tabs/NotesTab";
 import ProductionTab from "./tabs/ProductionTab";
 import MarketingTab from "./tabs/MarketingTab";
+import AffiliateTab from "./tabs/AffiliateTab";
 
 type AdModalProps = {
   ad: any;
@@ -45,6 +46,11 @@ const tabs = [
     component: MarketingTab,
   },
 
+  {
+  id: "affiliate",
+  label: "Affiliate",
+  component: AffiliateTab,
+  },
   {
     id: "materials",
     label: "Materialer",
