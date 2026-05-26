@@ -7,10 +7,13 @@ import {
 
 type ProductionTabProps = {
   ad: any;
+
+  setAd: any;
 };
 
 export default function ProductionTab({
   ad,
+  setAd,
 }: ProductionTabProps) {
 
   return (
@@ -21,6 +24,25 @@ export default function ProductionTab({
     >
       <Field label="Materiale modtaget">
         <select
+          value={
+            ad.production_materialreceived ||
+            "Nej"
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                production_materialreceived:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={
             compactInputStyle
           }
@@ -37,6 +59,25 @@ export default function ProductionTab({
 
       <Field label="Korrektur sendt">
         <select
+          value={
+            ad.production_proofsent ||
+            "Nej"
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                production_proofsent:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={
             compactInputStyle
           }
@@ -53,6 +94,25 @@ export default function ProductionTab({
 
       <Field label="Godkendt af kunde">
         <select
+          value={
+            ad.production_approved ||
+            "Nej"
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                production_approved:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={
             compactInputStyle
           }
@@ -69,6 +129,25 @@ export default function ProductionTab({
 
       <Field label="Klar til print">
         <select
+          value={
+            ad.production_readyforprint ||
+            "Nej"
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                production_readyforprint:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={
             compactInputStyle
           }
@@ -85,6 +164,25 @@ export default function ProductionTab({
 
       <Field label="Produktionsstatus">
         <select
+          value={
+            ad.production_status ||
+            "Afventer"
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                production_status:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={
             compactInputStyle
           }
@@ -109,6 +207,25 @@ export default function ProductionTab({
 
       <Field label="Ansvarlig">
         <select
+          value={
+            ad.production_manager ||
+            ""
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                production_manager:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={
             compactInputStyle
           }
@@ -131,6 +248,25 @@ export default function ProductionTab({
         <input
           type="date"
 
+          value={
+            ad.production_deadline ||
+            ""
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                production_deadline:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={
             compactInputStyle
           }
@@ -140,6 +276,25 @@ export default function ProductionTab({
       <Field label="Print dato">
         <input
           type="date"
+
+          value={
+            ad.production_printdate ||
+            ""
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                production_printdate:
+                  e.target
+                    .value,
+              })
+            )
+          }
 
           style={
             compactInputStyle
@@ -151,6 +306,25 @@ export default function ProductionTab({
         <input
           type="date"
 
+          value={
+            ad.production_distributiondate ||
+            ""
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                production_distributiondate:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={
             compactInputStyle
           }
@@ -159,6 +333,25 @@ export default function ProductionTab({
 
       <Field label="Intern kommentar">
         <textarea
+          value={
+            ad.production_comment ||
+            ""
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                production_comment:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           style={{
             ...compactTextareaStyle,
 
