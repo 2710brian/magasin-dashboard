@@ -1,9 +1,12 @@
 type NotesTabProps = {
   ad: any;
+
+  setAd: any;
 };
 
 export default function NotesTab({
   ad,
+  setAd,
 }: NotesTabProps) {
   return (
     <div
@@ -33,7 +36,27 @@ export default function NotesTab({
         </div>
 
         <textarea
+          value={
+            ad.internalnotes ||
+            ""
+          }
+
+          onChange={(e) =>
+            setAd(
+              (
+                prev: any
+              ) => ({
+                ...prev,
+
+                internalnotes:
+                  e.target
+                    .value,
+              })
+            )
+          }
+
           placeholder="Skriv interne noter, artikel-idéer, kundebeskeder, korrektur-info osv..."
+
           style={{
             width: "100%",
 
