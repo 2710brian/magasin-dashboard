@@ -1,3 +1,9 @@
+import {
+  compactGridStyle,
+  compactInputStyle,
+  compactLabelStyle,
+} from "../styles/compactStyles";
+
 type GeographyTabProps = {
   ad: any;
 
@@ -8,16 +14,12 @@ export default function GeographyTab({
   ad,
   setAd,
 }: GeographyTabProps) {
+
   return (
     <div
-      style={{
-        display: "grid",
-
-        gridTemplateColumns:
-          "1fr 1fr",
-
-        gap: "24px",
-      }}
+      style={
+        compactGridStyle
+      }
     >
       <Field label="Land">
         <select
@@ -40,7 +42,9 @@ export default function GeographyTab({
             )
           }
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         >
           <option>
             Spanien
@@ -86,7 +90,9 @@ export default function GeographyTab({
 
           placeholder="Andalusia"
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -112,7 +118,9 @@ export default function GeographyTab({
 
           placeholder="Málaga"
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -139,7 +147,9 @@ export default function GeographyTab({
 
           placeholder="Mijas"
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -165,7 +175,9 @@ export default function GeographyTab({
 
           placeholder="Fuengirola"
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -189,7 +201,9 @@ export default function GeographyTab({
             )
           }
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -213,7 +227,9 @@ export default function GeographyTab({
             )
           }
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -239,7 +255,9 @@ export default function GeographyTab({
 
           placeholder="Costa del Sol"
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -265,7 +283,9 @@ export default function GeographyTab({
 
           placeholder="Restaurant"
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -291,7 +311,9 @@ export default function GeographyTab({
 
           placeholder="Tapas"
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -317,7 +339,9 @@ export default function GeographyTab({
 
           placeholder="Dansk, Engelsk"
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -343,7 +367,9 @@ export default function GeographyTab({
 
           placeholder="Europe/Madrid"
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
     </div>
@@ -354,14 +380,13 @@ function Field({
   label,
   children,
 }: any) {
+
   return (
     <div>
       <div
-        style={{
-          marginBottom: "8px",
-
-          fontWeight: 600,
-        }}
+        style={
+          compactLabelStyle
+        }
       >
         {label}
       </div>
@@ -370,20 +395,3 @@ function Field({
     </div>
   );
 }
-
-const inputStyle = {
-  width: "100%",
-
-  background: "#f5f5f5",
-
-  border: "1px solid #dcdcdc",
-
-  color: "#111",
-
-  padding: "14px",
-
-  borderRadius: "10px",
-
-  boxSizing:
-    "border-box" as const,
-};
