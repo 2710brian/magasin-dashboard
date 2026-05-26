@@ -1,5 +1,7 @@
 type MarketingTabProps = {
   ad: any;
+
+  setAd: any;
 };
 
 const marketingChannels = [
@@ -17,7 +19,19 @@ const marketingChannels = [
 
 export default function MarketingTab({
   ad,
+  setAd,
 }: MarketingTabProps) {
+
+  function fieldKey(
+    channel: string,
+    field: string
+  ) {
+
+    return `${channel
+      .toLowerCase()
+      .replace(/\s/g, "")}_${field}`;
+  }
+
   return (
     <div
       style={{
@@ -33,112 +47,295 @@ export default function MarketingTab({
         (
           channel,
           index
-        ) => (
-          <div
-            key={index}
-            style={{
-              border:
-                "1px solid #ddd",
+        ) => {
 
-              borderRadius:
-                "14px",
+          const activeKey =
+            fieldKey(
+              channel,
+              "active"
+            );
 
-              padding:
-                "24px",
+          const budgetKey =
+            fieldKey(
+              channel,
+              "budget"
+            );
 
-              background:
-                "#fafafa",
-            }}
-          >
+          const startKey =
+            fieldKey(
+              channel,
+              "start"
+            );
+
+          const endKey =
+            fieldKey(
+              channel,
+              "end"
+            );
+
+          const managerKey =
+            fieldKey(
+              channel,
+              "manager"
+            );
+
+          const commentKey =
+            fieldKey(
+              channel,
+              "comment"
+            );
+
+          return (
             <div
+              key={index}
+
               style={{
-                fontSize:
-                  "20px",
+                border:
+                  "1px solid #ddd",
 
-                fontWeight:
-                  "bold",
+                borderRadius:
+                  "14px",
 
-                marginBottom:
-                  "20px",
+                padding:
+                  "24px",
+
+                background:
+                  "#fafafa",
               }}
             >
-              {channel}
+              <div
+                style={{
+                  fontSize:
+                    "20px",
+
+                  fontWeight:
+                    "bold",
+
+                  marginBottom:
+                    "20px",
+                }}
+              >
+                {channel}
+              </div>
+
+              <div
+                style={{
+                  display:
+                    "grid",
+
+                  gridTemplateColumns:
+                    "1fr 1fr",
+
+                  gap: "20px",
+                }}
+              >
+                <Field label="Aktiv">
+                  <select
+                    value={
+                      ad[
+                        activeKey
+                      ] || "Nej"
+                    }
+
+                    onChange={(
+                      e
+                    ) =>
+                      setAd(
+                        (
+                          prev: any
+                        ) => ({
+                          ...prev,
+
+                          [activeKey]:
+                            e
+                              .target
+                              .value,
+                        })
+                      )
+                    }
+
+                    style={
+                      inputStyle
+                    }
+                  >
+                    <option>
+                      Nej
+                    </option>
+
+                    <option>
+                      Ja
+                    </option>
+                  </select>
+                </Field>
+
+                <Field label="Budget">
+                  <input
+                    value={
+                      ad[
+                        budgetKey
+                      ] || ""
+                    }
+
+                    onChange={(
+                      e
+                    ) =>
+                      setAd(
+                        (
+                          prev: any
+                        ) => ({
+                          ...prev,
+
+                          [budgetKey]:
+                            e
+                              .target
+                              .value,
+                        })
+                      )
+                    }
+
+                    placeholder="2000€/md"
+
+                    style={
+                      inputStyle
+                    }
+                  />
+                </Field>
+
+                <Field label="Startdato">
+                  <input
+                    type="date"
+
+                    value={
+                      ad[
+                        startKey
+                      ] || ""
+                    }
+
+                    onChange={(
+                      e
+                    ) =>
+                      setAd(
+                        (
+                          prev: any
+                        ) => ({
+                          ...prev,
+
+                          [startKey]:
+                            e
+                              .target
+                              .value,
+                        })
+                      )
+                    }
+
+                    style={
+                      inputStyle
+                    }
+                  />
+                </Field>
+
+                <Field label="Udløbsdato">
+                  <input
+                    type="date"
+
+                    value={
+                      ad[
+                        endKey
+                      ] || ""
+                    }
+
+                    onChange={(
+                      e
+                    ) =>
+                      setAd(
+                        (
+                          prev: any
+                        ) => ({
+                          ...prev,
+
+                          [endKey]:
+                            e
+                              .target
+                              .value,
+                        })
+                      )
+                    }
+
+                    style={
+                      inputStyle
+                    }
+                  />
+                </Field>
+
+                <Field label="Ansvarlig">
+                  <input
+                    value={
+                      ad[
+                        managerKey
+                      ] || ""
+                    }
+
+                    onChange={(
+                      e
+                    ) =>
+                      setAd(
+                        (
+                          prev: any
+                        ) => ({
+                          ...prev,
+
+                          [managerKey]:
+                            e
+                              .target
+                              .value,
+                        })
+                      )
+                    }
+
+                    placeholder="Internt / Bureau"
+
+                    style={
+                      inputStyle
+                    }
+                  />
+                </Field>
+
+                <Field label="Kommentar">
+                  <input
+                    value={
+                      ad[
+                        commentKey
+                      ] || ""
+                    }
+
+                    onChange={(
+                      e
+                    ) =>
+                      setAd(
+                        (
+                          prev: any
+                        ) => ({
+                          ...prev,
+
+                          [commentKey]:
+                            e
+                              .target
+                              .value,
+                        })
+                      )
+                    }
+
+                    placeholder="Ekstra info"
+
+                    style={
+                      inputStyle
+                    }
+                  />
+                </Field>
+              </div>
             </div>
-
-            <div
-              style={{
-                display:
-                  "grid",
-
-                gridTemplateColumns:
-                  "1fr 1fr",
-
-                gap: "20px",
-              }}
-            >
-              <Field label="Aktiv">
-                <select
-                  style={
-                    inputStyle
-                  }
-                >
-                  <option>
-                    Nej
-                  </option>
-
-                  <option>
-                    Ja
-                  </option>
-                </select>
-              </Field>
-
-              <Field label="Budget">
-                <input
-                  placeholder="2000€/md"
-                  style={
-                    inputStyle
-                  }
-                />
-              </Field>
-
-              <Field label="Startdato">
-                <input
-                  type="date"
-                  style={
-                    inputStyle
-                  }
-                />
-              </Field>
-
-              <Field label="Udløbsdato">
-                <input
-                  type="date"
-                  style={
-                    inputStyle
-                  }
-                />
-              </Field>
-
-              <Field label="Ansvarlig">
-                <input
-                  placeholder="Internt / Bureau"
-                  style={
-                    inputStyle
-                  }
-                />
-              </Field>
-
-              <Field label="Kommentar">
-                <input
-                  placeholder="Ekstra info"
-                  style={
-                    inputStyle
-                  }
-                />
-              </Field>
-            </div>
-          </div>
-        )
+          );
+        }
       )}
     </div>
   );
