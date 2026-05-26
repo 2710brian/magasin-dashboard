@@ -47,10 +47,11 @@ const tabs = [
   },
 
   {
-  id: "affiliate",
-  label: "Affiliate",
-  component: AffiliateTab,
+    id: "affiliate",
+    label: "Affiliate",
+    component: AffiliateTab,
   },
+
   {
     id: "materials",
     label: "Materialer",
@@ -142,8 +143,6 @@ export default function AdModal({
       const data =
         await response.json();
 
-      console.log(data);
-
       if (onSaved) {
 
         onSaved(
@@ -155,10 +154,6 @@ export default function AdModal({
 
         await refreshAds();
       }
-
-      alert(
-        "Annonce gemt!"
-      );
 
       onClose();
 
@@ -184,7 +179,7 @@ export default function AdModal({
         inset: 0,
 
         background:
-          "rgba(0,0,0,0.7)",
+          "rgba(0,0,0,0.72)",
 
         display: "flex",
 
@@ -195,12 +190,12 @@ export default function AdModal({
 
         zIndex: 9999,
 
-        padding: "30px",
+        padding: "14px",
       }}
     >
       <div
         style={{
-          width: "1280px",
+          width: "1120px",
 
           maxHeight: "92vh",
 
@@ -208,12 +203,12 @@ export default function AdModal({
 
           background: "#fff",
 
-          borderRadius: "20px",
+          borderRadius: "14px",
 
-          padding: "34px",
+          padding: "18px",
 
           border:
-            "4px solid #111",
+            "2px solid #111",
 
           color: "#111",
         }}
@@ -228,72 +223,64 @@ export default function AdModal({
               "space-between",
 
             alignItems:
-              "flex-start",
+              "center",
 
-            marginBottom: "30px",
+            marginBottom: "8px",
           }}
         >
           <div>
 
             <div
               style={{
+                display: "flex",
+
+                gap: "12px",
+
+                flexWrap: "wrap",
+
                 color: "#777",
 
-                fontSize: "14px",
+                fontSize: "11px",
 
                 marginBottom:
-                  "8px",
+                  "6px",
               }}
             >
-              Client ID:
-              {" "}
-              {
-                editedAd.clientId ||
-                "1001"
-              }
-            </div>
+              <div>
+                Client ID:
+                {" "}
+                {
+                  editedAd.clientId ||
+                  "1001"
+                }
+              </div>
 
-            <div
-              style={{
-                color: "#777",
+              <div>
+                Annonce ID:
+                {" "}
+                {
+                  editedAd.adId ||
+                  "AD-2044"
+                }
+              </div>
 
-                fontSize: "14px",
-
-                marginBottom:
-                  "16px",
-              }}
-            >
-              Annonce ID:
-              {" "}
-              {
-                editedAd.adId ||
-                "AD-2044"
-              }
-            </div>
-
-            <div
-              style={{
-                color: "#777",
-
-                fontSize: "14px",
-
-                marginBottom:
-                  "16px",
-              }}
-            >
-              Oprettet:
-              {" "}
-              {
-                editedAd.createdAt ||
-                ""
-              }
+              <div>
+                Oprettet:
+                {" "}
+                {
+                  editedAd.createdAt ||
+                  ""
+                }
+              </div>
             </div>
 
             <h1
               style={{
-                fontSize: "48px",
+                fontSize: "22px",
 
                 margin: 0,
+
+                lineHeight: 1.1,
               }}
             >
               {
@@ -304,21 +291,25 @@ export default function AdModal({
 
           <div
             style={{
-              textAlign: "center",
+              display: "flex",
+
+              alignItems:
+                "center",
+
+              gap: "8px",
             }}
           >
             <div
               style={{
-                width: "120px",
+                width: "52px",
 
-                height:
-                  "120px",
+                height: "52px",
 
                 border:
-                  "2px dashed #ccc",
+                  "1px dashed #ccc",
 
                 borderRadius:
-                  "16px",
+                  "8px",
 
                 display: "flex",
 
@@ -328,14 +319,14 @@ export default function AdModal({
                 justifyContent:
                   "center",
 
-                marginBottom:
-                  "12px",
-
                 background:
                   "#fafafa",
 
                 overflow:
                   "hidden",
+
+                fontSize:
+                  "10px",
               }}
             >
               {editedAd.logo ? (
@@ -365,26 +356,29 @@ export default function AdModal({
                 background:
                   "#111",
 
-                color: "white",
-
-                border: "none",
+                color:
+                  "white",
 
                 padding:
-                  "12px 18px",
+                  "7px 10px",
 
                 borderRadius:
-                  "10px",
+                  "6px",
 
-                cursor: "pointer",
+                cursor:
+                  "pointer",
 
                 fontWeight:
                   600,
+
+                fontSize:
+                  "11px",
 
                 display:
                   "inline-block",
               }}
             >
-              Upload logo
+              Upload
 
               <input
                 type="file"
@@ -442,16 +436,16 @@ export default function AdModal({
           style={{
             display: "flex",
 
-            gap: "30px",
+            gap: "14px",
 
             borderBottom:
               "1px solid #ddd",
 
             paddingBottom:
-              "16px",
+              "8px",
 
             marginBottom:
-              "30px",
+              "14px",
 
             flexWrap: "wrap",
           }}
@@ -471,16 +465,19 @@ export default function AdModal({
                   "pointer",
 
                 fontWeight:
-                  700,
+                  600,
+
+                fontSize:
+                  "13px",
 
                 paddingBottom:
-                  "10px",
+                  "5px",
 
                 borderBottom:
                   activeTab ===
                   tab.id
-                    ? "3px solid black"
-                    : "3px solid transparent",
+                    ? "2px solid black"
+                    : "2px solid transparent",
               }}
             >
               {tab.label}
@@ -503,11 +500,14 @@ export default function AdModal({
 
         <div
           style={{
-            marginTop: "40px",
+            marginTop: "14px",
 
             display: "flex",
 
-            gap: "20px",
+            justifyContent:
+              "flex-end",
+
+            gap: "8px",
           }}
         >
           <button
@@ -520,28 +520,31 @@ export default function AdModal({
             }
 
             style={{
-              flex: 1,
+              width: "170px",
 
               background:
                 "#ff4d4d",
 
-              color: "white",
+              color:
+                "white",
 
-              border: "none",
+              border:
+                "none",
 
               padding:
-                "18px",
+                "10px",
 
               borderRadius:
-                "12px",
+                "7px",
 
               fontSize:
-                "16px",
+                "13px",
 
               fontWeight:
                 "bold",
 
-              cursor: "pointer",
+              cursor:
+                "pointer",
 
               opacity:
                 saving
@@ -551,12 +554,12 @@ export default function AdModal({
           >
             {saving
               ? "GEMMER..."
-              : "GEM ANNONCE"}
+              : "GEM"}
           </button>
 
           <button
             style={{
-              width: "220px",
+              width: "90px",
 
               background:
                 "#f1f1f1",
@@ -565,16 +568,19 @@ export default function AdModal({
                 "1px solid #ccc",
 
               padding:
-                "18px",
+                "10px",
 
               borderRadius:
-                "12px",
+                "7px",
 
               cursor:
                 "pointer",
 
               fontWeight:
-                700,
+                600,
+
+              fontSize:
+                "13px",
             }}
           >
             SLET
@@ -584,26 +590,31 @@ export default function AdModal({
             onClick={onClose}
 
             style={{
-              width: "180px",
+              width: "90px",
 
               background:
                 "#111",
 
-              color: "white",
+              color:
+                "white",
 
-              border: "none",
+              border:
+                "none",
 
               padding:
-                "18px",
+                "10px",
 
               borderRadius:
-                "12px",
+                "7px",
 
               cursor:
                 "pointer",
 
               fontWeight:
-                700,
+                600,
+
+              fontSize:
+                "13px",
             }}
           >
             LUK
