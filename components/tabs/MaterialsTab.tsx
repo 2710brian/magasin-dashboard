@@ -1,3 +1,8 @@
+import {
+  compactButtonStyle,
+  compactCardStyle,
+} from "../styles/compactStyles";
+
 type MaterialsTabProps = {
   ad: any;
 };
@@ -5,6 +10,7 @@ type MaterialsTabProps = {
 export default function MaterialsTab({
   ad,
 }: MaterialsTabProps) {
+
   return (
     <div
       style={{
@@ -13,7 +19,7 @@ export default function MaterialsTab({
         gridTemplateColumns:
           "1fr 1fr",
 
-        gap: "24px",
+        gap: "12px",
       }}
     >
       <UploadBox
@@ -46,29 +52,29 @@ export default function MaterialsTab({
 function UploadBox({
   title,
 }: any) {
+
   return (
     <div
       style={{
+        ...compactCardStyle,
+
         border:
-          "2px dashed #ccc",
+          "1px dashed #ccc",
 
-        borderRadius:
-          "14px",
-
-        padding: "30px",
-
-        background:
-          "#fafafa",
-
-        textAlign: "center",
+        textAlign:
+          "center",
       }}
     >
       <div
         style={{
-          fontWeight: "bold",
+          fontWeight:
+            "bold",
 
           marginBottom:
-            "16px",
+            "10px",
+
+          fontSize:
+            "13px",
         }}
       >
         {title}
@@ -78,13 +84,13 @@ function UploadBox({
         style={{
           width: "100%",
 
-          height: "140px",
+          height: "70px",
 
           background:
             "#f1f1f1",
 
           borderRadius:
-            "10px",
+            "8px",
 
           display: "flex",
 
@@ -95,31 +101,22 @@ function UploadBox({
             "center",
 
           marginBottom:
-            "18px",
+            "10px",
 
-          color: "#777",
+          color:
+            "#777",
+
+          fontSize:
+            "12px",
         }}
       >
         Preview
       </div>
 
       <button
-        style={{
-          background:
-            "#111",
-
-          color: "white",
-
-          border: "none",
-
-          padding:
-            "12px 18px",
-
-          borderRadius:
-            "10px",
-
-          cursor: "pointer",
-        }}
+        style={
+          compactButtonStyle
+        }
       >
         Upload fil
       </button>
