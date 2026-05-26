@@ -168,6 +168,7 @@ const allowedFields = [
 "production_distributiondate",
 
 "production_comment",
+];
 
 export default async function handler(
   req: NextApiRequest,
