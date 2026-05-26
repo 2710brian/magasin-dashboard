@@ -29,8 +29,6 @@ export default async function handler(
       ad
     );
 
-    // UPDATE existing ad
-
     if (ad.id) {
 
       const result =
@@ -143,9 +141,11 @@ export default async function handler(
             print_manager = $90,
             print_comment = $91,
 
-            updatedat = $92
+            internalnotes = $92,
 
-          WHERE id = $93
+            updatedat = $93
+
+          WHERE id = $94
 
           RETURNING *
         `,
@@ -254,6 +254,8 @@ export default async function handler(
             ad.print_end || "",
             ad.print_manager || "",
             ad.print_comment || "",
+
+            ad.internalnotes || "",
 
             new Date().toISOString(),
 
