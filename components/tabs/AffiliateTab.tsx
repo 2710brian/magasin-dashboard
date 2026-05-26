@@ -1,5 +1,13 @@
 "use client";
 
+import {
+  compactCardStyle,
+  compactGridStyle,
+  compactInputStyle,
+  compactLabelStyle,
+  compactTextareaStyle,
+} from "../styles/compactStyles";
+
 type AffiliateTabProps = {
   ad: any;
 
@@ -138,7 +146,7 @@ export default function AffiliateTab({
         flexDirection:
           "column",
 
-        gap: "32px",
+        gap: "12px",
       }}
     >
       {/* WEBSHOPS */}
@@ -171,10 +179,10 @@ export default function AffiliateTab({
             placeholder="Én webshop pr linje"
 
             style={{
-              ...inputStyle,
+              ...compactTextareaStyle,
 
               minHeight:
-                "120px",
+                "90px",
             }}
           />
         </Field>
@@ -212,7 +220,7 @@ export default function AffiliateTab({
               }
 
               style={
-                inputStyle
+                compactInputStyle
               }
             >
               <option value="">
@@ -260,7 +268,7 @@ export default function AffiliateTab({
               }
 
               style={
-                inputStyle
+                compactInputStyle
               }
             >
               <option value="">
@@ -308,7 +316,7 @@ export default function AffiliateTab({
               }
 
               style={
-                inputStyle
+                compactInputStyle
               }
             />
           </Field>
@@ -340,39 +348,7 @@ export default function AffiliateTab({
               }
 
               style={
-                inputStyle
-              }
-            />
-          </Field>
-
-          <Field label="Kontakt dato">
-            <input
-              type="date"
-
-              value={
-                ad.affiliate_contactdate ||
-                ""
-              }
-
-              onChange={(
-                e
-              ) =>
-                setAd(
-                  (
-                    prev: any
-                  ) => ({
-                    ...prev,
-
-                    affiliate_contactdate:
-                      e
-                        .target
-                        .value,
-                  })
-                )
-              }
-
-              style={
-                inputStyle
+                compactInputStyle
               }
             />
           </Field>
@@ -412,7 +388,7 @@ export default function AffiliateTab({
               }
 
               style={
-                inputStyle
+                compactInputStyle
               }
             />
           </Field>
@@ -442,7 +418,7 @@ export default function AffiliateTab({
               }
 
               style={
-                inputStyle
+                compactInputStyle
               }
             />
           </Field>
@@ -472,7 +448,7 @@ export default function AffiliateTab({
               }
 
               style={
-                inputStyle
+                compactInputStyle
               }
             />
           </Field>
@@ -514,7 +490,7 @@ export default function AffiliateTab({
               }
 
               style={
-                inputStyle
+                compactInputStyle
               }
             />
           </Field>
@@ -544,7 +520,7 @@ export default function AffiliateTab({
               }
 
               style={
-                inputStyle
+                compactInputStyle
               }
             />
           </Field>
@@ -574,7 +550,7 @@ export default function AffiliateTab({
               }
 
               style={
-                inputStyle
+                compactInputStyle
               }
             />
           </Field>
@@ -604,37 +580,7 @@ export default function AffiliateTab({
               }
 
               style={
-                inputStyle
-              }
-            />
-          </Field>
-
-          <Field label="Lead/Fast">
-            <input
-              value={
-                ad.affiliate_leadprice ||
-                ""
-              }
-
-              onChange={(
-                e
-              ) =>
-                setAd(
-                  (
-                    prev: any
-                  ) => ({
-                    ...prev,
-
-                    affiliate_leadprice:
-                      e
-                        .target
-                        .value,
-                  })
-                )
-              }
-
-              style={
-                inputStyle
+                compactInputStyle
               }
             />
           </Field>
@@ -674,7 +620,7 @@ export default function AffiliateTab({
               }
 
               style={
-                inputStyle
+                compactInputStyle
               }
             >
               <option value="">
@@ -722,7 +668,7 @@ export default function AffiliateTab({
               }
 
               style={
-                inputStyle
+                compactInputStyle
               }
             >
               <option value="">
@@ -747,12 +693,10 @@ export default function AffiliateTab({
 
         </Grid>
 
-        {/* NETWORKS */}
-
         <div
           style={{
             marginTop:
-              "24px",
+              "14px",
           }}
         >
           <Label>
@@ -789,12 +733,10 @@ export default function AffiliateTab({
           </MultiWrap>
         </div>
 
-        {/* COUNTRIES */}
-
         <div
           style={{
             marginTop:
-              "24px",
+              "14px",
           }}
         >
           <Label>
@@ -843,30 +785,20 @@ function Section({
 
   return (
     <div
-      style={{
-        border:
-          "1px solid #ddd",
-
-        borderRadius:
-          "16px",
-
-        padding:
-          "24px",
-
-        background:
-          "#fafafa",
-      }}
+      style={
+        compactCardStyle
+      }
     >
       <div
         style={{
           fontSize:
-            "20px",
+            "14px",
 
           fontWeight:
             "bold",
 
           marginBottom:
-            "24px",
+            "10px",
         }}
       >
         {title}
@@ -883,16 +815,9 @@ function Grid({
 
   return (
     <div
-      style={{
-        display:
-          "grid",
-
-        gridTemplateColumns:
-          "1fr 1fr",
-
-        gap:
-          "24px",
-      }}
+      style={
+        compactGridStyle
+      }
     >
       {children}
     </div>
@@ -921,13 +846,9 @@ function Label({
 
   return (
     <div
-      style={{
-        marginBottom:
-          "8px",
-
-        fontWeight:
-          600,
-      }}
+      style={
+        compactLabelStyle
+      }
     >
       {children}
     </div>
@@ -948,7 +869,7 @@ function MultiWrap({
           "wrap",
 
         gap:
-          "12px",
+          "8px",
       }}
     >
       {children}
@@ -968,7 +889,7 @@ function MultiItem({
 
       style={{
         padding:
-          "10px 14px",
+          "7px 10px",
 
         borderRadius:
           "999px",
@@ -987,32 +908,13 @@ function MultiItem({
             : "#111",
 
         fontSize:
-          "14px",
+          "12px",
+
+        fontWeight:
+          600,
       }}
     >
       {children}
     </div>
   );
 }
-
-const inputStyle = {
-  width: "100%",
-
-  background:
-    "#f5f5f5",
-
-  border:
-    "1px solid #dcdcdc",
-
-  color:
-    "#111",
-
-  padding:
-    "14px",
-
-  borderRadius:
-    "10px",
-
-  boxSizing:
-    "border-box" as const,
-};
