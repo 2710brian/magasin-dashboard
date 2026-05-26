@@ -1,3 +1,9 @@
+import {
+  compactGridStyle,
+  compactInputStyle,
+  compactLabelStyle,
+} from "../styles/compactStyles";
+
 type ContactTabProps = {
   ad: any;
 
@@ -8,16 +14,12 @@ export default function ContactTab({
   ad,
   setAd,
 }: ContactTabProps) {
+
   return (
     <div
-      style={{
-        display: "grid",
-
-        gridTemplateColumns:
-          "1fr 1fr",
-
-        gap: "24px",
-      }}
+      style={
+        compactGridStyle
+      }
     >
       <Field label="Virksomhed">
         <input
@@ -39,7 +41,9 @@ export default function ContactTab({
             )
           }
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -63,7 +67,9 @@ export default function ContactTab({
             )
           }
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -88,7 +94,9 @@ export default function ContactTab({
             )
           }
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -112,7 +120,9 @@ export default function ContactTab({
             )
           }
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -136,7 +146,9 @@ export default function ContactTab({
             )
           }
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -160,7 +172,9 @@ export default function ContactTab({
             )
           }
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -185,7 +199,9 @@ export default function ContactTab({
             )
           }
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -210,7 +226,9 @@ export default function ContactTab({
             )
           }
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -235,7 +253,9 @@ export default function ContactTab({
             )
           }
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
@@ -259,7 +279,9 @@ export default function ContactTab({
             )
           }
 
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         />
       </Field>
     </div>
@@ -270,14 +292,13 @@ function Field({
   label,
   children,
 }: any) {
+
   return (
     <div>
       <div
-        style={{
-          marginBottom: "8px",
-
-          fontWeight: 600,
-        }}
+        style={
+          compactLabelStyle
+        }
       >
         {label}
       </div>
@@ -286,20 +307,3 @@ function Field({
     </div>
   );
 }
-
-const inputStyle = {
-  width: "100%",
-
-  background: "#f5f5f5",
-
-  border: "1px solid #dcdcdc",
-
-  color: "#111",
-
-  padding: "14px",
-
-  borderRadius: "10px",
-
-  boxSizing:
-    "border-box" as const,
-};
