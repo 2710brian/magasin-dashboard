@@ -1,3 +1,10 @@
+import {
+  compactGridStyle,
+  compactInputStyle,
+  compactLabelStyle,
+  compactTextareaStyle,
+} from "../styles/compactStyles";
+
 type ProductionTabProps = {
   ad: any;
 };
@@ -5,20 +12,18 @@ type ProductionTabProps = {
 export default function ProductionTab({
   ad,
 }: ProductionTabProps) {
+
   return (
     <div
-      style={{
-        display: "grid",
-
-        gridTemplateColumns:
-          "1fr 1fr",
-
-        gap: "24px",
-      }}
+      style={
+        compactGridStyle
+      }
     >
       <Field label="Materiale modtaget">
         <select
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         >
           <option>
             Nej
@@ -32,7 +37,9 @@ export default function ProductionTab({
 
       <Field label="Korrektur sendt">
         <select
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         >
           <option>
             Nej
@@ -46,7 +53,9 @@ export default function ProductionTab({
 
       <Field label="Godkendt af kunde">
         <select
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         >
           <option>
             Nej
@@ -60,7 +69,9 @@ export default function ProductionTab({
 
       <Field label="Klar til print">
         <select
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         >
           <option>
             Nej
@@ -74,7 +85,9 @@ export default function ProductionTab({
 
       <Field label="Produktionsstatus">
         <select
-          style={inputStyle}
+          style={
+            compactInputStyle
+          }
         >
           <option>
             Afventer
@@ -95,42 +108,62 @@ export default function ProductionTab({
       </Field>
 
       <Field label="Ansvarlig">
-        <input
-          style={inputStyle}
-        />
+        <select
+          style={
+            compactInputStyle
+          }
+        >
+          <option>
+            Brian
+          </option>
+
+          <option>
+            Kenneth
+          </option>
+
+          <option>
+            Kristian
+          </option>
+        </select>
       </Field>
 
       <Field label="Deadline">
         <input
           type="date"
-          style={inputStyle}
+
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
       <Field label="Print dato">
         <input
           type="date"
-          style={inputStyle}
+
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
       <Field label="Distribueres">
         <input
           type="date"
-          style={inputStyle}
+
+          style={
+            compactInputStyle
+          }
         />
       </Field>
 
       <Field label="Intern kommentar">
         <textarea
           style={{
-            ...inputStyle,
+            ...compactTextareaStyle,
 
             minHeight:
-              "120px",
-
-            resize:
-              "vertical",
+              "90px",
           }}
         />
       </Field>
@@ -142,14 +175,13 @@ function Field({
   label,
   children,
 }: any) {
+
   return (
     <div>
       <div
-        style={{
-          marginBottom: "8px",
-
-          fontWeight: 600,
-        }}
+        style={
+          compactLabelStyle
+        }
       >
         {label}
       </div>
@@ -158,20 +190,3 @@ function Field({
     </div>
   );
 }
-
-const inputStyle = {
-  width: "100%",
-
-  background: "#f5f5f5",
-
-  border: "1px solid #dcdcdc",
-
-  color: "#111",
-
-  padding: "14px",
-
-  borderRadius: "10px",
-
-  boxSizing:
-    "border-box" as const,
-};
