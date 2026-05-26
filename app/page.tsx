@@ -1,179 +1,159 @@
-if (loggedIn) {
+"use client";
+
+import { useState } from "react";
+
+import MainDashboard from "../components/MainDashboard";
+
+export default function Home() {
+
+  const [
+    loggedIn,
+    setLoggedIn,
+  ] = useState(false);
+
+  if (loggedIn) {
+
+    return <MainDashboard />;
+  }
+
   return (
     <main
       style={{
-        background: "#0f0f0f",
+        background: "#111",
+
         color: "white",
+
         minHeight: "100vh",
+
         display: "flex",
-        fontFamily: "Arial",
+
+        justifyContent:
+          "center",
+
+        alignItems:
+          "center",
+
+        fontFamily:
+          "Arial",
       }}
     >
-      <Sidebar
-        regions={regions}
-        selectedKommune={
-          selectedKommune || ""
-        }
-        setSelectedKommune={
-          setSelectedKommune
-        }
-      />
-
       <div
         style={{
-          flex: 1,
-          padding: "30px",
-          overflowY: "auto",
+          background:
+            "#1c1c1c",
+
+          padding:
+            "40px",
+
+          borderRadius:
+            "12px",
+
+          width:
+            "350px",
         }}
       >
-        {!selectedKommune && (
-          <>
-            <h1
-              style={{
-                marginBottom: "30px",
-              }}
-            >
-              Aktive magasiner
-            </h1>
+        <h1
+          style={{
+            marginBottom:
+              "30px",
+          }}
+        >
+          Magasin Login
+        </h1>
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns:
-                  "repeat(4, 1fr)",
+        <input
+          type="email"
 
-                gap: "20px",
+          placeholder="Email"
 
-                marginBottom: "40px",
-              }}
-            >
-              <div
-                style={{
-                  background: "#1b1b1b",
-                  padding: "25px",
-                  borderRadius: "14px",
-                }}
-              >
-                <h3>Kommuner</h3>
+          style={{
+            width:
+              "100%",
 
-                <p
-                  style={{
-                    fontSize: "30px",
-                  }}
-                >
-                  {kommuner.length}
-                </p>
-              </div>
+            padding:
+              "12px",
 
-              <div
-                style={{
-                  background: "#1b1b1b",
-                  padding: "25px",
-                  borderRadius: "14px",
-                }}
-              >
-                <h3>Aktive</h3>
+            marginBottom:
+              "15px",
 
-                <p
-                  style={{
-                    fontSize: "30px",
-                  }}
-                >
-                  {
-                    aktiveKort.length
-                  }
-                </p>
-              </div>
+            borderRadius:
+              "8px",
 
-              <div
-                style={{
-                  background: "#1b1b1b",
-                  padding: "25px",
-                  borderRadius: "14px",
-                }}
-              >
-                <h3>Omsætning</h3>
+            border:
+              "none",
 
-                <p
-                  style={{
-                    fontSize: "30px",
-                  }}
-                >
-                  1.245.000 kr.
-                </p>
-              </div>
+            background:
+              "#333",
 
-              <div
-                style={{
-                  background: "#1b1b1b",
-                  padding: "25px",
-                  borderRadius: "14px",
-                }}
-              >
-                <h3>Premium sider</h3>
+            color:
+              "white",
+          }}
+        />
 
-                <p
-                  style={{
-                    fontSize: "30px",
-                  }}
-                >
-                  42
-                </p>
-              </div>
-            </div>
+        <input
+          type="password"
 
-            <h2
-              style={{
-                marginBottom: "20px",
-              }}
-            >
-              Kommuner i arbejde
-            </h2>
+          placeholder="Password"
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns:
-                  "repeat(3, 1fr)",
+          style={{
+            width:
+              "100%",
 
-                gap: "20px",
-              }}
-            >
-              {aktiveKort.map(
-                (kommune) => (
-                  <div
-                    key={
-                      kommune.navn
-                    }
-                    onClick={() =>
-                      setSelectedKommune(
-                        kommune.navn
-                      )
-                    }
-                    style={{
-                      cursor:
-                        "pointer",
-                    }}
-                  >
-                    <MagazineCard
-                      kommune={
-                        kommune
-                      }
-                    />
-                  </div>
-                )
-              )}
-            </div>
-          </>
-        )}
+            padding:
+              "12px",
 
-        {selectedKommune && (
-          <MagazineView
-            setSelectedKommune={
-              setSelectedKommune
-            }
-          />
-        )}
+            marginBottom:
+              "20px",
+
+            borderRadius:
+              "8px",
+
+            border:
+              "none",
+
+            background:
+              "#333",
+
+            color:
+              "white",
+          }}
+        />
+
+        <button
+          onClick={() =>
+            setLoggedIn(
+              true
+            )
+          }
+
+          style={{
+            width:
+              "100%",
+
+            padding:
+              "12px",
+
+            borderRadius:
+              "8px",
+
+            border:
+              "none",
+
+            background:
+              "#fff",
+
+            color:
+              "#111",
+
+            fontWeight:
+              "bold",
+
+            cursor:
+              "pointer",
+          }}
+        >
+          Login
+        </button>
       </div>
     </main>
   );
