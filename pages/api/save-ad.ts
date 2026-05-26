@@ -29,7 +29,7 @@ const allowedFields = [
 
   // SALES
 
-  "premiumplacement",
+  "premiumplacement", 
   "seller",
   "pipeline",
   "deadline",
