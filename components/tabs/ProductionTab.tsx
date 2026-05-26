@@ -37,8 +37,7 @@ export default function ProductionTab({
                 ...prev,
 
                 production_materialreceived:
-                  e.target
-                    .value,
+                  e.target.value,
               })
             )
           }
@@ -72,8 +71,7 @@ export default function ProductionTab({
                 ...prev,
 
                 production_proofsent:
-                  e.target
-                    .value,
+                  e.target.value,
               })
             )
           }
@@ -107,8 +105,7 @@ export default function ProductionTab({
                 ...prev,
 
                 production_approved:
-                  e.target
-                    .value,
+                  e.target.value,
               })
             )
           }
@@ -142,8 +139,7 @@ export default function ProductionTab({
                 ...prev,
 
                 production_readyforprint:
-                  e.target
-                    .value,
+                  e.target.value,
               })
             )
           }
@@ -177,8 +173,7 @@ export default function ProductionTab({
                 ...prev,
 
                 production_status:
-                  e.target
-                    .value,
+                  e.target.value,
               })
             )
           }
@@ -220,8 +215,7 @@ export default function ProductionTab({
                 ...prev,
 
                 production_manager:
-                  e.target
-                    .value,
+                  e.target.value,
               })
             )
           }
@@ -230,6 +224,10 @@ export default function ProductionTab({
             compactInputStyle
           }
         >
+          <option value="">
+            Vælg
+          </option>
+
           <option>
             Brian
           </option>
@@ -261,8 +259,7 @@ export default function ProductionTab({
                 ...prev,
 
                 production_deadline:
-                  e.target
-                    .value,
+                  e.target.value,
               })
             )
           }
@@ -290,8 +287,7 @@ export default function ProductionTab({
                 ...prev,
 
                 production_printdate:
-                  e.target
-                    .value,
+                  e.target.value,
               })
             )
           }
@@ -319,8 +315,7 @@ export default function ProductionTab({
                 ...prev,
 
                 production_distributiondate:
-                  e.target
-                    .value,
+                  e.target.value,
               })
             )
           }
@@ -346,8 +341,7 @@ export default function ProductionTab({
                 ...prev,
 
                 production_comment:
-                  e.target
-                    .value,
+                  e.target.value,
               })
             )
           }
