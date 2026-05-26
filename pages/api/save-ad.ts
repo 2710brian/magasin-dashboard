@@ -60,9 +60,22 @@ export default async function handler(
             deadline = $18,
             qrurl = $19,
 
-            updatedat = $20
+            country = $20,
+            region = $21,
+            province = $22,
+            municipality = $23,
+            city = $24,
+            zipcode = $25,
+            address = $26,
+            area = $27,
+            industry = $28,
+            subindustry = $29,
+            languages = $30,
+            timezone = $31,
 
-          WHERE id = $21
+            updatedat = $32
+
+          WHERE id = $33
 
           RETURNING *
         `,
@@ -104,6 +117,30 @@ export default async function handler(
             ad.deadline || "",
 
             ad.qrurl || "",
+
+            ad.country || "",
+
+            ad.region || "",
+
+            ad.province || "",
+
+            ad.municipality || "",
+
+            ad.city || "",
+
+            ad.zipcode || "",
+
+            ad.address || "",
+
+            ad.area || "",
+
+            ad.industry || "",
+
+            ad.subindustry || "",
+
+            ad.languages || "",
+
+            ad.timezone || "",
 
             new Date().toISOString(),
 
@@ -155,6 +192,19 @@ export default async function handler(
           deadline,
           qrurl,
 
+          country,
+          region,
+          province,
+          municipality,
+          city,
+          zipcode,
+          address,
+          area,
+          industry,
+          subindustry,
+          languages,
+          timezone,
+
           clientid,
           createdat,
           updatedat
@@ -165,7 +215,9 @@ export default async function handler(
           $6,$7,$8,$9,$10,
           $11,$12,$13,$14,$15,
           $16,$17,$18,$19,$20,
-          $21,$22,$23
+          $21,$22,$23,$24,$25,
+          $26,$27,$28,$29,$30,
+          $31,$32,$33,$34,$35
         )
 
         RETURNING *
@@ -210,6 +262,30 @@ export default async function handler(
           ad.deadline || "",
 
           ad.qrurl || "",
+
+          ad.country || "",
+
+          ad.region || "",
+
+          ad.province || "",
+
+          ad.municipality || "",
+
+          ad.city || "",
+
+          ad.zipcode || "",
+
+          ad.address || "",
+
+          ad.area || "",
+
+          ad.industry || "",
+
+          ad.subindustry || "",
+
+          ad.languages || "",
+
+          ad.timezone || "",
 
           ad.clientId || 1,
 
