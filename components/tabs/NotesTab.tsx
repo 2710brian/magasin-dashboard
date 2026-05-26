@@ -1,13 +1,119 @@
+"use client";
+
+import {
+  useEffect,
+  useState,
+} from "react";
+
 type NotesTabProps = {
   ad: any;
-
-  setAd: any;
 };
 
 export default function NotesTab({
   ad,
-  setAd,
 }: NotesTabProps) {
+
+  const [
+    notes,
+    setNotes,
+  ] = useState<any[]>([]);
+
+  const [
+    newNote,
+    setNewNote,
+  ] = useState("");
+
+  async function loadNotes() {
+
+    try {
+
+      const response =
+        await fetch(
+          `/api/get-notes?clientid=${ad.id}`
+        );
+
+      const data =
+        await response.json();
+
+      if (
+        data.success
+      ) {
+
+        setNotes(
+          data.notes
+        );
+      }
+
+    } catch (error) {
+
+      console.error(
+        error
+      );
+    }
+  }
+
+  async function addNote() {
+
+    if (
+      !newNote.trim()
+    ) {
+      return;
+    }
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/add-note",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+
+            body: JSON.stringify(
+              {
+                clientid:
+                  ad.id,
+
+                note:
+                  newNote,
+              }
+            ),
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (
+        data.success
+      ) {
+
+        setNewNote("");
+
+        loadNotes();
+      }
+
+    } catch (error) {
+
+      console.error(
+        error
+      );
+    }
+  }
+
+  useEffect(() => {
+
+    if (ad.id) {
+
+      loadNotes();
+    }
+
+  }, [ad.id]);
+
   return (
     <div
       style={{
@@ -22,6 +128,7 @@ export default function NotesTab({
       {/* LEFT */}
 
       <div>
+
         <div
           style={{
             fontSize: "18px",
@@ -35,59 +142,168 @@ export default function NotesTab({
           Interne noter
         </div>
 
-        <textarea
-          value={
-            ad.internalnotes ||
-            ""
-          }
+        {/* NEW NOTE */}
 
-          onChange={(e) =>
-            setAd(
-              (
-                prev: any
-              ) => ({
-                ...prev,
-
-                internalnotes:
-                  e.target
-                    .value,
-              })
-            )
-          }
-
-          placeholder="Skriv interne noter, artikel-idéer, kundebeskeder, korrektur-info osv..."
-
+        <div
           style={{
-            width: "100%",
-
-            minHeight:
-              "420px",
-
-            background:
-              "#f5f5f5",
-
-            border:
-              "1px solid #dcdcdc",
-
-            borderRadius:
-              "12px",
-
-            padding: "18px",
-
-            fontSize:
-              "15px",
-
-            resize: "vertical",
-
-            boxSizing:
-              "border-box",
+            marginBottom:
+              "24px",
           }}
-        />
+        >
+          <textarea
+            value={
+              newNote
+            }
+
+            onChange={(
+              e
+            ) =>
+              setNewNote(
+                e.target
+                  .value
+              )
+            }
+
+            placeholder="Skriv ny note..."
+
+            style={{
+              width: "100%",
+
+              minHeight:
+                "140px",
+
+              background:
+                "#f5f5f5",
+
+              border:
+                "1px solid #dcdcdc",
+
+              borderRadius:
+                "12px",
+
+              padding:
+                "18px",
+
+              fontSize:
+                "15px",
+
+              resize:
+                "vertical",
+
+              boxSizing:
+                "border-box",
+
+              marginBottom:
+                "14px",
+            }}
+          />
+
+          <button
+            onClick={
+              addNote
+            }
+
+            style={{
+              background:
+                "#111",
+
+              color:
+                "white",
+
+              border:
+                "none",
+
+              padding:
+                "12px 18px",
+
+              borderRadius:
+                "10px",
+
+              cursor:
+                "pointer",
+            }}
+          >
+            Tilføj note
+          </button>
+        </div>
+
+        {/* NOTES */}
+
+        <div
+          style={{
+            display:
+              "flex",
+
+            flexDirection:
+              "column",
+
+            gap: "16px",
+          }}
+        >
+          {notes.map(
+            (note) => (
+
+              <div
+                key={
+                  note.id
+                }
+
+                style={{
+                  background:
+                    "#fafafa",
+
+                  border:
+                    "1px solid #ddd",
+
+                  borderRadius:
+                    "12px",
+
+                  padding:
+                    "18px",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize:
+                      "13px",
+
+                    color:
+                      "#666",
+
+                    marginBottom:
+                      "10px",
+                  }}
+                >
+                  {
+                    note.createdby
+                  }
+                  {" • "}
+                  {new Date(
+                    note.createdat
+                  ).toLocaleString()}
+                </div>
+
+                <div
+                  style={{
+                    whiteSpace:
+                      "pre-wrap",
+
+                    lineHeight:
+                      1.6,
+                  }}
+                >
+                  {note.note}
+                </div>
+              </div>
+            )
+          )}
+        </div>
       </div>
 
       {/* RIGHT */}
 
       <div>
+
         <div
           style={{
             fontSize: "18px",
@@ -128,7 +344,8 @@ function UploadCard({
   return (
     <div
       style={{
-        background: "#fafafa",
+        background:
+          "#fafafa",
 
         border:
           "2px dashed #ccc",
@@ -136,7 +353,8 @@ function UploadCard({
         borderRadius:
           "12px",
 
-        padding: "18px",
+        padding:
+          "18px",
 
         marginBottom:
           "18px",
@@ -144,7 +362,8 @@ function UploadCard({
     >
       <div
         style={{
-          fontWeight: "bold",
+          fontWeight:
+            "bold",
 
           marginBottom:
             "12px",
@@ -163,7 +382,8 @@ function UploadCard({
           borderRadius:
             "10px",
 
-          display: "flex",
+          display:
+            "flex",
 
           alignItems:
             "center",
@@ -174,7 +394,8 @@ function UploadCard({
           marginBottom:
             "12px",
 
-          color: "#777",
+          color:
+            "#777",
         }}
       >
         Ingen filer endnu
@@ -185,9 +406,11 @@ function UploadCard({
           background:
             "#111",
 
-          color: "white",
+          color:
+            "white",
 
-          border: "none",
+          border:
+            "none",
 
           padding:
             "10px 14px",
@@ -195,7 +418,8 @@ function UploadCard({
           borderRadius:
             "10px",
 
-          cursor: "pointer",
+          cursor:
+            "pointer",
         }}
       >
         Upload fil
