@@ -1,3 +1,10 @@
+import {
+  compactCardStyle,
+  compactGridStyle,
+  compactInputStyle,
+  compactLabelStyle,
+} from "../styles/compactStyles";
+
 type MarketingTabProps = {
   ad: any;
 
@@ -40,7 +47,7 @@ export default function MarketingTab({
         flexDirection:
           "column",
 
-        gap: "24px",
+        gap: "12px",
       }}
     >
       {marketingChannels.map(
@@ -89,45 +96,29 @@ export default function MarketingTab({
             <div
               key={index}
 
-              style={{
-                border:
-                  "1px solid #ddd",
-
-                borderRadius:
-                  "14px",
-
-                padding:
-                  "24px",
-
-                background:
-                  "#fafafa",
-              }}
+              style={
+                compactCardStyle
+              }
             >
               <div
                 style={{
                   fontSize:
-                    "20px",
+                    "14px",
 
                   fontWeight:
                     "bold",
 
                   marginBottom:
-                    "20px",
+                    "10px",
                 }}
               >
                 {channel}
               </div>
 
               <div
-                style={{
-                  display:
-                    "grid",
-
-                  gridTemplateColumns:
-                    "1fr 1fr",
-
-                  gap: "20px",
-                }}
+                style={
+                  compactGridStyle
+                }
               >
                 <Field label="Aktiv">
                   <select
@@ -155,7 +146,7 @@ export default function MarketingTab({
                     }
 
                     style={
-                      inputStyle
+                      compactInputStyle
                     }
                   >
                     <option>
@@ -196,7 +187,7 @@ export default function MarketingTab({
                     placeholder="2000€/md"
 
                     style={
-                      inputStyle
+                      compactInputStyle
                     }
                   />
                 </Field>
@@ -229,7 +220,7 @@ export default function MarketingTab({
                     }
 
                     style={
-                      inputStyle
+                      compactInputStyle
                     }
                   />
                 </Field>
@@ -262,13 +253,13 @@ export default function MarketingTab({
                     }
 
                     style={
-                      inputStyle
+                      compactInputStyle
                     }
                   />
                 </Field>
 
                 <Field label="Ansvarlig">
-                  <input
+                  <select
                     value={
                       ad[
                         managerKey
@@ -292,12 +283,26 @@ export default function MarketingTab({
                       )
                     }
 
-                    placeholder="Internt / Bureau"
-
                     style={
-                      inputStyle
+                      compactInputStyle
                     }
-                  />
+                  >
+                    <option value="">
+                      Vælg
+                    </option>
+
+                    <option>
+                      Brian
+                    </option>
+
+                    <option>
+                      Kenneth
+                    </option>
+
+                    <option>
+                      Kristian
+                    </option>
+                  </select>
                 </Field>
 
                 <Field label="Kommentar">
@@ -328,7 +333,7 @@ export default function MarketingTab({
                     placeholder="Ekstra info"
 
                     style={
-                      inputStyle
+                      compactInputStyle
                     }
                   />
                 </Field>
@@ -345,15 +350,13 @@ function Field({
   label,
   children,
 }: any) {
+
   return (
     <div>
       <div
-        style={{
-          marginBottom:
-            "8px",
-
-          fontWeight: 600,
-        }}
+        style={
+          compactLabelStyle
+        }
       >
         {label}
       </div>
@@ -362,22 +365,3 @@ function Field({
     </div>
   );
 }
-
-const inputStyle = {
-  width: "100%",
-
-  background: "#f5f5f5",
-
-  border:
-    "1px solid #dcdcdc",
-
-  color: "#111",
-
-  padding: "14px",
-
-  borderRadius:
-    "10px",
-
-  boxSizing:
-    "border-box" as const,
-};
