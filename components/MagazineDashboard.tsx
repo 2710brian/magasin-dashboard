@@ -6,47 +6,7 @@ import Sidebar from "./Sidebar";
 import MagazineCard from "./MagazineCard";
 import MagazineView from "./MagazineView";
 
-const regions = {
-  Nordjylland: [
-    "Aalborg",
-    "Hjørring",
-    "Frederikshavn",
-    "Brønderslev",
-    "Jammerbugt",
-  ],
-
-  Midtjylland: [
-    "Aarhus",
-    "Randers",
-    "Herning",
-    "Silkeborg",
-    "Viborg",
-  ],
-
-  Syddanmark: [
-    "Odense",
-    "Esbjerg",
-    "Kolding",
-    "Vejle",
-    "Sønderborg",
-  ],
-
-  Sjælland: [
-    "Roskilde",
-    "Næstved",
-    "Slagelse",
-    "Køge",
-    "Holbæk",
-  ],
-
-  Hovedstaden: [
-    "København",
-    "Frederiksberg",
-    "Helsingør",
-    "Hillerød",
-    "Lyngby",
-  ],
-};
+import { regions } from "../data/regions";
 
 export default function MagazineDashboard() {
 
@@ -57,39 +17,114 @@ export default function MagazineDashboard() {
     null
   );
 
-  const allKommuner =
-    Object.entries(
-      regions
-    ).flatMap(
-      ([region, kommuner]) =>
-        kommuner.map(
-          (kommune) => ({
-            navn:
-              kommune,
+  const activeMagazines = [
+    {
+      navn:
+        "Senior Guiden Fyn",
 
-            region,
+      region:
+        "Region Syddanmark",
 
-            fyldning:
-              Math.floor(
-                Math.random() *
-                  40
-              ) + 60,
+      fyldning: 78,
 
-            deadline:
-              "14 Juni 2026",
-          })
-        )
-    );
+      deadline:
+        "14 Juni 2026",
+    },
 
-  const selectedMagazine =
-    allKommuner.find(
-      (kommune) =>
-        kommune.navn ===
-        selectedKommune
-    );
+    {
+      navn:
+        "Senior Guiden Aarhus",
+
+      region:
+        "Region Midtjylland",
+
+      fyldning: 82,
+
+      deadline:
+        "18 Juni 2026",
+    },
+
+    {
+      navn:
+        "Senior Guiden Trekanten",
+
+      region:
+        "Region Syddanmark",
+
+      fyldning: 69,
+
+      deadline:
+        "22 Juni 2026",
+    },
+
+    {
+      navn:
+        "Senior Guiden Sønderjylland",
+
+      region:
+        "Region Syddanmark",
+
+      fyldning: 74,
+
+      deadline:
+        "25 Juni 2026",
+    },
+
+    {
+      navn:
+        "Senior Guiden Aalborg",
+
+      region:
+        "Region Nordjylland",
+
+      fyldning: 91,
+
+      deadline:
+        "12 Juni 2026",
+    },
+
+    {
+      navn:
+        "Senior Guiden Hjørring",
+
+      region:
+        "Region Nordjylland",
+
+      fyldning: 64,
+
+      deadline:
+        "19 Juni 2026",
+    },
+
+    {
+      navn:
+        "Senior Guiden Brønderslev",
+
+      region:
+        "Region Nordjylland",
+
+      fyldning: 57,
+
+      deadline:
+        "27 Juni 2026",
+    },
+
+    {
+      navn:
+        "Senior Guiden Jammerbugt",
+
+      region:
+        "Region Nordjylland",
+
+      fyldning: 71,
+
+      deadline:
+        "30 Juni 2026",
+    },
+  ];
 
   if (
-    selectedMagazine
+    selectedKommune
   ) {
 
     return (
@@ -149,8 +184,7 @@ export default function MagazineDashboard() {
             }}
           >
             Oversigt over
-            aktive kommuner
-            og magasiner
+            aktive magasiner
           </p>
         </div>
 
@@ -165,7 +199,7 @@ export default function MagazineDashboard() {
             gap: "20px",
           }}
         >
-          {allKommuner.map(
+          {activeMagazines.map(
             (
               kommune
             ) => (
