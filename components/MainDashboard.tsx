@@ -171,13 +171,9 @@ export default function MainDashboard() {
         )}
 
         {activeView ===
-          "magazines" && (
-          <div>
-            <h1>
-              Magasiner
-            </h1>
-          </div>
-        )}
+  "magazines" && (
+  <CRMView />
+)}
 
         {activeView ===
           "affiliate" && (
