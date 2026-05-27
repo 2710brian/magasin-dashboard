@@ -1,3 +1,10 @@
+type Magazine = {
+  navn: string;
+  region: string;
+  fyldning: number;
+  deadline: string;
+};
+
 type SidebarProps = {
   regions: {
     [key: string]: string[];
@@ -8,20 +15,20 @@ type SidebarProps = {
   setSelectedKommune: (
     kommune: string
   ) => void;
-};
 
-const activeMagazines = [
-  "Aalborg",
-  "Hjørring",
-  "Brønderslev",
-  "Jammerbugt",
-  "Aarhus",
-];
+  activeMagazines: Magazine[];
+
+  setActiveMagazines: (
+    magazines: Magazine[]
+  ) => void;
+};
 
 export default function Sidebar({
   regions,
   selectedKommune,
   setSelectedKommune,
+  activeMagazines,
+  setActiveMagazines,
 }: SidebarProps) {
 
   const handleClick = (
@@ -140,8 +147,10 @@ export default function Sidebar({
               (kommune) => {
 
                 const isActive =
-                  activeMagazines.includes(
-                    kommune
+                  activeMagazines.some(
+                    (mag) =>
+                      mag.navn ===
+                      kommune
                   );
 
                 return (
