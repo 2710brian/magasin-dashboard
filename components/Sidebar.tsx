@@ -31,22 +31,27 @@ export default function Sidebar({
   };
 
   return (
-    <div
-      style={{
-        width: "320px",
-        background: "#161616",
-        padding: "25px",
-        borderRight:
-          "1px solid #222",
-        overflowY: "auto",
-        height: "100vh",
-      }}
-    >
-      <h2
-        style={{
-          marginBottom: "35px",
-        }}
-      >
+  <div
+    style={{
+      width: "320px",
+
+      background: "#161616",
+
+      padding: "25px",
+
+      borderRight:
+        "1px solid #222",
+
+      overflowY:
+        "scroll",
+
+      height:
+        "calc(100vh - 40px)",
+
+      maxHeight:
+        "calc(100vh - 40px)",
+    }}
+  >
         Magasin System
       </h2>
 
