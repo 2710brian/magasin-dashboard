@@ -3,6 +3,10 @@ type SidebarProps = {
     [key: string]: string[];
   };
 
+  activeMagazines: any[];
+
+  setActiveMagazines: any;
+
   selectedKommune: string;
 
   setSelectedKommune: (
@@ -10,16 +14,10 @@ type SidebarProps = {
   ) => void;
 };
 
-const activeMagazines = [
-  "Aalborg",
-  "Hjørring",
-  "Brønderslev",
-  "Jammerbugt",
-  "Aarhus",
-];
-
 export default function Sidebar({
   regions,
+  activeMagazines,
+  setActiveMagazines,
   selectedKommune,
   setSelectedKommune,
 }: SidebarProps) {
@@ -140,8 +138,12 @@ export default function Sidebar({
               (kommune) => {
 
                 const isActive =
-                  activeMagazines.includes(
-                    kommune
+                  activeMagazines.some(
+                    (
+                      item
+                    ) =>
+                      item.navn ===
+                      kommune
                   );
 
                 return (
@@ -154,9 +156,32 @@ export default function Sidebar({
                         !isActive
                       ) {
 
-                        alert(
-                          "Opret magasin"
-                        );
+                        const confirmCreate =
+                          confirm(
+                            `Opret magasin for ${kommune}?`
+                          );
+
+                        if (
+                          !confirmCreate
+                        ) {
+                          return;
+                        }
+
+                        setActiveMagazines([
+                          ...activeMagazines,
+
+                          {
+                            navn:
+                              kommune,
+
+                            region,
+
+                            fyldning: 0,
+
+                            deadline:
+                              "Ikke sat",
+                          },
+                        ]);
 
                         return;
                       }
