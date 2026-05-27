@@ -17,62 +17,13 @@ export default function MagazineDashboard() {
     null
   );
 
-  const activeMagazines = [
+  const [
+    activeMagazines,
+    setActiveMagazines,
+  ] = useState([
     {
       navn:
-        "Senior Guiden Fyn",
-
-      region:
-        "Region Syddanmark",
-
-      fyldning: 78,
-
-      deadline:
-        "14 Juni 2026", 
-    },
-
-    {
-      navn:
-        "Senior Guiden Aarhus",
-
-      region:
-        "Region Midtjylland",
-
-      fyldning: 82,
-
-      deadline:
-        "18 Juni 2026",
-    },
-
-    {
-      navn:
-        "Senior Guiden Trekanten",
-
-      region:
-        "Region Syddanmark",
-
-      fyldning: 69,
-
-      deadline:
-        "22 Juni 2026",
-    },
-
-    {
-      navn:
-        "Senior Guiden Sønderjylland",
-
-      region:
-        "Region Syddanmark",
-
-      fyldning: 74,
-
-      deadline:
-        "25 Juni 2026",
-    },
-
-    {
-      navn:
-        "Senior Guiden Aalborg",
+        "Aalborg",
 
       region:
         "Region Nordjylland",
@@ -85,7 +36,7 @@ export default function MagazineDashboard() {
 
     {
       navn:
-        "Senior Guiden Hjørring",
+        "Hjørring",
 
       region:
         "Region Nordjylland",
@@ -98,7 +49,7 @@ export default function MagazineDashboard() {
 
     {
       navn:
-        "Senior Guiden Brønderslev",
+        "Brønderslev",
 
       region:
         "Region Nordjylland",
@@ -111,7 +62,7 @@ export default function MagazineDashboard() {
 
     {
       navn:
-        "Senior Guiden Jammerbugt",
+        "Jammerbugt",
 
       region:
         "Region Nordjylland",
@@ -121,7 +72,20 @@ export default function MagazineDashboard() {
       deadline:
         "30 Juni 2026",
     },
-  ];
+
+    {
+      navn:
+        "Aarhus",
+
+      region:
+        "Region Midtjylland",
+
+      fyldning: 82,
+
+      deadline:
+        "18 Juni 2026",
+    },
+  ]);
 
   if (
     selectedKommune
@@ -146,6 +110,14 @@ export default function MagazineDashboard() {
     >
       <Sidebar
         regions={regions}
+
+        activeMagazines={
+          activeMagazines
+        }
+
+        setActiveMagazines={
+          setActiveMagazines
+        }
 
         selectedKommune={
           selectedKommune ||
@@ -209,22 +181,87 @@ export default function MagazineDashboard() {
                   kommune.navn
                 }
 
-                onClick={() =>
-                  setSelectedKommune(
-                    kommune.navn
-                  )
-                }
-
                 style={{
-                  cursor:
-                    "pointer",
+                  position:
+                    "relative",
                 }}
               >
-                <MagazineCard
-                  kommune={
-                    kommune
+                <div
+                  onClick={() =>
+                    setSelectedKommune(
+                      kommune.navn
+                    )
                   }
-                />
+
+                  style={{
+                    cursor:
+                      "pointer",
+                  }}
+                >
+                  <MagazineCard
+                    kommune={
+                      kommune
+                    }
+                  />
+                </div>
+
+                <button
+                  onClick={() => {
+
+                    const confirmDelete =
+                      confirm(
+                        `Slet ${kommune.navn}?`
+                      );
+
+                    if (
+                      !confirmDelete
+                    ) {
+                      return;
+                    }
+
+                    setActiveMagazines(
+                      activeMagazines.filter(
+                        (
+                          item
+                        ) =>
+                          item.navn !==
+                          kommune.navn
+                      )
+                    );
+                  }}
+
+                  style={{
+                    position:
+                      "absolute",
+
+                    top: "12px",
+
+                    right: "12px",
+
+                    background:
+                      "#ef4444",
+
+                    color:
+                      "white",
+
+                    border:
+                      "none",
+
+                    borderRadius:
+                      "8px",
+
+                    padding:
+                      "6px 10px",
+
+                    cursor:
+                      "pointer",
+
+                    fontSize:
+                      "12px",
+                  }}
+                >
+                  Slet
+                </button>
               </div>
             )
           )}
