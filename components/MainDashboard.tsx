@@ -1,240 +1,276 @@
 "use client";
 
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useState } from "react";
 
-import PageEditor from "./PageEditor";
-import SidePreview from "./SidePreview";
+import CRMView from "./CRMView";
+import MagazineView from "./MagazineView";
 
-import { pages } from "../data/pages";
-
-type MagazineViewProps = {
-  setSelectedKommune: (
-    kommune: string | null
-  ) => void;
-};
-
-export default function MagazineView({
-  setSelectedKommune,
-}: MagazineViewProps) {
+export default function MainDashboard() {
 
   const [
-    selectedPageSide,
-    setSelectedPageSide,
-  ] = useState<number | null>(
+    activeView,
+    setActiveView,
+  ] = useState("crm");
+
+  const [
+    selectedKommune,
+    setSelectedKommune,
+  ] = useState<string | null>(
     null
   );
 
-  const [
-    dbAds,
-    setDbAds,
-  ] = useState<any[]>([]);
-
-  async function loadAds() {
-
-    try {
-
-      const response =
-        await fetch(
-          "/api/get-ads"
-        );
-
-      const data =
-        await response.json();
-
-      if (
-        data.success
-      ) {
-
-        setDbAds(
-          data.ads
-        );
-      }
-
-    } catch (error) {
-
-      console.error(
-        error
-      );
-    }
-  }
-
-  useEffect(() => {
-
-    loadAds();
-
-  }, []);
-
-  const builtPages =
-    pages.map((page) => {
-
-      const ads =
-        dbAds.filter(
-          (ad) =>
-            ad.page ===
-            page.side
-        );
-
-      return {
-
-        ...page,
-
-        ads,
-      };
-    });
-
-  const selectedPage =
-    builtPages.find(
-      (page) =>
-        page.side ===
-        selectedPageSide
-    );
-
-  if (selectedPage) {
-
-    return (
-      <PageEditor
-        selectedPage={
-          selectedPage
-        }
-
-        setSelectedPage={(
-          page: any
-        ) => {
-
-          if (!page) {
-
-            setSelectedPageSide(
-              null
-            );
-
-            return;
-          }
-
-          setSelectedPageSide(
-            page.side
-          );
-        }}
-
-        refreshAds={
-          loadAds
-        }
-      />
-    );
-  }
-
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
 
-      {/* HEADER */}
+        minHeight:
+          "100vh",
+
+        background:
+          "#111",
+
+        color:
+          "white",
+      }}
+    >
+      {/* SIDEBAR */}
 
       <div
         style={{
+          width: "260px",
+
+          background:
+            "#1a1a1a",
+
+          borderRight:
+            "1px solid #2d2d2d",
+
+          padding: "24px",
+
           display: "flex",
 
-          justifyContent:
-            "space-between",
+          flexDirection:
+            "column",
 
-          alignItems:
-            "center",
-
-          marginBottom:
-            "30px",
+          gap: "14px",
         }}
       >
-        <div>
-
-          <h1>
-            Aalborg
-          </h1>
-
-          <p
-            style={{
-              color:
-                "#888",
-            }}
-          >
-            56 sider • Under
-            produktion
-          </p>
-
-        </div>
-
-        <button
-          onClick={() =>
-            setSelectedKommune(
-              null
-            )
-          }
+        <div
           style={{
-            background:
-              "#1f1f1f",
+            fontSize: "28px",
 
-            border:
-              "1px solid #333",
+            fontWeight:
+              "bold",
 
-            color:
-              "white",
-
-            padding:
-              "12px 18px",
-
-            borderRadius:
-              "10px",
-
-            cursor:
-              "pointer",
+            marginBottom:
+              "30px",
           }}
         >
-          Tilbage
-        </button>
+          CRM AI
+        </div>
+
+        <MenuButton
+          active={
+            activeView ===
+            "crm"
+          }
+
+          onClick={() =>
+            setActiveView(
+              "crm"
+            )
+          }
+        >
+          CRM
+        </MenuButton>
+
+        <MenuButton
+          active={
+            activeView ===
+            "magazines"
+          }
+
+          onClick={() =>
+            setActiveView(
+              "magazines"
+            )
+          }
+        >
+          Magasiner
+        </MenuButton>
+
+        <MenuButton
+          active={
+            activeView ===
+            "affiliate"
+          }
+
+          onClick={() =>
+            setActiveView(
+              "affiliate"
+            )
+          }
+        >
+          Affiliate
+        </MenuButton>
+
+        <MenuButton
+          active={
+            activeView ===
+            "marketing"
+          }
+
+          onClick={() =>
+            setActiveView(
+              "marketing"
+            )
+          }
+        >
+          Marketing
+        </MenuButton>
+
+        <MenuButton
+          active={
+            activeView ===
+            "ai"
+          }
+
+          onClick={() =>
+            setActiveView(
+              "ai"
+            )
+          }
+        >
+          AI Tools
+        </MenuButton>
+
+        <MenuButton
+          active={
+            activeView ===
+            "settings"
+          }
+
+          onClick={() =>
+            setActiveView(
+              "settings"
+            )
+          }
+        >
+          Settings
+        </MenuButton>
       </div>
 
-      {/* SIDER */}
+      {/* CONTENT */}
 
       <div
         style={{
-          display:
-            "grid",
+          flex: 1,
 
-          gridTemplateColumns:
-            "repeat(4, 1fr)",
+          padding: "40px",
 
-          gap:
-            "20px",
+          overflow:
+            "auto",
         }}
       >
-        {builtPages.map(
-          (page) => (
+        {activeView ===
+          "crm" && (
+          <CRMView />
+        )}
 
-            <SidePreview
-              key={
-                page.side
-              }
+        {activeView ===
+          "magazines" && (
+          <MagazineView
+            setSelectedKommune={
+              setSelectedKommune
+            }
+          />
+        )}
 
-              side={
-                page.side
-              }
+        {activeView ===
+          "affiliate" && (
+          <div>
+            <h1>
+              Affiliate
+            </h1>
+          </div>
+        )}
 
-              premium={
-                page.premium
-              }
+        {activeView ===
+          "marketing" && (
+          <div>
+            <h1>
+              Marketing
+            </h1>
+          </div>
+        )}
 
-              ads={
-                page.ads
-              }
+        {activeView ===
+          "ai" && (
+          <div>
+            <h1>
+              AI Tools
+            </h1>
+          </div>
+        )}
 
-              onClick={() =>
-                setSelectedPageSide(
-                  page.side
-                )
-              }
-            />
-          )
+        {activeView ===
+          "settings" && (
+          <div>
+            <h1>
+              Settings
+            </h1>
+          </div>
         )}
       </div>
     </div>
+  );
+}
+
+function MenuButton({
+  children,
+  active,
+  onClick,
+}: any) {
+
+  return (
+    <button
+      onClick={onClick}
+
+      style={{
+        background:
+          active
+            ? "#2d2d2d"
+            : "transparent",
+
+        border:
+          active
+            ? "1px solid #444"
+            : "1px solid transparent",
+
+        color:
+          "white",
+
+        padding:
+          "14px 16px",
+
+        borderRadius:
+          "12px",
+
+        textAlign:
+          "left",
+
+        cursor:
+          "pointer",
+
+        fontWeight:
+          600,
+
+        fontSize:
+          "15px",
+      }}
+    >
+      {children}
+    </button>
   );
 }
