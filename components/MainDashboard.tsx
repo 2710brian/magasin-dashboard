@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import CRMView from "./CRMView";
+import MagazineView from "./MagazineView";
 
 export default function MainDashboard() {
 
@@ -171,9 +172,9 @@ export default function MainDashboard() {
         )}
 
         {activeView ===
-  "magazines" && (
-  <CRMView />
-)}
+          "magazines" && (
+          <MagazineView />
+        )}
 
         {activeView ===
           "affiliate" && (
