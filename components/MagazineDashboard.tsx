@@ -28,7 +28,7 @@ export default function MagazineDashboard() {
       fyldning: 78,
 
       deadline:
-        "14 Juni 2026",
+        "14 Juni 2026", 
     },
 
     {
