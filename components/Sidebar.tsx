@@ -10,6 +10,14 @@ type SidebarProps = {
   ) => void;
 };
 
+const activeMagazines = [
+  "Aalborg",
+  "Hjørring",
+  "Brønderslev",
+  "Jammerbugt",
+  "Aarhus",
+];
+
 export default function Sidebar({
   regions,
   selectedKommune,
@@ -31,39 +39,46 @@ export default function Sidebar({
   };
 
   return (
-  <div
-    style={{
-      width: "320px",
+    <div
+      style={{
+        width: "320px",
 
-      background: "#161616",
+        background: "#161616",
 
-      padding: "25px",
+        padding: "25px",
 
-      borderRight:
-        "1px solid #222",
+        borderRight:
+          "1px solid #222",
 
-      overflowY:
-        "scroll",
+        overflowY:
+          "scroll",
 
-      height:
-        "calc(100vh - 40px)",
+        height:
+          "calc(100vh - 40px)",
 
-      maxHeight:
-        "calc(100vh - 40px)",
-    }}
-  >
-        <h2 style={{ marginBottom: "35px" }}>
+        maxHeight:
+          "calc(100vh - 40px)",
+      }}
+    >
+      <h2
+        style={{
+          marginBottom:
+            "35px",
+        }}
+      >
         Magasin System
       </h2>
 
       <div
         style={{
-          marginBottom: "35px",
+          marginBottom:
+            "35px",
         }}
       >
         <div
           style={{
-            marginBottom: "12px",
+            marginBottom:
+              "12px",
           }}
         >
           Dashboard
@@ -71,7 +86,8 @@ export default function Sidebar({
 
         <div
           style={{
-            marginBottom: "12px",
+            marginBottom:
+              "12px",
           }}
         >
           Omsætning
@@ -79,7 +95,8 @@ export default function Sidebar({
 
         <div
           style={{
-            marginBottom: "12px",
+            marginBottom:
+              "12px",
           }}
         >
           Deadlines
@@ -87,7 +104,8 @@ export default function Sidebar({
 
         <div
           style={{
-            marginBottom: "12px",
+            marginBottom:
+              "12px",
           }}
         >
           Premium sider
@@ -100,6 +118,7 @@ export default function Sidebar({
         ([region, kommuner]) => (
           <div
             key={region}
+
             style={{
               marginBottom:
                 "30px",
@@ -107,7 +126,9 @@ export default function Sidebar({
           >
             <h3
               style={{
-                color: "#888",
+                color:
+                  "#888",
+
                 marginBottom:
                   "12px",
               }}
@@ -116,66 +137,88 @@ export default function Sidebar({
             </h3>
 
             {kommuner.map(
-              (kommune) => (
-                <div
-                  key={kommune}
+              (kommune) => {
 
-                  onClick={() =>
-                    handleClick(
-                      kommune
-                    )
-                  }
+                const isActive =
+                  activeMagazines.includes(
+                    kommune
+                  );
 
-                  style={{
-                    padding:
-                      "10px",
-
-                    marginBottom:
-                      "8px",
-
-                    background:
-                      selectedKommune ===
-                      kommune
-                        ? "#2a2a2a"
-                        : "#1f1f1f",
-
-                    borderRadius:
-                      "8px",
-
-                    cursor:
-                      "pointer",
-
-                    display:
-                      "flex",
-
-                    alignItems:
-                      "center",
-
-                    justifyContent:
-                      "space-between",
-                  }}
-                >
-                  <span>
-                    {kommune}
-                  </span>
-
+                return (
                   <div
+                    key={kommune}
+
+                    onClick={() => {
+
+                      if (
+                        !isActive
+                      ) {
+
+                        alert(
+                          "Opret magasin"
+                        );
+
+                        return;
+                      }
+
+                      handleClick(
+                        kommune
+                      );
+                    }}
+
                     style={{
-                      width:
+                      padding:
                         "10px",
 
-                      height:
-                        "10px",
-
-                      borderRadius:
-                        "50%",
+                      marginBottom:
+                        "8px",
 
                       background:
-                        "#22c55e",
+                        selectedKommune ===
+                        kommune
+                          ? "#2a2a2a"
+                          : "#1f1f1f",
+
+                      borderRadius:
+                        "8px",
+
+                      cursor:
+                        "pointer",
+
+                      display:
+                        "flex",
+
+                      alignItems:
+                        "center",
+
+                      justifyContent:
+                        "space-between",
                     }}
-                  />
-                </div>
-              )
+                  >
+                    <span>
+                      {kommune}
+                    </span>
+
+                    <div
+                      style={{
+                        width:
+                          "10px",
+
+                        height:
+                          "10px",
+
+                        borderRadius:
+                          "50%",
+
+                        background:
+                          isActive
+                            ? "#22c55e"
+                            : "#ef4444",
+                      }}
+                    />
+                  </div>
+                );
+              }
             )}
           </div>
         )
