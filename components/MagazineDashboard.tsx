@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar";
 import MagazineCard from "./MagazineCard";
 import MagazineView from "./MagazineView";
 
-import { regions } from "../data/regions";
+import { regions } from "../data/kommuner";
 
 export default function MagazineDashboard() {
 
