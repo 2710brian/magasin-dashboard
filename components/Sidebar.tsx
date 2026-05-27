@@ -10,7 +10,7 @@ type SidebarProps = {
   selectedKommune: string;
 
   setSelectedKommune: (
-    kommune: string
+    kommune: string 
   ) => void;
 };
 
