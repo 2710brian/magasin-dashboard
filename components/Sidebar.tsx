@@ -52,6 +52,7 @@ export default function Sidebar({
         "calc(100vh - 40px)",
     }}
   >
+        <h2 style={{ marginBottom: "35px" }}>
         Magasin System
       </h2>
 
