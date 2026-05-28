@@ -17,88 +17,56 @@ type PageEditorProps = {
   ) => void;
 };
 
-const SCALE = 4;
-
 const MAGAZINE = {
-  width:
-    227 * SCALE,
-
-  height:
-    295 * SCALE,
+  width: 880,
+  height: 1140,
 };
 
 const adSizes: any = {
 
   "business-card": {
-    width:
-      60 * SCALE,
-
-    height:
-      60 * SCALE,
+    width: 230,
+    height: 230,
   },
 
   "double-business-card": {
-    width:
-      125 * SCALE,
-
-    height:
-      60 * SCALE,
+    width: 480,
+    height: 230,
   },
 
   quarter: {
-    width:
-      60 * SCALE,
-
-    height:
-      90 * SCALE,
+    width: 230,
+    height: 340,
   },
 
   "quarter-horizontal": {
-    width:
-      90 * SCALE,
-
-    height:
-      60 * SCALE,
+    width: 340,
+    height: 230,
   },
 
   "half-horizontal": {
-    width:
-      190 * SCALE,
-
-    height:
-      125 * SCALE,
+    width: 720,
+    height: 430,
   },
 
   "half-vertical": {
-    width:
-      125 * SCALE,
-
-    height:
-      190 * SCALE,
+    width: 430,
+    height: 720,
   },
 
   helside: {
-    width:
-      190 * SCALE,
-
-    height:
-      227 * SCALE,
+    width: 720,
+    height: 1050,
   },
 
   "double-page": {
-    width:
-      380 * SCALE,
-
-    height:
-      227 * SCALE,
+    width: 1460,
+    height: 1050,
   },
 
   text: {
-    width:
-      190 * SCALE,
-
-    height:
-      60 * SCALE,
+    width: 720,
+    height: 180,
   },
 };
 
@@ -151,9 +119,7 @@ export default function PageEditor({
 
     setLocalPage({
       ...localPage,
-
-      ads:
-        updatedAds,
+      ads: updatedAds,
     });
   }
 
@@ -303,8 +269,6 @@ export default function PageEditor({
   return (
     <div>
 
-      {/* TOP */}
-
       <div
         style={{
           display:
@@ -377,11 +341,9 @@ export default function PageEditor({
               "pointer",
           }}
         >
-          Tilbage
+          Tilbage til sider
         </button>
       </div>
-
-      {/* TOOLBAR */}
 
       <div
         style={{
@@ -439,8 +401,6 @@ export default function PageEditor({
         )}
       </div>
 
-      {/* PAGE */}
-
       <div
         style={{
           display:
@@ -492,11 +452,15 @@ export default function PageEditor({
 
                 position={{
                   x: ad.x,
-
                   y: ad.y,
                 }}
 
                 bounds="parent"
+
+                dragGrid={[
+                  5,
+                  5,
+                ]}
 
                 onDragStop={(
                   e,
@@ -509,31 +473,6 @@ export default function PageEditor({
                     x: d.x,
 
                     y: d.y,
-                  });
-                }}
-
-                onResizeStop={(
-                  e,
-                  direction,
-                  ref,
-                  delta,
-                  position
-                ) => {
-
-                  updateAd({
-                    ...ad,
-
-                    width:
-                      parseInt(
-                        ref.style.width
-                      ),
-
-                    height:
-                      parseInt(
-                        ref.style.height
-                      ),
-
-                    ...position,
                   });
                 }}
 
@@ -640,8 +579,6 @@ export default function PageEditor({
           )}
         </div>
       </div>
-
-      {/* POPUP */}
 
       {selectedAd && (
 
