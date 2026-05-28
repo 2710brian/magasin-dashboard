@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import Sidebar from "./Sidebar";
 import MagazineCard from "./MagazineCard";
@@ -17,10 +20,7 @@ export default function MagazineDashboard() {
     null
   );
 
-  const [
-    activeMagazines,
-    setActiveMagazines,
-  ] = useState([
+  const defaultMagazines = [
     {
       navn:
         "Aalborg",
@@ -95,7 +95,50 @@ export default function MagazineDashboard() {
 
       totalPages: 56,
     },
-  ]);
+  ];
+
+  const [
+    activeMagazines,
+    setActiveMagazines,
+  ] = useState<any[]>([]);
+
+  useEffect(() => {
+
+    const savedMagazines =
+      localStorage.getItem(
+        "activeMagazines"
+      );
+
+    if (
+      savedMagazines
+    ) {
+
+      setActiveMagazines(
+        JSON.parse(
+          savedMagazines
+        )
+      );
+
+    } else {
+
+      setActiveMagazines(
+        defaultMagazines
+      );
+    }
+
+  }, []);
+
+  useEffect(() => {
+
+    localStorage.setItem(
+      "activeMagazines",
+
+      JSON.stringify(
+        activeMagazines
+      )
+    );
+
+  }, [activeMagazines]);
 
   const selectedMagazine =
     activeMagazines.find(
