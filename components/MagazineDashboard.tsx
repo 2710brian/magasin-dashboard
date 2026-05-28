@@ -32,6 +32,8 @@ export default function MagazineDashboard() {
 
       deadline:
         "12 Juni 2026",
+
+      totalPages: 56,
     },
 
     {
@@ -45,6 +47,8 @@ export default function MagazineDashboard() {
 
       deadline:
         "19 Juni 2026",
+
+      totalPages: 56,
     },
 
     {
@@ -58,6 +62,8 @@ export default function MagazineDashboard() {
 
       deadline:
         "27 Juni 2026",
+
+      totalPages: 56,
     },
 
     {
@@ -71,6 +77,8 @@ export default function MagazineDashboard() {
 
       deadline:
         "30 Juni 2026",
+
+      totalPages: 56,
     },
 
     {
@@ -84,15 +92,28 @@ export default function MagazineDashboard() {
 
       deadline:
         "18 Juni 2026",
+
+      totalPages: 56,
     },
   ]);
 
+  const selectedMagazine =
+    activeMagazines.find(
+      (item) =>
+        item.navn ===
+        selectedKommune
+    );
+
   if (
-    selectedKommune
+    selectedMagazine
   ) {
 
     return (
       <MagazineView
+        selectedMagazine={
+          selectedMagazine
+        }
+
         setSelectedKommune={
           setSelectedKommune
         }
