@@ -135,6 +135,72 @@ export default function PageEditor({
       0
     );
 
+  const adTypes = [
+    {
+      label:
+        "Visitkort",
+
+      type:
+        "business-card",
+    },
+
+    {
+      label:
+        "Dobbelt Visitkort",
+
+      type:
+        "double-business-card",
+    },
+
+    {
+      label:
+        "Kvart",
+
+      type:
+        "quarter",
+    },
+
+    {
+      label:
+        "Halv Vandret",
+
+      type:
+        "half-horizontal",
+    },
+
+    {
+      label:
+        "Halv Lodret",
+
+      type:
+        "half-vertical",
+    },
+
+    {
+      label:
+        "Helside",
+
+      type:
+        "helside",
+    },
+
+    {
+      label:
+        "Dobbelt Side",
+
+      type:
+        "double-page",
+    },
+
+    {
+      label:
+        "Tekstområde",
+
+      type:
+        "text",
+    },
+  ];
+
   return (
     <div>
 
@@ -240,118 +306,74 @@ export default function PageEditor({
 
           justifyContent:
             "center",
+
+          flexWrap:
+            "wrap",
         }}
       >
+        {adTypes.map(
+          (item) => (
 
-        <button
-          onClick={() => {
+            <button
+              key={
+                item.type
+              }
 
-            const newAd = {
-              id:
-                Date.now(),
+              onClick={() => {
 
-              title:
-                "Tekst område",
+                const newAd = {
+                  id:
+                    Date.now(),
 
-              status:
-                "Indhold",
+                  title:
+                    item.label,
 
-              type:
-                "quarter",
+                  status:
+                    "Ledig",
 
-              color:
-                "#2d3748",
+                  type:
+                    item.type,
 
-              price: 0,
-            };
+                  color:
+                    "#444",
 
-            setLocalPage({
-              ...localPage,
+                  price: 0,
+                };
 
-              ads: [
-                ...localPage.ads,
-                newAd,
-              ],
-            });
-          }}
+                setLocalPage({
+                  ...localPage,
 
-          style={{
-            padding:
-              "10px 14px",
+                  ads: [
+                    ...localPage.ads,
+                    newAd,
+                  ],
+                });
+              }}
 
-            background:
-              "#2563eb",
+              style={{
+                padding:
+                  "10px 14px",
 
-            border:
-              "none",
+                background:
+                  "#2d2d2d",
 
-            borderRadius:
-              "10px",
+                border:
+                  "1px solid #444",
 
-            color:
-              "white",
+                borderRadius:
+                  "10px",
 
-            cursor:
-              "pointer",
-          }}
-        >
-          + Tekst område
-        </button>
+                color:
+                  "white",
 
-        <button
-          onClick={() => {
-
-            const newAd = {
-              id:
-                Date.now(),
-
-              title:
-                "Placeholder",
-
-              status:
-                "Ledig",
-
-              type:
-                "quarter",
-
-              color:
-                "#444",
-
-              price: 0,
-            };
-
-            setLocalPage({
-              ...localPage,
-
-              ads: [
-                ...localPage.ads,
-                newAd,
-              ],
-            });
-          }}
-
-          style={{
-            padding:
-              "10px 14px",
-
-            background:
-              "#444",
-
-            border:
-              "none",
-
-            borderRadius:
-              "10px",
-
-            color:
-              "white",
-
-            cursor:
-              "pointer",
-          }}
-        >
-          + Placeholder
-        </button>
+                cursor:
+                  "pointer",
+              }}
+            >
+              + {item.label}
+            </button>
+          )
+        )}
       </div>
 
       {/* SIDE */}
@@ -370,8 +392,8 @@ export default function PageEditor({
             width:
               "500px",
 
-            aspectRatio:
-              "210 / 297",
+            minHeight:
+              "700px",
 
             background:
               "#1b1b1b",
@@ -387,9 +409,6 @@ export default function PageEditor({
 
             gridTemplateColumns:
               "1fr 1fr",
-
-            gridAutoRows:
-              "1fr",
 
             gap: "6px",
 
@@ -438,6 +457,9 @@ export default function PageEditor({
                 style={{
                   cursor:
                     "grab",
+
+                  position:
+                    "relative",
                 }}
               >
                 <AdBlock
@@ -461,6 +483,64 @@ export default function PageEditor({
                     ad.type
                   }
                 />
+
+                <button
+                  onClick={(e) => {
+
+                    e.stopPropagation();
+
+                    const updatedAds =
+                      localPage.ads.filter(
+                        (
+                          item: any
+                        ) =>
+                          item.id !==
+                          ad.id
+                      );
+
+                    setLocalPage({
+                      ...localPage,
+
+                      ads:
+                        updatedAds,
+                    });
+                  }}
+
+                  style={{
+                    position:
+                      "absolute",
+
+                    top: "8px",
+
+                    right: "8px",
+
+                    background:
+                      "#ef4444",
+
+                    border:
+                      "none",
+
+                    color:
+                      "white",
+
+                    width: "24px",
+
+                    height: "24px",
+
+                    borderRadius:
+                      "50%",
+
+                    cursor:
+                      "pointer",
+
+                    fontSize:
+                      "12px",
+
+                    zIndex: 20,
+                  }}
+                >
+                  ×
+                </button>
               </div>
             )
           )}
