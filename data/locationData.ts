@@ -3,7 +3,8 @@ export const locationData = {
   Danmark: {
 
     "Region Hovedstaden": {
-      kommuner: [
+
+      Hovedstaden: [
         "København",
         "Frederiksberg",
         "Helsingør",
@@ -13,7 +14,8 @@ export const locationData = {
     },
 
     "Region Sjælland": {
-      kommuner: [
+
+      Sjælland: [
         "Roskilde",
         "Næstved",
         "Slagelse",
@@ -23,8 +25,12 @@ export const locationData = {
     },
 
     "Region Syddanmark": {
-      kommuner: [
+
+      Fyn: [
         "Odense",
+      ],
+
+      Sydjylland: [
         "Esbjerg",
         "Kolding",
         "Vejle",
@@ -33,7 +39,8 @@ export const locationData = {
     },
 
     "Region Midtjylland": {
-      kommuner: [
+
+      Midtjylland: [
         "Aarhus",
         "Randers",
         "Herning",
@@ -43,7 +50,8 @@ export const locationData = {
     },
 
     "Region Nordjylland": {
-      kommuner: [
+
+      Vendsyssel: [
         "Aalborg",
         "Hjørring",
         "Brønderslev",
