@@ -14,6 +14,10 @@ type AdBlockProps = {
   customer?: string;
 
   seller?: string;
+
+  width?: number;
+
+  height?: number;
 };
 
 export default function AdBlock({
@@ -32,7 +36,11 @@ export default function AdBlock({
   customer,
 
   seller,
-}: AdBlockProps) {
+
+  width,
+
+  height,
+}: AdBlockProps)
 
   let gridColumn =
     "span 1";
