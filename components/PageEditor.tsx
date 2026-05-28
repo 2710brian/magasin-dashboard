@@ -4,7 +4,6 @@ import {
 } from "react";
 
 import AdBlock from "./AdBlock";
-import AdModal from "./AdModal";
 
 type PageEditorProps = {
   selectedPage: any;
@@ -19,7 +18,6 @@ type PageEditorProps = {
 export default function PageEditor({
   selectedPage,
   setSelectedPage,
-  refreshAds,
 }: PageEditorProps) {
 
   const [
@@ -37,9 +35,11 @@ export default function PageEditor({
   >(null);
 
   const [
-    draggedAd,
-    setDraggedAd,
-  ] = useState<any>(null);
+    draggedIndex,
+    setDraggedIndex,
+  ] = useState<
+    number | null
+  >(null);
 
   useEffect(() => {
 
@@ -78,46 +78,51 @@ export default function PageEditor({
 
     setLocalPage({
       ...localPage,
-      ads: updatedAds,
+
+      ads:
+        updatedAds,
     });
   }
 
-  function moveAd(
+  function handleDrop(
     targetIndex: number
   ) {
 
-    if (!draggedAd) {
+    if (
+      draggedIndex ===
+      null
+    ) {
       return;
     }
 
-    const ads = [
+    const updatedAds = [
       ...localPage.ads,
     ];
 
-    const fromIndex =
-      ads.findIndex(
-        (
-          ad: any
-        ) =>
-          ad.id ===
-          draggedAd.id
-      );
+    const draggedItem =
+      updatedAds[
+        draggedIndex
+      ];
 
-    const targetAd =
-      ads[targetIndex];
+    updatedAds.splice(
+      draggedIndex,
+      1
+    );
 
-    ads[targetIndex] =
-      draggedAd;
-
-    ads[fromIndex] =
-      targetAd;
+    updatedAds.splice(
+      targetIndex,
+      0,
+      draggedItem
+    );
 
     setLocalPage({
       ...localPage,
-      ads,
+
+      ads:
+        updatedAds,
     });
 
-    setDraggedAd(
+    setDraggedIndex(
       null
     );
   }
@@ -154,10 +159,18 @@ export default function PageEditor({
 
     {
       label:
-        "Kvart",
+        "Kvart Lodret",
 
       type:
         "quarter",
+    },
+
+    {
+      label:
+        "Kvart Vandret",
+
+      type:
+        "quarter-horizontal",
     },
 
     {
@@ -208,7 +221,8 @@ export default function PageEditor({
 
       <div
         style={{
-          display: "flex",
+          display:
+            "flex",
 
           justifyContent:
             "space-between",
@@ -247,6 +261,9 @@ export default function PageEditor({
 
               fontWeight:
                 "bold",
+
+              fontSize:
+                "18px",
             }}
           >
             Sideværdi:
@@ -257,7 +274,6 @@ export default function PageEditor({
             {" "}
             DKK
           </div>
-
         </div>
 
         <button
@@ -291,7 +307,7 @@ export default function PageEditor({
         </button>
       </div>
 
-      {/* TOOLS */}
+      {/* TOOLBAR */}
 
       <div
         style={{
@@ -299,16 +315,13 @@ export default function PageEditor({
             "flex",
 
           gap:
-            "12px",
-
-          marginBottom:
-            "20px",
-
-          justifyContent:
-            "center",
+            "10px",
 
           flexWrap:
             "wrap",
+
+          marginBottom:
+            "25px",
         }}
       >
         {adTypes.map(
@@ -338,6 +351,15 @@ export default function PageEditor({
                     "#444",
 
                   price: 0,
+
+                  seller:
+                    "",
+
+                  customer:
+                    "",
+
+                  image:
+                    "",
                 };
 
                 setLocalPage({
@@ -351,20 +373,20 @@ export default function PageEditor({
               }}
 
               style={{
-                padding:
-                  "10px 14px",
-
                 background:
                   "#2d2d2d",
 
                 border:
                   "1px solid #444",
 
-                borderRadius:
-                  "10px",
-
                 color:
                   "white",
+
+                padding:
+                  "10px 14px",
+
+                borderRadius:
+                  "10px",
 
                 cursor:
                   "pointer",
@@ -376,7 +398,7 @@ export default function PageEditor({
         )}
       </div>
 
-      {/* SIDE */}
+      {/* PAGE */}
 
       <div
         style={{
@@ -390,10 +412,10 @@ export default function PageEditor({
         <div
           style={{
             width:
-              "500px",
+              "900px",
 
             minHeight:
-              "700px",
+              "1300px",
 
             background:
               "#1b1b1b",
@@ -402,18 +424,19 @@ export default function PageEditor({
               "14px",
 
             padding:
-              "10px",
+              "14px",
 
             display:
               "grid",
 
             gridTemplateColumns:
-              "1fr 1fr",
+              "repeat(12, 1fr)",
 
-            gap: "6px",
+            gridAutoRows:
+              "60px",
 
-            overflow:
-              "hidden",
+            gap:
+              "8px",
           }}
         >
           {localPage.ads.map(
@@ -424,15 +447,14 @@ export default function PageEditor({
 
               <div
                 key={
-                  ad.id ||
-                  index
+                  ad.id
                 }
 
                 draggable
 
                 onDragStart={() =>
-                  setDraggedAd(
-                    ad
+                  setDraggedIndex(
+                    index
                   )
                 }
 
@@ -443,7 +465,7 @@ export default function PageEditor({
                 }
 
                 onDrop={() =>
-                  moveAd(
+                  handleDrop(
                     index
                   )
                 }
@@ -455,11 +477,11 @@ export default function PageEditor({
                 }
 
                 style={{
-                  cursor:
-                    "grab",
-
                   position:
                     "relative",
+
+                  cursor:
+                    "grab",
                 }}
               >
                 <AdBlock
@@ -481,6 +503,18 @@ export default function PageEditor({
 
                   type={
                     ad.type
+                  }
+
+                  customer={
+                    ad.customer
+                  }
+
+                  seller={
+                    ad.seller
+                  }
+
+                  image={
+                    ad.image
                   }
                 />
 
@@ -523,9 +557,9 @@ export default function PageEditor({
                     color:
                       "white",
 
-                    width: "24px",
+                    width: "26px",
 
-                    height: "24px",
+                    height: "26px",
 
                     borderRadius:
                       "50%",
@@ -533,10 +567,7 @@ export default function PageEditor({
                     cursor:
                       "pointer",
 
-                    fontSize:
-                      "12px",
-
-                    zIndex: 20,
+                    zIndex: 100,
                   }}
                 >
                   ×
@@ -547,26 +578,270 @@ export default function PageEditor({
         </div>
       </div>
 
+      {/* MINI MODAL */}
+
       {selectedAd && (
 
-        <AdModal
-          ad={selectedAd}
+        <div
+          style={{
+            position:
+              "fixed",
 
-          refreshAds={
-            refreshAds
-          }
+            inset: 0,
 
-          onSaved={
-            handleAdSaved
-          }
+            background:
+              "rgba(0,0,0,0.7)",
 
-          onClose={() =>
-            setSelectedAdId(
-              null
-            )
-          }
-        />
+            display:
+              "flex",
+
+            justifyContent:
+              "center",
+
+            alignItems:
+              "center",
+
+            zIndex:
+              9999,
+          }}
+        >
+          <div
+            style={{
+              width:
+                "500px",
+
+              background:
+                "#1b1b1b",
+
+              border:
+                "1px solid #333",
+
+              borderRadius:
+                "16px",
+
+              padding:
+                "24px",
+
+              display:
+                "flex",
+
+              flexDirection:
+                "column",
+
+              gap:
+                "16px",
+            }}
+          >
+
+            <h2>
+              Annonce
+            </h2>
+
+            <input
+              value={
+                selectedAd.title ||
+                ""
+              }
+
+              onChange={(e) =>
+                handleAdSaved({
+                  ...selectedAd,
+
+                  title:
+                    e.target.value,
+                })
+              }
+
+              placeholder="Kundenavn"
+
+              style={
+                inputStyle
+              }
+            />
+
+            <input
+              value={
+                selectedAd.price ||
+                ""
+              }
+
+              onChange={(e) =>
+                handleAdSaved({
+                  ...selectedAd,
+
+                  price:
+                    e.target.value,
+                })
+              }
+
+              placeholder="Pris"
+
+              style={
+                inputStyle
+              }
+            />
+
+            <input
+              value={
+                selectedAd.seller ||
+                ""
+              }
+
+              onChange={(e) =>
+                handleAdSaved({
+                  ...selectedAd,
+
+                  seller:
+                    e.target.value,
+                })
+              }
+
+              placeholder="Sælger"
+
+              style={
+                inputStyle
+              }
+            />
+
+            <select
+              value={
+                selectedAd.type
+              }
+
+              onChange={(e) =>
+                handleAdSaved({
+                  ...selectedAd,
+
+                  type:
+                    e.target.value,
+                })
+              }
+
+              style={
+                inputStyle
+              }
+            >
+              {adTypes.map(
+                (
+                  item
+                ) => (
+
+                  <option
+                    key={
+                      item.type
+                    }
+
+                    value={
+                      item.type
+                    }
+                  >
+                    {
+                      item.label
+                    }
+                  </option>
+                )
+              )}
+            </select>
+
+            <select
+              value={
+                selectedAd.status
+              }
+
+              onChange={(e) =>
+                handleAdSaved({
+                  ...selectedAd,
+
+                  status:
+                    e.target.value,
+                })
+              }
+
+              style={
+                inputStyle
+              }
+            >
+              <option>
+                Ledig
+              </option>
+
+              <option>
+                Reserveret
+              </option>
+
+              <option>
+                Solgt
+              </option>
+            </select>
+
+            <div
+              style={{
+                display:
+                  "flex",
+
+                justifyContent:
+                  "flex-end",
+
+                gap:
+                  "12px",
+
+                marginTop:
+                  "10px",
+              }}
+            >
+              <button
+                onClick={() =>
+                  setSelectedAdId(
+                    null
+                  )
+                }
+
+                style={{
+                  background:
+                    "#333",
+
+                  border:
+                    "none",
+
+                  color:
+                    "white",
+
+                  padding:
+                    "10px 16px",
+
+                  borderRadius:
+                    "10px",
+
+                  cursor:
+                    "pointer",
+                }}
+              >
+                Luk
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
 }
+
+const inputStyle = {
+  background:
+    "#111",
+
+  border:
+    "1px solid #333",
+
+  color:
+    "white",
+
+  padding:
+    "12px",
+
+  borderRadius:
+    "10px",
+
+  width:
+    "100%",
+};
