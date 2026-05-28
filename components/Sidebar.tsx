@@ -49,6 +49,16 @@ export default function Sidebar({
   ] = useState("");
 
   const [
+    selectedProvince,
+    setSelectedProvince,
+  ] = useState("");
+
+  const [
+    selectedCity,
+    setSelectedCity,
+  ] = useState("");
+
+  const [
     newMagazinePages,
     setNewMagazinePages,
   ] = useState(56);
@@ -83,6 +93,12 @@ export default function Sidebar({
         region:
           selectedRegion,
 
+        province:
+          selectedProvince,
+
+        city:
+          selectedCity,
+
         fyldning: 0,
 
         deadline:
@@ -104,7 +120,36 @@ export default function Sidebar({
     setSelectedRegion(
       ""
     );
+
+    setSelectedProvince(
+      ""
+    );
+
+    setSelectedCity(
+      ""
+    );
   }
+
+  const regionData =
+    selectedRegion
+      ? locationData[
+          selectedCountry as keyof typeof locationData
+        ][
+          selectedRegion as keyof typeof locationData["Danmark"]
+        ]
+      : {};
+
+  const provinces =
+    Object.keys(
+      regionData || {}
+    );
+
+  const cities =
+    selectedProvince
+      ? regionData[
+          selectedProvince as keyof typeof regionData
+        ] || []
+      : [];
 
   return (
     <>
@@ -176,49 +221,6 @@ export default function Sidebar({
         >
           + Opret magasin
         </button>
-
-        <div
-          style={{
-            marginBottom:
-              "35px",
-          }}
-        >
-          <div
-            style={{
-              marginBottom:
-                "12px",
-            }}
-          >
-            Dashboard
-          </div>
-
-          <div
-            style={{
-              marginBottom:
-                "12px",
-            }}
-          >
-            Omsætning
-          </div>
-
-          <div
-            style={{
-              marginBottom:
-                "12px",
-            }}
-          >
-            Deadlines
-          </div>
-
-          <div
-            style={{
-              marginBottom:
-                "12px",
-            }}
-          >
-            Premium sider
-          </div>
-        </div>
 
         {Object.entries(
           regions
@@ -485,11 +487,24 @@ export default function Sidebar({
                   selectedCountry
                 }
 
-                onChange={(e) =>
+                onChange={(e) => {
+
                   setSelectedCountry(
                     e.target.value
-                  )
-                }
+                  );
+
+                  setSelectedRegion(
+                    ""
+                  );
+
+                  setSelectedProvince(
+                    ""
+                  );
+
+                  setSelectedCity(
+                    ""
+                  );
+                }}
 
                 style={{
                   width:
@@ -541,11 +556,20 @@ export default function Sidebar({
                   selectedRegion
                 }
 
-                onChange={(e) =>
+                onChange={(e) => {
+
                   setSelectedRegion(
                     e.target.value
-                  )
-                }
+                  );
+
+                  setSelectedProvince(
+                    ""
+                  );
+
+                  setSelectedCity(
+                    ""
+                  );
+                }}
 
                 style={{
                   width:
@@ -585,6 +609,148 @@ export default function Sidebar({
                       value={region}
                     >
                       {region}
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
+
+            <div
+              style={{
+                marginBottom:
+                  "16px",
+              }}
+            >
+              <div
+                style={{
+                  marginBottom:
+                    "8px",
+                }}
+              >
+                Provins
+              </div>
+
+              <select
+                value={
+                  selectedProvince
+                }
+
+                onChange={(e) => {
+
+                  setSelectedProvince(
+                    e.target.value
+                  );
+
+                  setSelectedCity(
+                    ""
+                  );
+                }}
+
+                style={{
+                  width:
+                    "100%",
+
+                  padding:
+                    "12px",
+
+                  borderRadius:
+                    "10px",
+
+                  border:
+                    "1px solid #333",
+
+                  background:
+                    "#111",
+
+                  color:
+                    "white",
+                }}
+              >
+                <option value="">
+                  Vælg provins
+                </option>
+
+                {provinces.map(
+                  (
+                    province
+                  ) => (
+
+                    <option
+                      key={
+                        province
+                      }
+
+                      value={
+                        province
+                      }
+                    >
+                      {province}
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
+
+            <div
+              style={{
+                marginBottom:
+                  "16px",
+              }}
+            >
+              <div
+                style={{
+                  marginBottom:
+                    "8px",
+                }}
+              >
+                By / Kommune
+              </div>
+
+              <select
+                value={
+                  selectedCity
+                }
+
+                onChange={(e) =>
+                  setSelectedCity(
+                    e.target.value
+                  )
+                }
+
+                style={{
+                  width:
+                    "100%",
+
+                  padding:
+                    "12px",
+
+                  borderRadius:
+                    "10px",
+
+                  border:
+                    "1px solid #333",
+
+                  background:
+                    "#111",
+
+                  color:
+                    "white",
+                }}
+              >
+                <option value="">
+                  Vælg by
+                </option>
+
+                {cities.map(
+                  (
+                    city: string
+                  ) => (
+
+                    <option
+                      key={city}
+                      value={city}
+                    >
+                      {city}
                     </option>
                   )
                 )}
