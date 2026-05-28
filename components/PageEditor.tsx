@@ -72,7 +72,7 @@ export default function PageEditor({
             return updatedAd;
           }
 
-          return ad;
+          return ad; 
         }
       );
 
