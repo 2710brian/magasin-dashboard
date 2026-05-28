@@ -40,7 +40,7 @@ export default function AdBlock({
   width,
 
   height,
-}: AdBlockProps)
+}: AdBlockProps) {
 
   let gridColumn =
     "span 1";
