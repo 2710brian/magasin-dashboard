@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { locationData } from "../data/locationData";
+
 type SidebarProps = {
   regions: {
     [key: string]: string[];
@@ -37,11 +39,14 @@ export default function Sidebar({
   ] = useState("");
 
   const [
-    newMagazineRegion,
-    setNewMagazineRegion,
-  ] = useState(
-    Object.keys(regions)[0]
-  );
+    selectedCountry,
+    setSelectedCountry,
+  ] = useState("Danmark");
+
+  const [
+    selectedRegion,
+    setSelectedRegion,
+  ] = useState("");
 
   const [
     newMagazinePages,
@@ -72,8 +77,11 @@ export default function Sidebar({
         navn:
           newMagazineName,
 
+        country:
+          selectedCountry,
+
         region:
-          newMagazineRegion,
+          selectedRegion,
 
         fyldning: 0,
 
@@ -90,6 +98,10 @@ export default function Sidebar({
     );
 
     setNewMagazineName(
+      ""
+    );
+
+    setSelectedRegion(
       ""
     );
   }
@@ -465,18 +477,16 @@ export default function Sidebar({
                     "8px",
                 }}
               >
-                Region
+                Land
               </div>
 
               <select
                 value={
-                  newMagazineRegion
+                  selectedCountry
                 }
 
-                onChange={(
-                  e
-                ) =>
-                  setNewMagazineRegion(
+                onChange={(e) =>
+                  setSelectedCountry(
                     e.target.value
                   )
                 }
@@ -501,17 +511,78 @@ export default function Sidebar({
                     "white",
                 }}
               >
+                <option>
+                  Danmark
+                </option>
+
+                <option>
+                  Spanien
+                </option>
+              </select>
+            </div>
+
+            <div
+              style={{
+                marginBottom:
+                  "16px",
+              }}
+            >
+              <div
+                style={{
+                  marginBottom:
+                    "8px",
+                }}
+              >
+                Region
+              </div>
+
+              <select
+                value={
+                  selectedRegion
+                }
+
+                onChange={(e) =>
+                  setSelectedRegion(
+                    e.target.value
+                  )
+                }
+
+                style={{
+                  width:
+                    "100%",
+
+                  padding:
+                    "12px",
+
+                  borderRadius:
+                    "10px",
+
+                  border:
+                    "1px solid #333",
+
+                  background:
+                    "#111",
+
+                  color:
+                    "white",
+                }}
+              >
+                <option value="">
+                  Vælg region
+                </option>
+
                 {Object.keys(
-                  regions
+                  locationData[
+                    selectedCountry as keyof typeof locationData
+                  ]
                 ).map(
                   (
                     region
                   ) => (
 
                     <option
-                      key={
-                        region
-                      }
+                      key={region}
+                      value={region}
                     >
                       {region}
                     </option>
