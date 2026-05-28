@@ -74,7 +74,7 @@ export default function MagazineView({
     selectedMagazine?.totalPages ||
     56;
 
-  const dynamicPages =
+  const generatedPages =
     Array.from(
       {
         length:
@@ -85,31 +85,22 @@ export default function MagazineView({
         const side =
           i + 1;
 
+        const ads =
+          dbAds.filter(
+            (ad) =>
+              ad.page ===
+              side
+          );
+
         return {
+
           side,
 
           premium:
             side === 3 ||
             side === 28 ||
-            side === totalPages,
-        };
-      }
-    );
-
-  const builtPages =
-    dynamicPages.map(
-      (page) => {
-
-        const ads =
-          dbAds.filter(
-            (ad) =>
-              ad.page ===
-              page.side
-          );
-
-        return {
-
-          ...page,
+            side ===
+              totalPages,
 
           ads,
         };
@@ -117,7 +108,7 @@ export default function MagazineView({
     );
 
   const selectedPage =
-    builtPages.find(
+    generatedPages.find(
       (page) =>
         page.side ===
         selectedPageSide
@@ -148,16 +139,14 @@ export default function MagazineView({
             page.side
           );
         }}
-
-        refreshAds={
-          loadAds
-        }
       />
     );
   }
 
   return (
     <div>
+
+      {/* HEADER */}
 
       <div
         style={{
@@ -189,7 +178,9 @@ export default function MagazineView({
           >
             {
               totalPages
-            } sider • Under
+            }
+            {" "}
+            sider • Under
             produktion
           </p>
 
@@ -226,6 +217,8 @@ export default function MagazineView({
         </button>
       </div>
 
+      {/* SIDER */}
+
       <div
         style={{
           display:
@@ -238,7 +231,7 @@ export default function MagazineView({
             "20px",
         }}
       >
-        {builtPages.map(
+        {generatedPages.map(
           (page) => (
 
             <SidePreview
