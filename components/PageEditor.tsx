@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import AdBlock from "./AdBlock";
 import AdModal from "./AdModal";
@@ -32,6 +35,11 @@ export default function PageEditor({
   ] = useState<
     number | null
   >(null);
+
+  const [
+    draggedAd,
+    setDraggedAd,
+  ] = useState<any>(null);
 
   useEffect(() => {
 
@@ -74,6 +82,59 @@ export default function PageEditor({
     });
   }
 
+  function moveAd(
+    targetIndex: number
+  ) {
+
+    if (!draggedAd) {
+      return;
+    }
+
+    const ads = [
+      ...localPage.ads,
+    ];
+
+    const fromIndex =
+      ads.findIndex(
+        (
+          ad: any
+        ) =>
+          ad.id ===
+          draggedAd.id
+      );
+
+    const targetAd =
+      ads[targetIndex];
+
+    ads[targetIndex] =
+      draggedAd;
+
+    ads[fromIndex] =
+      targetAd;
+
+    setLocalPage({
+      ...localPage,
+      ads,
+    });
+
+    setDraggedAd(
+      null
+    );
+  }
+
+  const totalValue =
+    localPage.ads.reduce(
+      (
+        total: number,
+        ad: any
+      ) =>
+        total +
+        Number(
+          ad.price || 0
+        ),
+      0
+    );
+
   return (
     <div>
 
@@ -110,6 +171,27 @@ export default function PageEditor({
             Side editor
           </p>
 
+          <div
+            style={{
+              marginTop:
+                "10px",
+
+              color:
+                "#22c55e",
+
+              fontWeight:
+                "bold",
+            }}
+          >
+            Sideværdi:
+            {" "}
+            {
+              totalValue.toLocaleString()
+            }
+            {" "}
+            DKK
+          </div>
+
         </div>
 
         <button
@@ -118,6 +200,7 @@ export default function PageEditor({
               null
             )
           }
+
           style={{
             background:
               "#1f1f1f",
@@ -139,6 +222,135 @@ export default function PageEditor({
           }}
         >
           Tilbage til sider
+        </button>
+      </div>
+
+      {/* TOOLS */}
+
+      <div
+        style={{
+          display:
+            "flex",
+
+          gap:
+            "12px",
+
+          marginBottom:
+            "20px",
+
+          justifyContent:
+            "center",
+        }}
+      >
+
+        <button
+          onClick={() => {
+
+            const newAd = {
+              id:
+                Date.now(),
+
+              title:
+                "Tekst område",
+
+              status:
+                "Indhold",
+
+              type:
+                "quarter",
+
+              color:
+                "#2d3748",
+
+              price: 0,
+            };
+
+            setLocalPage({
+              ...localPage,
+
+              ads: [
+                ...localPage.ads,
+                newAd,
+              ],
+            });
+          }}
+
+          style={{
+            padding:
+              "10px 14px",
+
+            background:
+              "#2563eb",
+
+            border:
+              "none",
+
+            borderRadius:
+              "10px",
+
+            color:
+              "white",
+
+            cursor:
+              "pointer",
+          }}
+        >
+          + Tekst område
+        </button>
+
+        <button
+          onClick={() => {
+
+            const newAd = {
+              id:
+                Date.now(),
+
+              title:
+                "Placeholder",
+
+              status:
+                "Ledig",
+
+              type:
+                "quarter",
+
+              color:
+                "#444",
+
+              price: 0,
+            };
+
+            setLocalPage({
+              ...localPage,
+
+              ads: [
+                ...localPage.ads,
+                newAd,
+              ],
+            });
+          }}
+
+          style={{
+            padding:
+              "10px 14px",
+
+            background:
+              "#444",
+
+            border:
+              "none",
+
+            borderRadius:
+              "10px",
+
+            color:
+              "white",
+
+            cursor:
+              "pointer",
+          }}
+        >
+          + Placeholder
         </button>
       </div>
 
@@ -174,16 +386,10 @@ export default function PageEditor({
               "grid",
 
             gridTemplateColumns:
-              localPage.layout ===
-              "quarter"
-                ? "1fr 1fr"
-                : "1fr",
+              "1fr 1fr",
 
-            gridTemplateRows:
-              localPage.layout ===
-              "quarter"
-                ? "1fr 1fr"
-                : "1fr",
+            gridAutoRows:
+              "1fr",
 
             gap: "6px",
 
@@ -203,6 +409,26 @@ export default function PageEditor({
                   index
                 }
 
+                draggable
+
+                onDragStart={() =>
+                  setDraggedAd(
+                    ad
+                  )
+                }
+
+                onDragOver={(
+                  e
+                ) =>
+                  e.preventDefault()
+                }
+
+                onDrop={() =>
+                  moveAd(
+                    index
+                  )
+                }
+
                 onClick={() =>
                   setSelectedAdId(
                     ad.id
@@ -211,7 +437,7 @@ export default function PageEditor({
 
                 style={{
                   cursor:
-                    "pointer",
+                    "grab",
                 }}
               >
                 <AdBlock
