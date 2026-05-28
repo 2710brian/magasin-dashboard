@@ -11,8 +11,6 @@ type PageEditorProps = {
   setSelectedPage: (
     page: any | null
   ) => void;
-
-  refreshAds?: () => Promise<void>;
 };
 
 export default function PageEditor({
@@ -35,8 +33,8 @@ export default function PageEditor({
   >(null);
 
   const [
-    draggedIndex,
-    setDraggedIndex,
+    draggedAdId,
+    setDraggedAdId,
   ] = useState<
     number | null
   >(null);
@@ -56,7 +54,123 @@ export default function PageEditor({
         selectedAdId
     );
 
-  function handleAdSaved(
+  function getAdSize(
+    type: string
+  ) {
+
+    switch (type) {
+
+      case "helside":
+        return {
+          width: 760,
+          height: 1080,
+        };
+
+      case "half-horizontal":
+        return {
+          width: 760,
+          height: 520,
+        };
+
+      case "half-vertical":
+        return {
+          width: 370,
+          height: 1080,
+        };
+
+      case "quarter":
+        return {
+          width: 370,
+          height: 520,
+        };
+
+      case "quarter-horizontal":
+        return {
+          width: 760,
+          height: 250,
+        };
+
+      case "business-card":
+        return {
+          width: 180,
+          height: 120,
+        };
+
+      case "double-business-card":
+        return {
+          width: 380,
+          height: 120,
+        };
+
+      case "double-page":
+        return {
+          width: 1560,
+          height: 1080,
+        };
+
+      case "text":
+        return {
+          width: 370,
+          height: 250,
+        };
+
+      default:
+        return {
+          width: 370,
+          height: 250,
+        };
+    }
+  }
+
+  function createAd(
+    label: string,
+    type: string
+  ) {
+
+    const size =
+      getAdSize(type);
+
+    const newAd = {
+
+      id:
+        Date.now(),
+
+      title:
+        label,
+
+      status:
+        "Ledig",
+
+      type,
+
+      price: 0,
+
+      seller: "",
+
+      image: "",
+
+      x: 20,
+
+      y: 20,
+
+      width:
+        size.width,
+
+      height:
+        size.height,
+    };
+
+    setLocalPage({
+      ...localPage,
+
+      ads: [
+        ...localPage.ads,
+        newAd,
+      ],
+    });
+  }
+
+  function updateAd(
     updatedAd: any
   ) {
 
@@ -68,11 +182,10 @@ export default function PageEditor({
             ad.id ===
             updatedAd.id
           ) {
-
             return updatedAd;
           }
 
-          return ad; 
+          return ad;
         }
       );
 
@@ -82,49 +195,6 @@ export default function PageEditor({
       ads:
         updatedAds,
     });
-  }
-
-  function handleDrop(
-    targetIndex: number
-  ) {
-
-    if (
-      draggedIndex ===
-      null
-    ) {
-      return;
-    }
-
-    const updatedAds = [
-      ...localPage.ads,
-    ];
-
-    const draggedItem =
-      updatedAds[
-        draggedIndex
-      ];
-
-    updatedAds.splice(
-      draggedIndex,
-      1
-    );
-
-    updatedAds.splice(
-      targetIndex,
-      0,
-      draggedItem
-    );
-
-    setLocalPage({
-      ...localPage,
-
-      ads:
-        updatedAds,
-    });
-
-    setDraggedIndex(
-      null
-    );
   }
 
   const totalValue =
@@ -141,6 +211,7 @@ export default function PageEditor({
     );
 
   const adTypes = [
+
     {
       label:
         "Visitkort",
@@ -227,9 +298,6 @@ export default function PageEditor({
           justifyContent:
             "space-between",
 
-          alignItems:
-            "center",
-
           marginBottom:
             "30px",
         }}
@@ -238,7 +306,7 @@ export default function PageEditor({
 
           <h1>
             Side {
-              localPage?.side
+              localPage.side
             }
           </h1>
 
@@ -263,7 +331,7 @@ export default function PageEditor({
                 "bold",
 
               fontSize:
-                "18px",
+                "20px",
             }}
           >
             Sideværdi:
@@ -332,45 +400,12 @@ export default function PageEditor({
                 item.type
               }
 
-              onClick={() => {
-
-                const newAd = {
-                  id:
-                    Date.now(),
-
-                  title:
-                    item.label,
-
-                  status:
-                    "Ledig",
-
-                  type:
-                    item.type,
-
-                  color:
-                    "#444",
-
-                  price: 0,
-
-                  seller:
-                    "",
-
-                  customer:
-                    "",
-
-                  image:
-                    "",
-                };
-
-                setLocalPage({
-                  ...localPage,
-
-                  ads: [
-                    ...localPage.ads,
-                    newAd,
-                  ],
-                });
-              }}
+              onClick={() =>
+                createAd(
+                  item.label,
+                  item.type
+                )
+              }
 
               style={{
                 background:
@@ -412,38 +447,29 @@ export default function PageEditor({
         <div
           style={{
             width:
-              "900px",
+              "820px",
 
-            minHeight:
-              "1300px",
+            height:
+              "1120px",
 
             background:
               "#1b1b1b",
 
+            border:
+              "1px solid #333",
+
             borderRadius:
-              "14px",
+              "16px",
 
-            padding:
-              "14px",
+            position:
+              "relative",
 
-            display:
-              "grid",
-
-            gridTemplateColumns:
-              "repeat(12, 1fr)",
-
-            gridAutoRows:
-              "60px",
-
-            gap:
-              "8px",
+            overflow:
+              "hidden",
           }}
         >
           {localPage.ads.map(
-            (
-              ad: any,
-              index: number
-            ) => (
+            (ad: any) => (
 
               <div
                 key={
@@ -453,22 +479,37 @@ export default function PageEditor({
                 draggable
 
                 onDragStart={() =>
-                  setDraggedIndex(
-                    index
+                  setDraggedAdId(
+                    ad.id
                   )
                 }
 
-                onDragOver={(
-                  e
-                ) =>
-                  e.preventDefault()
-                }
+                onDragEnd={(e) => {
 
-                onDrop={() =>
-                  handleDrop(
-                    index
-                  )
-                }
+                  const rect =
+                    e.currentTarget.parentElement?.getBoundingClientRect();
+
+                  if (!rect) {
+                    return;
+                  }
+
+                  const updatedAd = {
+
+                    ...ad,
+
+                    x:
+                      e.clientX -
+                      rect.left,
+
+                    y:
+                      e.clientY -
+                      rect.top,
+                  };
+
+                  updateAd(
+                    updatedAd
+                  );
+                }}
 
                 onClick={() =>
                   setSelectedAdId(
@@ -478,10 +519,22 @@ export default function PageEditor({
 
                 style={{
                   position:
-                    "relative",
+                    "absolute",
+
+                  left:
+                    ad.x,
+
+                  top:
+                    ad.y,
+
+                  width:
+                    ad.width,
+
+                  height:
+                    ad.height,
 
                   cursor:
-                    "grab",
+                    "move",
                 }}
               >
                 <AdBlock
@@ -497,24 +550,20 @@ export default function PageEditor({
                     ad.price
                   }
 
-                  color={
-                    ad.color
-                  }
-
                   type={
                     ad.type
                   }
 
-                  customer={
-                    ad.customer
-                  }
-
-                  seller={
-                    ad.seller
-                  }
-
                   image={
                     ad.image
+                  }
+
+                  width={
+                    ad.width
+                  }
+
+                  height={
+                    ad.height
                   }
                 />
 
@@ -548,6 +597,13 @@ export default function PageEditor({
 
                     right: "8px",
 
+                    width: "28px",
+
+                    height: "28px",
+
+                    borderRadius:
+                      "50%",
+
                     background:
                       "#ef4444",
 
@@ -557,17 +613,10 @@ export default function PageEditor({
                     color:
                       "white",
 
-                    width: "26px",
-
-                    height: "26px",
-
-                    borderRadius:
-                      "50%",
-
                     cursor:
                       "pointer",
 
-                    zIndex: 100,
+                    zIndex: 999,
                   }}
                 >
                   ×
@@ -578,7 +627,7 @@ export default function PageEditor({
         </div>
       </div>
 
-      {/* MINI MODAL */}
+      {/* POPUP */}
 
       {selectedAd && (
 
@@ -644,7 +693,7 @@ export default function PageEditor({
               }
 
               onChange={(e) =>
-                handleAdSaved({
+                updateAd({
                   ...selectedAd,
 
                   title:
@@ -666,7 +715,7 @@ export default function PageEditor({
               }
 
               onChange={(e) =>
-                handleAdSaved({
+                updateAd({
                   ...selectedAd,
 
                   price:
@@ -688,7 +737,7 @@ export default function PageEditor({
               }
 
               onChange={(e) =>
-                handleAdSaved({
+                updateAd({
                   ...selectedAd,
 
                   seller:
@@ -705,51 +754,11 @@ export default function PageEditor({
 
             <select
               value={
-                selectedAd.type
-              }
-
-              onChange={(e) =>
-                handleAdSaved({
-                  ...selectedAd,
-
-                  type:
-                    e.target.value,
-                })
-              }
-
-              style={
-                inputStyle
-              }
-            >
-              {adTypes.map(
-                (
-                  item
-                ) => (
-
-                  <option
-                    key={
-                      item.type
-                    }
-
-                    value={
-                      item.type
-                    }
-                  >
-                    {
-                      item.label
-                    }
-                  </option>
-                )
-              )}
-            </select>
-
-            <select
-              value={
                 selectedAd.status
               }
 
               onChange={(e) =>
-                handleAdSaved({
+                updateAd({
                   ...selectedAd,
 
                   status:
@@ -774,51 +783,35 @@ export default function PageEditor({
               </option>
             </select>
 
-            <div
+            <button
+              onClick={() =>
+                setSelectedAdId(
+                  null
+                )
+              }
+
               style={{
-                display:
-                  "flex",
+                background:
+                  "#333",
 
-                justifyContent:
-                  "flex-end",
+                border:
+                  "none",
 
-                gap:
+                color:
+                  "white",
+
+                padding:
                   "12px",
 
-                marginTop:
+                borderRadius:
                   "10px",
+
+                cursor:
+                  "pointer",
               }}
             >
-              <button
-                onClick={() =>
-                  setSelectedAdId(
-                    null
-                  )
-                }
-
-                style={{
-                  background:
-                    "#333",
-
-                  border:
-                    "none",
-
-                  color:
-                    "white",
-
-                  padding:
-                    "10px 16px",
-
-                  borderRadius:
-                    "10px",
-
-                  cursor:
-                    "pointer",
-                }}
-              >
-                Luk
-              </button>
-            </div>
+              Luk
+            </button>
           </div>
         </div>
       )}
@@ -827,6 +820,7 @@ export default function PageEditor({
 }
 
 const inputStyle = {
+
   background:
     "#111",
 
