@@ -1,7 +1,11 @@
+"use client";
+
 import {
   useEffect,
   useState,
 } from "react";
+
+import { Rnd } from "react-rnd";
 
 import AdBlock from "./AdBlock";
 
@@ -11,6 +15,91 @@ type PageEditorProps = {
   setSelectedPage: (
     page: any | null
   ) => void;
+};
+
+const SCALE = 4;
+
+const MAGAZINE = {
+  width:
+    227 * SCALE,
+
+  height:
+    295 * SCALE,
+};
+
+const adSizes: any = {
+
+  "business-card": {
+    width:
+      60 * SCALE,
+
+    height:
+      60 * SCALE,
+  },
+
+  "double-business-card": {
+    width:
+      125 * SCALE,
+
+    height:
+      60 * SCALE,
+  },
+
+  quarter: {
+    width:
+      60 * SCALE,
+
+    height:
+      90 * SCALE,
+  },
+
+  "quarter-horizontal": {
+    width:
+      90 * SCALE,
+
+    height:
+      60 * SCALE,
+  },
+
+  "half-horizontal": {
+    width:
+      190 * SCALE,
+
+    height:
+      125 * SCALE,
+  },
+
+  "half-vertical": {
+    width:
+      125 * SCALE,
+
+    height:
+      190 * SCALE,
+  },
+
+  helside: {
+    width:
+      190 * SCALE,
+
+    height:
+      227 * SCALE,
+  },
+
+  "double-page": {
+    width:
+      380 * SCALE,
+
+    height:
+      227 * SCALE,
+  },
+
+  text: {
+    width:
+      190 * SCALE,
+
+    height:
+      60 * SCALE,
+  },
 };
 
 export default function PageEditor({
@@ -32,13 +121,6 @@ export default function PageEditor({
     number | null
   >(null);
 
-  const [
-    draggedAdId,
-    setDraggedAdId,
-  ] = useState<
-    number | null
-  >(null);
-
   useEffect(() => {
 
     setLocalPage(
@@ -47,79 +129,32 @@ export default function PageEditor({
 
   }, [selectedPage]);
 
-  const selectedAd =
-    localPage.ads.find(
-      (ad: any) =>
-        ad.id ===
-        selectedAdId
-    );
-
-  function getAdSize(
-    type: string
+  function updateAd(
+    updatedAd: any
   ) {
 
-    switch (type) {
+    const updatedAds =
+      localPage.ads.map(
+        (ad: any) => {
 
-      case "helside":
-        return {
-          width: 760,
-          height: 1080,
-        };
+          if (
+            ad.id ===
+            updatedAd.id
+          ) {
 
-      case "half-horizontal":
-        return {
-          width: 760,
-          height: 520,
-        };
+            return updatedAd;
+          }
 
-      case "half-vertical":
-        return {
-          width: 370,
-          height: 1080,
-        };
+          return ad;
+        }
+      );
 
-      case "quarter":
-        return {
-          width: 370,
-          height: 520,
-        };
+    setLocalPage({
+      ...localPage,
 
-      case "quarter-horizontal":
-        return {
-          width: 760,
-          height: 250,
-        };
-
-      case "business-card":
-        return {
-          width: 180,
-          height: 120,
-        };
-
-      case "double-business-card":
-        return {
-          width: 380,
-          height: 120,
-        };
-
-      case "double-page":
-        return {
-          width: 1560,
-          height: 1080,
-        };
-
-      case "text":
-        return {
-          width: 370,
-          height: 250,
-        };
-
-      default:
-        return {
-          width: 370,
-          height: 250,
-        };
-    }
+      ads:
+        updatedAds,
+    });
   }
 
   function createAd(
@@ -128,7 +163,7 @@ export default function PageEditor({
   ) {
 
     const size =
-      getAdSize(type);
+      adSizes[type];
 
     const newAd = {
 
@@ -170,33 +205,6 @@ export default function PageEditor({
     });
   }
 
-  function updateAd(
-    updatedAd: any
-  ) {
-
-    const updatedAds =
-      localPage.ads.map(
-        (ad: any) => {
-
-          if (
-            ad.id ===
-            updatedAd.id
-          ) {
-            return updatedAd;
-          }
-
-          return ad;
-        }
-      );
-
-    setLocalPage({
-      ...localPage,
-
-      ads:
-        updatedAds,
-    });
-  }
-
   const totalValue =
     localPage.ads.reduce(
       (
@@ -208,6 +216,13 @@ export default function PageEditor({
           ad.price || 0
         ),
       0
+    );
+
+  const selectedAd =
+    localPage.ads.find(
+      (ad: any) =>
+        ad.id ===
+        selectedAdId
     );
 
   const adTypes = [
@@ -310,15 +325,6 @@ export default function PageEditor({
             }
           </h1>
 
-          <p
-            style={{
-              color:
-                "#888",
-            }}
-          >
-            Side editor
-          </p>
-
           <div
             style={{
               marginTop:
@@ -331,7 +337,7 @@ export default function PageEditor({
                 "bold",
 
               fontSize:
-                "20px",
+                "18px",
             }}
           >
             Sideværdi:
@@ -371,7 +377,7 @@ export default function PageEditor({
               "pointer",
           }}
         >
-          Tilbage til sider
+          Tilbage
         </button>
       </div>
 
@@ -447,10 +453,10 @@ export default function PageEditor({
         <div
           style={{
             width:
-              "820px",
+              MAGAZINE.width,
 
             height:
-              "1120px",
+              MAGAZINE.height,
 
             background:
               "#1b1b1b",
@@ -471,44 +477,64 @@ export default function PageEditor({
           {localPage.ads.map(
             (ad: any) => (
 
-              <div
+              <Rnd
                 key={
                   ad.id
                 }
 
-                draggable
+                size={{
+                  width:
+                    ad.width,
 
-                onDragStart={() =>
-                  setDraggedAdId(
-                    ad.id
-                  )
-                }
+                  height:
+                    ad.height,
+                }}
 
-                onDragEnd={(e) => {
+                position={{
+                  x: ad.x,
 
-                  const rect =
-                    e.currentTarget.parentElement?.getBoundingClientRect();
+                  y: ad.y,
+                }}
 
-                  if (!rect) {
-                    return;
-                  }
+                bounds="parent"
 
-                  const updatedAd = {
+                onDragStop={(
+                  e,
+                  d
+                ) => {
 
+                  updateAd({
                     ...ad,
 
-                    x:
-                      e.clientX -
-                      rect.left,
+                    x: d.x,
 
-                    y:
-                      e.clientY -
-                      rect.top,
-                  };
+                    y: d.y,
+                  });
+                }}
 
-                  updateAd(
-                    updatedAd
-                  );
+                onResizeStop={(
+                  e,
+                  direction,
+                  ref,
+                  delta,
+                  position
+                ) => {
+
+                  updateAd({
+                    ...ad,
+
+                    width:
+                      parseInt(
+                        ref.style.width
+                      ),
+
+                    height:
+                      parseInt(
+                        ref.style.height
+                      ),
+
+                    ...position,
+                  });
                 }}
 
                 onClick={() =>
@@ -516,112 +542,100 @@ export default function PageEditor({
                     ad.id
                   )
                 }
-
-                style={{
-                  position:
-                    "absolute",
-
-                  left:
-                    ad.x,
-
-                  top:
-                    ad.y,
-
-                  width:
-                    ad.width,
-
-                  height:
-                    ad.height,
-
-                  cursor:
-                    "move",
-                }}
               >
-                <AdBlock
-                  title={
-                    ad.title
-                  }
-
-                  status={
-                    ad.status
-                  }
-
-                  price={
-                    ad.price
-                  }
-
-                  type={
-                    ad.type
-                  }
-
-                  image={
-                    ad.image
-                  }
-
-                  width={
-                    ad.width
-                  }
-
-                  height={
-                    ad.height
-                  }
-                />
-
-                <button
-                  onClick={(e) => {
-
-                    e.stopPropagation();
-
-                    const updatedAds =
-                      localPage.ads.filter(
-                        (
-                          item: any
-                        ) =>
-                          item.id !==
-                          ad.id
-                      );
-
-                    setLocalPage({
-                      ...localPage,
-
-                      ads:
-                        updatedAds,
-                    });
-                  }}
-
+                <div
                   style={{
+                    width:
+                      "100%",
+
+                    height:
+                      "100%",
+
                     position:
-                      "absolute",
-
-                    top: "8px",
-
-                    right: "8px",
-
-                    width: "28px",
-
-                    height: "28px",
-
-                    borderRadius:
-                      "50%",
-
-                    background:
-                      "#ef4444",
-
-                    border:
-                      "none",
-
-                    color:
-                      "white",
-
-                    cursor:
-                      "pointer",
-
-                    zIndex: 999,
+                      "relative",
                   }}
                 >
-                  ×
-                </button>
-              </div>
+                  <AdBlock
+                    title={
+                      ad.title
+                    }
+
+                    status={
+                      ad.status
+                    }
+
+                    price={
+                      ad.price
+                    }
+
+                    type={
+                      ad.type
+                    }
+
+                    image={
+                      ad.image
+                    }
+                  />
+
+                  <button
+                    onClick={(e) => {
+
+                      e.stopPropagation();
+
+                      const updatedAds =
+                        localPage.ads.filter(
+                          (
+                            item: any
+                          ) =>
+                            item.id !==
+                            ad.id
+                        );
+
+                      setLocalPage({
+                        ...localPage,
+
+                        ads:
+                          updatedAds,
+                      });
+                    }}
+
+                    style={{
+                      position:
+                        "absolute",
+
+                      top: "8px",
+
+                      right: "8px",
+
+                      width:
+                        "28px",
+
+                      height:
+                        "28px",
+
+                      borderRadius:
+                        "50%",
+
+                      background:
+                        "#ef4444",
+
+                      border:
+                        "none",
+
+                      color:
+                        "white",
+
+                      cursor:
+                        "pointer",
+
+                      zIndex:
+                        999,
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+              </Rnd>
             )
           )}
         </div>
@@ -752,36 +766,41 @@ export default function PageEditor({
               }
             />
 
-            <select
-              value={
-                selectedAd.status
-              }
+            <input
+              type="file"
 
-              onChange={(e) =>
-                updateAd({
-                  ...selectedAd,
+              accept="image/png,image/jpeg"
 
-                  status:
-                    e.target.value,
-                })
-              }
+              onChange={(
+                e: any
+              ) => {
 
-              style={
-                inputStyle
-              }
-            >
-              <option>
-                Ledig
-              </option>
+                const file =
+                  e.target.files?.[0];
 
-              <option>
-                Reserveret
-              </option>
+                if (!file) {
+                  return;
+                }
 
-              <option>
-                Solgt
-              </option>
-            </select>
+                const reader =
+                  new FileReader();
+
+                reader.onload =
+                  () => {
+
+                    updateAd({
+                      ...selectedAd,
+
+                      image:
+                        reader.result,
+                    });
+                  };
+
+                reader.readAsDataURL(
+                  file
+                );
+              }}
+            />
 
             <button
               onClick={() =>
