@@ -11,12 +11,15 @@ import SidePreview from "./SidePreview";
 import { pages } from "../data/pages";
 
 type MagazineViewProps = {
+  selectedMagazine: any;
+
   setSelectedKommune: (
     kommune: string | null
   ) => void;
 };
 
 export default function MagazineView({
+  selectedMagazine,
   setSelectedKommune,
 }: MagazineViewProps) {
 
@@ -67,23 +70,51 @@ export default function MagazineView({
 
   }, []);
 
+  const totalPages =
+    selectedMagazine?.totalPages ||
+    56;
+
+  const dynamicPages =
+    Array.from(
+      {
+        length:
+          totalPages,
+      },
+      (_, i) => {
+
+        const side =
+          i + 1;
+
+        return {
+          side,
+
+          premium:
+            side === 3 ||
+            side === 28 ||
+            side === totalPages,
+        };
+      }
+    );
+
   const builtPages =
-    pages.map((page) => {
+    dynamicPages.map(
+      (page) => {
 
-      const ads =
-        dbAds.filter(
-          (ad) =>
-            ad.page ===
-            page.side
-        );
+        const ads =
+          dbAds.filter(
+            (ad) =>
+              ad.page ===
+              page.side
+          );
 
-      return {
+        return {
 
-        ...page,
+          ...page,
 
-        ads,
-      };
-    });
+          ads,
+        };
+      }
+    );
 
   const selectedPage =
     builtPages.find(
@@ -128,8 +159,6 @@ export default function MagazineView({
   return (
     <div>
 
-      {/* HEADER */}
-
       <div
         style={{
           display: "flex",
@@ -147,7 +176,9 @@ export default function MagazineView({
         <div>
 
           <h1>
-            Aalborg
+            {
+              selectedMagazine?.navn
+            }
           </h1>
 
           <p
@@ -156,7 +187,9 @@ export default function MagazineView({
                 "#888",
             }}
           >
-            56 sider • Under
+            {
+              totalPages
+            } sider • Under
             produktion
           </p>
 
@@ -168,6 +201,7 @@ export default function MagazineView({
               null
             )
           }
+
           style={{
             background:
               "#1f1f1f",
@@ -191,8 +225,6 @@ export default function MagazineView({
           Tilbage
         </button>
       </div>
-
-      {/* SIDER */}
 
       <div
         style={{
