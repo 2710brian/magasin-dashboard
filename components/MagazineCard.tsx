@@ -8,7 +8,7 @@ type MagazineCardProps = {
 };
 
 export default function MagazineCard({
-  kommune,
+  kommune, 
 }: MagazineCardProps) {
 
   function generatePages() {
