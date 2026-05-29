@@ -94,19 +94,24 @@ export default function PageEditor({
   );
 
   const [
-    selectedAdId,
-    setSelectedAdId,
-  ] = useState<
-    number | null
-  >(null);
+  selectedAdId,
+  setSelectedAdId,
+] = useState<
+  number | null
+>(null);
 
-  useEffect(() => {
+const [
+  clients,
+  setClients,
+] = useState<any[]>([]);
 
-    setLocalPage(
-      selectedPage
-    );
+useEffect(() => {
 
-  }, [selectedPage]);
+  setLocalPage(
+    selectedPage
+  );
+
+}, [selectedPage]);
 
   function updateAd(
     updatedAd: any
