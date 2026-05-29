@@ -259,10 +259,15 @@ export default async function handler(
     `;
 
     const result =
-      await pool.query(
-        query,
-        values
-      );
+  await pool.query(
+    query,
+    values
+  );
+
+console.log(
+  "ROWS UPDATED:",
+  result.rowCount
+);
 
     return res.status(200).json({
       success: true,
