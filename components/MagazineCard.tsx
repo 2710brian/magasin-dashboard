@@ -75,11 +75,7 @@ export default function MagazineCard({
         "solgt"
     ).length;
 
-  const totalOmsaetning =
-    Math.floor(
-      Math.random() *
-        150000
-    ) + 85000;
+  const totalOmsaetning = 0;
 
   return (
     <div
