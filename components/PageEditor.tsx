@@ -105,6 +105,11 @@ const [
   setClients,
 ] = useState<any[]>([]);
 
+  const [
+  clientSearch,
+  setClientSearch,
+] = useState("");
+
 useEffect(() => {
 
   setLocalPage(
