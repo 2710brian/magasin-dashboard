@@ -113,6 +113,32 @@ useEffect(() => {
 
 }, [selectedPage]);
 
+  useEffect(() => {
+
+  async function loadClients() {
+
+    const response =
+      await fetch(
+        "/api/get-clients"
+      );
+
+    const data =
+      await response.json();
+
+    if (
+      data.success
+    ) {
+
+      setClients(
+        data.clients
+      );
+    }
+  }
+
+  loadClients();
+
+}, []);
+
   function updateAd(
     updatedAd: any
   ) {
