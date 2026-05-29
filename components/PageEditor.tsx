@@ -22,51 +22,55 @@ const MAGAZINE = {
   height: 1140,
 };
 
-const adSizes: any = {
+const MM_SCALE = MAGAZINE.width / 227;
 
+const mmToPx = (mm: number) =>
+  Math.round(mm * MM_SCALE);
+
+const adSizes: any = {
   "business-card": {
-    width: 230,
-    height: 230,
+    width: mmToPx(60),
+    height: mmToPx(60),
   },
 
   "double-business-card": {
-    width: 480,
-    height: 230,
+    width: mmToPx(125),
+    height: mmToPx(60),
   },
 
   quarter: {
-    width: 230,
-    height: 340,
+    width: mmToPx(60),
+    height: mmToPx(90),
   },
 
   "quarter-horizontal": {
-    width: 340,
-    height: 230,
+    width: mmToPx(90),
+    height: mmToPx(60),
   },
 
   "half-horizontal": {
-    width: 720,
-    height: 430,
+    width: mmToPx(190),
+    height: mmToPx(125),
   },
 
   "half-vertical": {
-    width: 430,
-    height: 720,
+    width: mmToPx(125),
+    height: mmToPx(190),
   },
 
   helside: {
-    width: 720,
-    height: 1050,
+    width: mmToPx(190),
+    height: mmToPx(277),
   },
 
   "double-page": {
-    width: 1460,
-    height: 1050,
+    width: mmToPx(380),
+    height: mmToPx(277),
   },
 
   text: {
-    width: 720,
-    height: 180,
+    width: mmToPx(190),
+    height: mmToPx(45),
   },
 };
 
@@ -795,3 +799,4 @@ const inputStyle = {
   width:
     "100%",
 };
+
