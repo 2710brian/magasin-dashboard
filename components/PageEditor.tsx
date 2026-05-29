@@ -685,21 +685,12 @@ useEffect(() => {
             </h2>
 
             <input
-              value={clientSearch}
-                selectedAd.title ||
-                ""
-              }
-
+              value={clientSearch || ""}
               onChange={(e) =>
-                updateAd({
-                  ...selectedAd,
-
-                  title:
-                    e.target.value,
-                })
+                setClientSearch(e.target.value)
               }
-
               placeholder="Kundenavn"
+
 
               style={
                 inputStyle
