@@ -27,12 +27,7 @@ export default function MagazineCard({
             page === 28 ||
             page === 56,
 
-          status:
-            page % 5 === 0
-              ? "solgt"
-              : page % 3 === 0
-              ? "reserveret"
-              : "ledig",
+          status: "ledig",
         };
       }
     );
