@@ -22,11 +22,23 @@ const MAGAZINE = {
   height: 1140,
 };
 
-const MM_SCALE = MAGAZINE.width / 227;
+const MAGAZINE = {
+  width: 880,
+  height: 1140,
+};
+
+/*
+  Annonceområdet i magasinet er 190 mm bredt.
+  Den gamle helside var 720 px bred og passede visuelt bedre.
+*/
+
+const AD_AREA_WIDTH = 720;
+
+const MM_SCALE =
+  AD_AREA_WIDTH / 190;
 
 const mmToPx = (mm: number) =>
   Math.round(mm * MM_SCALE);
-
 const adSizes: any = {
   "business-card": {
     width: mmToPx(60),
