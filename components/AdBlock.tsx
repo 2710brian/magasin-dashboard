@@ -1,801 +1,504 @@
-"use client";
+type AdBlockProps = {
+  title: string;
 
-import {
-  useEffect,
-  useState,
-} from "react";
+  status?: string;
 
-import { Rnd } from "react-rnd";
+  price?: string | number;
 
-import AdBlock from "./AdBlock";
+  color?: string;
 
-type PageEditorProps = {
-  selectedPage: any;
+  type?: string;
 
-  setSelectedPage: (
-    page: any | null
-  ) => void;
+  image?: string;
+
+  customer?: string;
+
+  seller?: string;
+
+  width?: number;
+
+  height?: number;
 };
 
-const MAGAZINE = {
-  width: 880,
-  height: 1140,
-};
+export default function AdBlock({
+  title,
 
-const MM_SCALE = MAGAZINE.width / 227;
+  status = "Ledig",
 
-const mmToPx = (mm: number) =>
-  Math.round(mm * MM_SCALE);
+  price = "0,00",
 
-const adSizes: any = {
-  "business-card": {
-    width: mmToPx(60),
-    height: mmToPx(60),
-  },
+  color = "#444",
 
-  "double-business-card": {
-    width: mmToPx(125),
-    height: mmToPx(60),
-  },
+  type = "quarter",
 
-  quarter: {
-    width: mmToPx(60),
-    height: mmToPx(90),
-  },
+  image,
 
-  "quarter-horizontal": {
-    width: mmToPx(90),
-    height: mmToPx(60),
-  },
+  customer,
 
-  "half-horizontal": {
-    width: mmToPx(190),
-    height: mmToPx(125),
-  },
+  seller,
 
-  "half-vertical": {
-    width: mmToPx(125),
-    height: mmToPx(190),
-  },
+  width,
 
-  helside: {
-    width: mmToPx(190),
-    height: mmToPx(277),
-  },
+  height,
+}: AdBlockProps) {
 
-  "double-page": {
-    width: mmToPx(380),
-    height: mmToPx(277),
-  },
+  let gridColumn =
+    "span 1";
 
-  text: {
-    width: mmToPx(190),
-    height: mmToPx(45),
-  },
-};
+  let gridRow =
+    "span 1";
 
-export default function PageEditor({
-  selectedPage,
-  setSelectedPage,
-}: PageEditorProps) {
+  let minHeight =
+    "120px";
 
-  const [
-    localPage,
-    setLocalPage,
-  ] = useState(
-    selectedPage
-  );
+  /*
+    VISITKORT
+  */
 
-  const [
-    selectedAdId,
-    setSelectedAdId,
-  ] = useState<
-    number | null
-  >(null);
-
-  useEffect(() => {
-
-    setLocalPage(
-      selectedPage
-    );
-
-  }, [selectedPage]);
-
-  function updateAd(
-    updatedAd: any
+  if (
+    type ===
+    "business-card"
   ) {
 
-    const updatedAds =
-      localPage.ads.map(
-        (ad: any) => {
+    gridColumn =
+      "span 1";
 
-          if (
-            ad.id ===
-            updatedAd.id
-          ) {
+    gridRow =
+      "span 1";
 
-            return updatedAd;
-          }
-
-          return ad;
-        }
-      );
-
-    setLocalPage({
-      ...localPage,
-      ads: updatedAds,
-    });
+    minHeight =
+      "90px";
   }
 
-  function createAd(
-    label: string,
-    type: string
+  /*
+    DOBBELT VISITKORT
+  */
+
+  if (
+    type ===
+    "double-business-card"
   ) {
 
-    const size =
-      adSizes[type];
+    gridColumn =
+      "span 2";
 
-    const newAd = {
+    gridRow =
+      "span 1";
 
-      id:
-        Date.now(),
-
-      title:
-        label,
-
-      status:
-        "Ledig",
-
-      type,
-
-      price: 0,
-
-      seller: "",
-
-      image: "",
-
-      x: 20,
-
-      y: 20,
-
-      width:
-        size.width,
-
-      height:
-        size.height,
-    };
-
-    setLocalPage({
-      ...localPage,
-
-      ads: [
-        ...localPage.ads,
-        newAd,
-      ],
-    });
+    minHeight =
+      "90px";
   }
 
-  const totalValue =
-    localPage.ads.reduce(
-      (
-        total: number,
-        ad: any
-      ) =>
-        total +
-        Number(
-          ad.price || 0
-        ),
-      0
-    );
+  /*
+    KVART HØJKANT
+  */
 
-  const selectedAd =
-    localPage.ads.find(
-      (ad: any) =>
-        ad.id ===
-        selectedAdId
-    );
+  if (
+    type ===
+    "quarter"
+  ) {
 
-  const adTypes = [
+    gridColumn =
+      "span 1";
 
-    {
-      label:
-        "Visitkort",
+    gridRow =
+      "span 2";
 
-      type:
-        "business-card",
-    },
+    minHeight =
+      "220px";
+  }
 
-    {
-      label:
-        "Dobbelt Visitkort",
+  /*
+    KVART VANDRET
+  */
 
-      type:
-        "double-business-card",
-    },
+  if (
+    type ===
+    "quarter-horizontal"
+  ) {
 
-    {
-      label:
-        "Kvart Lodret",
+    gridColumn =
+      "span 2";
 
-      type:
-        "quarter",
-    },
+    gridRow =
+      "span 1";
 
-    {
-      label:
-        "Kvart Vandret",
+    minHeight =
+      "120px";
+  }
 
-      type:
-        "quarter-horizontal",
-    },
+  /*
+    HALV VANDRET
+  */
 
-    {
-      label:
-        "Halv Vandret",
+  if (
+    type ===
+    "half-horizontal"
+  ) {
 
-      type:
-        "half-horizontal",
-    },
+    gridColumn =
+      "span 2";
 
-    {
-      label:
-        "Halv Lodret",
+    gridRow =
+      "span 2";
 
-      type:
-        "half-vertical",
-    },
+    minHeight =
+      "240px";
+  }
 
-    {
-      label:
-        "Helside",
+  /*
+    HALV LODRET
+  */
 
-      type:
-        "helside",
-    },
+  if (
+    type ===
+    "half-vertical"
+  ) {
 
-    {
-      label:
-        "Dobbelt Side",
+    gridColumn =
+      "span 1";
 
-      type:
-        "double-page",
-    },
+    gridRow =
+      "span 4";
 
-    {
-      label:
-        "Tekstområde",
+    minHeight =
+      "420px";
+  }
 
-      type:
-        "text",
-    },
-  ];
+  /*
+    HELSIDE
+  */
+
+  if (
+    type ===
+    "helside"
+  ) {
+
+    gridColumn =
+      "span 2";
+
+    gridRow =
+      "span 6";
+
+    minHeight =
+      "700px";
+  }
+
+  /*
+    DOBBELT SIDE
+  */
+
+  if (
+    type ===
+    "double-page"
+  ) {
+
+    gridColumn =
+      "span 4";
+
+    gridRow =
+      "span 6";
+
+    minHeight =
+      "700px";
+  }
+
+  /*
+    TEKSTOMRÅDE
+  */
+
+  if (
+    type ===
+    "text"
+  ) {
+
+    gridColumn =
+      "span 2";
+
+    gridRow =
+      "span 1";
+
+    minHeight =
+      "120px";
+  }
+
+  const isPlaceholder =
+    !image;
 
   return (
-    <div>
+    <div
+      style={{
+        position:
+          "relative",
 
-      <div
-        style={{
-          display:
-            "flex",
+        background:
+          isPlaceholder
+            ? "#2a2a2a"
+            : "#111",
 
-          justifyContent:
-            "space-between",
+        borderRadius:
+          "10px",
 
-          marginBottom:
-            "30px",
-        }}
-      >
-        <div>
+        overflow:
+          "hidden",
 
-          <h1>
-            Side {
-              localPage.side
-            }
-          </h1>
+        gridColumn,
 
-          <div
-            style={{
-              marginTop:
-                "10px",
+        gridRow,
 
-              color:
-                "#22c55e",
+        width:
+          "100%",
 
-              fontWeight:
-                "bold",
+        minHeight,
 
-              fontSize:
-                "18px",
-            }}
-          >
-            Sideværdi:
-            {" "}
-            {
-              totalValue.toLocaleString()
-            }
-            {" "}
-            DKK
-          </div>
-        </div>
+        boxSizing:
+          "border-box",
 
-        <button
-          onClick={() =>
-            setSelectedPage(
-              null
-            )
-          }
+        border:
+          "1px solid #333",
+      }}
+    >
+
+      {/* IMAGE */}
+
+      {image ? (
+
+        <img
+          src={image}
+
+          alt={title}
 
           style={{
-            background:
-              "#1f1f1f",
+            width:
+              "100%",
 
-            border:
-              "1px solid #333",
+            height:
+              "100%",
 
-            color:
-              "white",
+            objectFit:
+              "cover",
 
-            padding:
-              "12px 18px",
-
-            borderRadius:
-              "10px",
-
-            cursor:
-              "pointer",
+            display:
+              "block",
           }}
-        >
-          Tilbage til sider
-        </button>
-      </div>
+        />
 
-      <div
-        style={{
-          display:
-            "flex",
+      ) : (
 
-          gap:
-            "10px",
-
-          flexWrap:
-            "wrap",
-
-          marginBottom:
-            "25px",
-        }}
-      >
-        {adTypes.map(
-          (item) => (
-
-            <button
-              key={
-                item.type
-              }
-
-              onClick={() =>
-                createAd(
-                  item.label,
-                  item.type
-                )
-              }
-
-              style={{
-                background:
-                  "#2d2d2d",
-
-                border:
-                  "1px solid #444",
-
-                color:
-                  "white",
-
-                padding:
-                  "10px 14px",
-
-                borderRadius:
-                  "10px",
-
-                cursor:
-                  "pointer",
-              }}
-            >
-              + {item.label}
-            </button>
-          )
-        )}
-      </div>
-
-      <div
-        style={{
-          display:
-            "flex",
-
-          justifyContent:
-            "center",
-        }}
-      >
         <div
           style={{
             width:
-              MAGAZINE.width,
+              "100%",
 
             height:
-              MAGAZINE.height,
-
-            background:
-              "#1b1b1b",
-
-            border:
-              "1px solid #333",
-
-            borderRadius:
-              "16px",
-
-            position:
-              "relative",
-
-            overflow:
-              "hidden",
-          }}
-        >
-          {localPage.ads.map(
-            (ad: any) => (
-
-              <Rnd
-                key={
-                  ad.id
-                }
-
-                size={{
-                  width:
-                    ad.width,
-
-                  height:
-                    ad.height,
-                }}
-
-                position={{
-                  x: ad.x,
-                  y: ad.y,
-                }}
-
-                bounds="parent"
-
-                dragGrid={[
-                  5,
-                  5,
-                ]}
-
-                onDragStop={(
-                  e,
-                  d
-                ) => {
-
-                  updateAd({
-                    ...ad,
-
-                    x: d.x,
-
-                    y: d.y,
-                  });
-                }}
-
-                onClick={() =>
-                  setSelectedAdId(
-                    ad.id
-                  )
-                }
-              >
-                <div
-                  style={{
-                    width:
-                      "100%",
-
-                    height:
-                      "100%",
-
-                    position:
-                      "relative",
-                  }}
-                >
-                  <AdBlock
-                    title={
-                      ad.title
-                    }
-
-                    status={
-                      ad.status
-                    }
-
-                    price={
-                      ad.price
-                    }
-
-                    type={
-                      ad.type
-                    }
-
-                    image={
-                      ad.image
-                    }
-                  />
-
-                  <button
-                    onClick={(e) => {
-
-                      e.stopPropagation();
-
-                      const updatedAds =
-                        localPage.ads.filter(
-                          (
-                            item: any
-                          ) =>
-                            item.id !==
-                            ad.id
-                        );
-
-                      setLocalPage({
-                        ...localPage,
-
-                        ads:
-                          updatedAds,
-                      });
-                    }}
-
-                    style={{
-                      position:
-                        "absolute",
-
-                      top: "8px",
-
-                      right: "8px",
-
-                      width:
-                        "28px",
-
-                      height:
-                        "28px",
-
-                      borderRadius:
-                        "50%",
-
-                      background:
-                        "#ef4444",
-
-                      border:
-                        "none",
-
-                      color:
-                        "white",
-
-                      cursor:
-                        "pointer",
-
-                      zIndex:
-                        999,
-                    }}
-                  >
-                    ×
-                  </button>
-                </div>
-              </Rnd>
-            )
-          )}
-        </div>
-      </div>
-
-      {selectedAd && (
-
-        <div
-          style={{
-            position:
-              "fixed",
-
-            inset: 0,
-
-            background:
-              "rgba(0,0,0,0.7)",
+              "100%",
 
             display:
               "flex",
 
-            justifyContent:
-              "center",
-
             alignItems:
               "center",
 
-            zIndex:
-              9999,
+            justifyContent:
+              "center",
+
+            background:
+              "#2f2f2f",
+
+            color:
+              "#999",
+
+            fontSize:
+              "14px",
+
+            fontWeight:
+              600,
+
+            minHeight,
+          }}
+        >
+          COMING SOON
+        </div>
+      )}
+
+      {/* OVERLAY */}
+
+      <div
+        style={{
+          position:
+            "absolute",
+
+          inset: 0,
+
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.1))",
+
+          display:
+            "flex",
+
+          flexDirection:
+            "column",
+
+          justifyContent:
+            "space-between",
+
+          padding:
+            "12px",
+        }}
+      >
+
+        {/* TOP */}
+
+        <div
+          style={{
+            display:
+              "flex",
+
+            justifyContent:
+              "space-between",
+
+            alignItems:
+              "flex-start",
+
+            gap:
+              "10px",
+          }}
+        >
+          <div>
+
+            <div
+              style={{
+                color:
+                  "white",
+
+                fontWeight:
+                  700,
+
+                fontSize:
+                  "15px",
+
+                lineHeight:
+                  1.2,
+              }}
+            >
+              {title}
+            </div>
+
+            {customer && (
+
+              <div
+                style={{
+                  color:
+                    "#bbb",
+
+                  fontSize:
+                    "12px",
+
+                  marginTop:
+                    "4px",
+                }}
+              >
+                {customer}
+              </div>
+            )}
+
+            {seller && (
+
+              <div
+                style={{
+                  color:
+                    "#888",
+
+                  fontSize:
+                    "11px",
+                }}
+              >
+                Sælger:
+                {" "}
+                {seller}
+              </div>
+            )}
+          </div>
+
+          <div
+            style={{
+              background:
+                "rgba(0,0,0,0.75)",
+
+              color:
+                "white",
+
+              padding:
+                "5px 8px",
+
+              borderRadius:
+                "6px",
+
+              fontSize:
+                "12px",
+
+              fontWeight:
+                700,
+
+              whiteSpace:
+                "nowrap",
+            }}
+          >
+            {price} kr.
+          </div>
+        </div>
+
+        {/* BOTTOM */}
+
+        <div
+          style={{
+            display:
+              "flex",
+
+            justifyContent:
+              "space-between",
+
+            alignItems:
+              "center",
           }}
         >
           <div
             style={{
-              width:
-                "500px",
-
               background:
-                "#1b1b1b",
+                "rgba(0,0,0,0.65)",
 
-              border:
-                "1px solid #333",
-
-              borderRadius:
-                "16px",
+              color:
+                "#ddd",
 
               padding:
-                "24px",
+                "4px 8px",
 
-              display:
-                "flex",
+              borderRadius:
+                "6px",
 
-              flexDirection:
-                "column",
+              fontSize:
+                "11px",
 
-              gap:
-                "16px",
+              textTransform:
+                "uppercase",
             }}
           >
+            {type}
+          </div>
 
-            <h2>
-              Annonce
-            </h2>
+          <div
+            style={{
+              color:
+                "#bbb",
 
-            <input
-              value={
-                selectedAd.title ||
-                ""
-              }
-
-              onChange={(e) =>
-                updateAd({
-                  ...selectedAd,
-
-                  title:
-                    e.target.value,
-                })
-              }
-
-              placeholder="Kundenavn"
-
-              style={
-                inputStyle
-              }
-            />
-
-            <input
-              value={
-                selectedAd.price ||
-                ""
-              }
-
-              onChange={(e) =>
-                updateAd({
-                  ...selectedAd,
-
-                  price:
-                    e.target.value,
-                })
-              }
-
-              placeholder="Pris"
-
-              style={
-                inputStyle
-              }
-            />
-
-            <input
-              value={
-                selectedAd.seller ||
-                ""
-              }
-
-              onChange={(e) =>
-                updateAd({
-                  ...selectedAd,
-
-                  seller:
-                    e.target.value,
-                })
-              }
-
-              placeholder="Sælger"
-
-              style={
-                inputStyle
-              }
-            />
-
-            <input
-              type="file"
-
-              accept="image/png,image/jpeg"
-
-              onChange={(
-                e: any
-              ) => {
-
-                const file =
-                  e.target.files?.[0];
-
-                if (!file) {
-                  return;
-                }
-
-                const reader =
-                  new FileReader();
-
-                reader.onload =
-                  () => {
-
-                    updateAd({
-                      ...selectedAd,
-
-                      image:
-                        reader.result,
-                    });
-                  };
-
-                reader.readAsDataURL(
-                  file
-                );
-              }}
-            />
-
-            <button
-              onClick={() =>
-                setSelectedAdId(
-                  null
-                )
-              }
-
-              style={{
-                background:
-                  "#333",
-
-                border:
-                  "none",
-
-                color:
-                  "white",
-
-                padding:
-                  "12px",
-
-                borderRadius:
-                  "10px",
-
-                cursor:
-                  "pointer",
-              }}
-            >
-              Luk
-            </button>
+              fontSize:
+                "11px",
+            }}
+          >
+            {status}
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
-
-const inputStyle = {
-
-  background:
-    "#111",
-
-  border:
-    "1px solid #333",
-
-  color:
-    "white",
-
-  padding:
-    "12px",
-
-  borderRadius:
-    "10px",
-
-  width:
-    "100%",
-};
