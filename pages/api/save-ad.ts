@@ -258,6 +258,8 @@ export default async function handler(
       RETURNING *
     `;
 
+const result = await pool.query(query, values);
+
 console.log(
   "AD ID:",
   ad.id
