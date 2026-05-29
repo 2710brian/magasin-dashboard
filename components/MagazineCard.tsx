@@ -54,18 +54,7 @@ export default function MagazineCard({
   const pages =
     generatePages();
 
-  const premiumPages =
-    pages.filter(
-      (page) =>
-        page.premium
-    );
-
-  const soldPremium =
-    premiumPages.filter(
-      (page) =>
-        page.status ===
-        "solgt"
-    ).length;
+  
 
   const totalOmsaetning = 0;
 
