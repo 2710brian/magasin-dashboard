@@ -18,8 +18,8 @@ type PageEditorProps = {
 };
 
 const MAGAZINE = {
-  width: 650,
-  height: 842,
+  width: 580,
+  height: 751,
 };
 
 /*
