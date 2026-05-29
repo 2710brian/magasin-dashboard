@@ -685,7 +685,7 @@ useEffect(() => {
             </h2>
 
             <input
-              value={
+              value={clientSearch}
                 selectedAd.title ||
                 ""
               }
