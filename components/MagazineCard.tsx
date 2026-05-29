@@ -22,10 +22,7 @@ export default function MagazineCard({
         return {
           side: page,
 
-          premium:
-            page === 3 ||
-            page === 28 ||
-            page === 56,
+          premium: false,
 
           status: "ledig",
         };
