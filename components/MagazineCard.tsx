@@ -216,7 +216,7 @@ export default function MagazineCard({
                 "#facc15",
             }}
           >
-            {soldPremium}/0/0 solgt
+            0/0 solgt
           </div>
         </div>
 
