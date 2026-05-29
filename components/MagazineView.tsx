@@ -66,9 +66,9 @@ export default function MagazineView({
 
   useEffect(() => {
 
-    loadAds();
+  // loadAds();
 
-  }, []);
+}, []);
 
   const totalPages =
     selectedMagazine?.totalPages ||
