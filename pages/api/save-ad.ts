@@ -258,17 +258,20 @@ export default async function handler(
       RETURNING *
     `;
 
-    const result =
-  await pool.query(
-    query,
-    values
-  );
+console.log(
+  "AD ID:",
+  ad.id
+);
 
 console.log(
   "ROWS UPDATED:",
   result.rowCount
 );
 
+console.log(
+  "RESULT:",
+  result.rows
+);
     return res.status(200).json({
       success: true,
 
