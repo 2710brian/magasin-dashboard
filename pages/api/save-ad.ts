@@ -293,7 +293,7 @@ console.log(
       success: false,
 
       error:
-        "Failed to save ad",
+        "Failed to save ad", 
     });
   }
 }
