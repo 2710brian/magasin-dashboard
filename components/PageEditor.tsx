@@ -22,11 +22,6 @@ const MAGAZINE = {
   height: 1140,
 };
 
-const MAGAZINE = {
-  width: 880,
-  height: 1140,
-};
-
 /*
   Annonceområdet i magasinet er 190 mm bredt.
   Den gamle helside var 720 px bred og passede visuelt bedre.
