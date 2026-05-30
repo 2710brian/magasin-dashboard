@@ -181,7 +181,10 @@ useEffect(() => {
     const newAd = {
 
       id:
-        Date.now(),
+  Date.now() +
+  Math.floor(
+    Math.random() * 10000
+  ),
 
       title:
         label,
@@ -541,12 +544,7 @@ useEffect(() => {
                       "relative",
                   }}
                 > 
-                  console.log(
-  "AD RENDER",
-  ad.id,
-  ad.title,
-  ad.price
-);
+
                   <AdBlock
                     title={
                       ad.title
