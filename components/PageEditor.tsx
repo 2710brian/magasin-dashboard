@@ -540,7 +540,13 @@ useEffect(() => {
                     position:
                       "relative",
                   }}
-                >
+                > 
+                  console.log(
+  "AD RENDER",
+  ad.id,
+  ad.title,
+  ad.price
+);
                   <AdBlock
                     title={
                       ad.title
