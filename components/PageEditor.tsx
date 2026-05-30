@@ -780,7 +780,29 @@ useEffect(() => {
                 );
               }}
             />
+<button
+  style={{
+    background:
+      "#22c55e",
 
+    border:
+      "none",
+
+    color:
+      "white",
+
+    padding:
+      "12px",
+
+    borderRadius:
+      "10px",
+
+    cursor:
+      "pointer",
+  }}
+>
+  Gem
+</button>
             <button
               onClick={() =>
                 setSelectedAdId(
