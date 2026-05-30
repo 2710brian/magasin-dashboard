@@ -445,7 +445,10 @@ export default function AdBlock({
               whiteSpace:
                 "nowrap",
             }}
-          >
+          > 
+           <>
+  {String(price)}
+</>
             {price} kr.
           </div>
         </div>
