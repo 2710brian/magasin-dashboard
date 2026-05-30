@@ -500,7 +500,9 @@ export default function AdBlock({
                 "11px",
             }}
           >
-            {status}
+            {price && Number(price) > 0
+  ? "Booket"
+  : "Ledig"}
           </div>
         </div>
       </div>
