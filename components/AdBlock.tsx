@@ -319,7 +319,9 @@ export default function AdBlock({
             minHeight,
           }}
         >
-          COMING SOON
+          {price && Number(price) > 0
+  ? ""
+  : "COMING SOON"}
         </div>
       )}
 
