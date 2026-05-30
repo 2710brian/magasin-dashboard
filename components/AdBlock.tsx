@@ -263,7 +263,7 @@ export default function AdBlock({
 
       {/* IMAGE */}
 
-      {!isPlaceholder ? (
+      {image ? (
 
         <img
           src={image}
