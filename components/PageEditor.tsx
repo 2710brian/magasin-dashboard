@@ -804,13 +804,13 @@ useEffect(() => {
   Gem
 </button>
             <button
-              onClick={() =>
-                setSelectedAdId(
-                  null
-                )
-              }
+  onClick={() => {
+    console.log(
+      selectedAd
+    );
+  }}
 
-              style={{
+  style={{
                 background:
                   "#333",
 
