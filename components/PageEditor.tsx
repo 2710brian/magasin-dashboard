@@ -788,11 +788,35 @@ useEffect(() => {
   }}
 >
   <button
-    onClick={() => {
-      console.log(
-        selectedAd
-      );
-    }}
+    onClick={async () => {
+
+  const response =
+    await fetch(
+      "/api/save-ad",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body:
+          JSON.stringify(
+            selectedAd
+          ),
+      }
+    );
+
+  const data =
+    await response.json();
+
+  console.log(data);
+
+  setSelectedAdId(
+    null
+  );
+}}
 
     style={{
       background:
