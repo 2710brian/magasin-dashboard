@@ -446,9 +446,7 @@ export default function AdBlock({
                 "nowrap",
             }}
           > 
-           <>
-  {String(price)}
-</>
+          
             {price} kr.
           </div>
         </div>
