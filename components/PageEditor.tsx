@@ -781,6 +781,12 @@ useEffect(() => {
               }}
             />
 <button
+  onClick={() => {
+    console.log(
+      selectedAd
+    );
+  }}
+
   style={{
     background:
       "#22c55e",
@@ -803,41 +809,36 @@ useEffect(() => {
 >
   Gem
 </button>
-            <button
-  onClick={() => {
-    console.log(
-      selectedAd
-    );
-  }}
+
+<button
+  onClick={() =>
+    setSelectedAdId(
+      null
+    )
+  }
 
   style={{
-                background:
-                  "#333",
+    background:
+      "#333",
 
-                border:
-                  "none",
+    border:
+      "none",
 
-                color:
-                  "white",
+    color:
+      "white",
 
-                padding:
-                  "12px",
+    padding:
+      "12px",
 
-                borderRadius:
-                  "10px",
+    borderRadius:
+      "10px",
 
-                cursor:
-                  "pointer",
-              }}
-            >
-              Luk
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+    cursor:
+      "pointer",
+  }}
+>
+  Luk
+</button>
 
 const inputStyle = {
 
