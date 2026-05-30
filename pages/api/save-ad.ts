@@ -258,7 +258,63 @@ export default async function handler(
       RETURNING *
     `;
 
-const result = await pool.query(query, values);
+const existingAd =
+  await pool.query(
+    `
+      SELECT id
+      FROM ads
+      WHERE id = $1
+    `,
+    [ad.id]
+  );
+
+let result;
+
+if (
+  existingAd.rows.length === 0
+) {
+
+  result =
+    await pool.query(
+      `
+        INSERT INTO ads (
+          id,
+          page,
+          title,
+          status,
+          price,
+          color,
+          type,
+          createdat,
+          updatedat
+        )
+        VALUES (
+          $1,$2,$3,$4,$5,
+          $6,$7,$8,$9
+        )
+        RETURNING *
+      `,
+      [
+        ad.id,
+        ad.page || 0,
+        ad.title || "",
+        ad.status || "Ledig",
+        ad.price || "",
+        ad.color || "",
+        ad.type || "",
+        new Date().toISOString(),
+        new Date().toISOString(),
+      ]
+    );
+
+} else {
+
+  result =
+    await pool.query(
+      query,
+      values
+    );
+}
 
 console.log(
   "AD ID:",
