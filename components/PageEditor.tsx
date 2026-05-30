@@ -179,7 +179,8 @@ useEffect(() => {
       adSizes[type];
 
     const newAd = {
-
+page:
+  localPage.side,
       id:
   Date.now() +
   Math.floor(
