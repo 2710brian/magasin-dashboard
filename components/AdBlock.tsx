@@ -223,7 +223,9 @@ export default function AdBlock({
   }
 
   const isPlaceholder =
-    !image;
+  !image &&
+  (!price ||
+    Number(price) === 0);
 
   return (
     <div
