@@ -724,63 +724,136 @@ useEffect(() => {
             />
 
             <input
-              value={
-                selectedAd.seller ||
-                ""
-              }
+  value={
+    selectedAd.seller ||
+    ""
+  }
 
-              onChange={(e) =>
-                updateAd({
-                  ...selectedAd,
+  onChange={(e) =>
+    updateAd({
+      ...selectedAd,
 
-                  seller:
-                    e.target.value,
-                })
-              }
+      seller:
+        e.target.value,
+    })
+  }
 
-              placeholder="Sælger"
+  placeholder="Sælger"
 
-              style={
-                inputStyle
-              }
-            />
+  style={
+    inputStyle
+  }
+/>
 
-            <input
-              type="file"
+<input
+  type="file"
 
-              accept="image/png,image/jpeg"
+  accept="image/png,image/jpeg"
 
-              onChange={(
-                e: any
-              ) => {
+  onChange={(
+    e: any
+  ) => {
 
-                const file =
-                  e.target.files?.[0];
+    const file =
+      e.target.files?.[0];
 
-                if (!file) {
-                  return;
-                }
+    if (!file) {
+      return;
+    }
 
-                const reader =
-                  new FileReader();
+    const reader =
+      new FileReader();
 
-                reader.onload =
-                  () => {
+    reader.onload =
+      () => {
 
-                    updateAd({
-                      ...selectedAd,
+        updateAd({
+          ...selectedAd,
 
-                      image:
-                        reader.result,
-                    });
-                  };
+          image:
+            reader.result,
+        });
+      };
 
-                reader.readAsDataURL(
-                  file
-                );
-              }}
-            />
+    reader.readAsDataURL(
+      file
+    );
+  }}
+/>
 
+<div
+  style={{
+    display: "flex",
+    gap: "10px",
+  }}
+>
+  <button
+    onClick={() => {
+      console.log(
+        selectedAd
+      );
+    }}
+
+    style={{
+      background:
+        "#22c55e",
+
+      border:
+        "none",
+
+      color:
+        "white",
+
+      padding:
+        "12px",
+
+      borderRadius:
+        "10px",
+
+      cursor:
+        "pointer",
+    }}
+  >
+    Gem
+  </button>
+
+  <button
+    onClick={() =>
+      setSelectedAdId(
+        null
+      )
+    }
+
+    style={{
+      background:
+        "#333",
+
+      border:
+        "none",
+
+      color:
+        "white",
+
+      padding:
+        "12px",
+
+      borderRadius:
+        "10px",
+
+      cursor:
+        "pointer",
+    }}
+  >
+    Luk
+  </button>
+</div>
+
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 const inputStyle = {
 
@@ -802,4 +875,3 @@ const inputStyle = {
   width:
     "100%",
 };
-
