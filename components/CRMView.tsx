@@ -26,7 +26,7 @@ const [
   setSearch,
 ] = useState("");
 
-  async function loadAds() {
+  async function loadClients() {
 
   try {
 
