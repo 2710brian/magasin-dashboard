@@ -13,13 +13,18 @@ export default function CRMView() {
   clients,
   setClients,
 ] = useState<any[]>([]);
-    null
-  );
 
-  const [
-    search,
-    setSearch,
-  ] = useState("");
+const [
+  selectedClient,
+  setSelectedClient,
+] = useState<any | null>(
+  null
+);
+
+const [
+  search,
+  setSearch,
+] = useState("");
 
   async function loadAds() {
 
