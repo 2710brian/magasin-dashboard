@@ -61,9 +61,9 @@ const [
 
   }, []);
 
-  const filteredAds =
-    ads.filter(
-      (ad) => {
+  const filteredClients =
+  clients.filter(
+    (ad) => {
 
         const text = `
           ${ad.title || ""}
