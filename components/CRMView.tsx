@@ -10,14 +10,9 @@ import AdModal from "./AdModal";
 export default function CRMView() {
 
   const [
-    ads,
-    setAds,
-  ] = useState<any[]>([]);
-
-  const [
-    selectedAd,
-    setSelectedAd,
-  ] = useState<any | null>(
+  clients,
+  setClients,
+] = useState<any[]>([]);
     null
   );
 
@@ -57,7 +52,7 @@ export default function CRMView() {
 
   useEffect(() => {
 
-    loadAds();
+    loadClients();
 
   }, []);
 
