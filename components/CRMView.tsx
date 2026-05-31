@@ -360,7 +360,7 @@ const [
                 )
             );
 
-            setSelectedClient(
+                        setSelectedClient(
               updatedClient
             );
           }}
@@ -372,6 +372,10 @@ const [
           }
         />
       )}
+
+    </div>
+  );
+}
 
 function Badge({
   children,
