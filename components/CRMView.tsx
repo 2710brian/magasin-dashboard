@@ -212,7 +212,7 @@ const [
 
         {/* ROWS */}
 
-        {filteredAds.map(
+        {filteredClients.map(
           (ad) => (
 
             <div
