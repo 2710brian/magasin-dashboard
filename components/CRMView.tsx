@@ -32,8 +32,8 @@ const [
 
     const response =
       await fetch(
-        "/api/get-ads"
-      );
+  "/api/get-clients"
+);
 
     const data =
       await response.json();
