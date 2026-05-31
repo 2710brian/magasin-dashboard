@@ -39,13 +39,13 @@ const [
       await response.json();
 
     if (
-      data.success
-    ) {
+  data.success
+) {
 
-      setAds(
-        data.ads
-      );
-    }
+  setClients(
+    data.clients
+  );
+}
 
   } catch (error) {
 
