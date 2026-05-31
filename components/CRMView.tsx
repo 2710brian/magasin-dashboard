@@ -28,32 +28,32 @@ export default function CRMView() {
 
   async function loadAds() {
 
-    try {
+  try {
 
-      const response =
-        await fetch(
-          "/api/get-ads"
-        );
+    const response =
+      await fetch(
+        "/api/get-ads"
+      );
 
-      const data =
-        await response.json();
+    const data =
+      await response.json();
 
-      if (
-        data.success
-      ) {
+    if (
+      data.success
+    ) {
 
-        setAds(
-          data.ads
-        );
-      }
-
-    } catch (error) {
-
-      console.error(
-        error
+      setAds(
+        data.ads
       );
     }
+
+  } catch (error) {
+
+    console.error(
+      error
+    );
   }
+}
 
   useEffect(() => {
 
