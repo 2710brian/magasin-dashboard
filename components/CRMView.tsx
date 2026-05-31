@@ -219,7 +219,7 @@ const [
               key={ad.id}
 
               onClick={() =>
-                setSelectedAd(
+                setSelectedClient
                   ad
                 )
               }
