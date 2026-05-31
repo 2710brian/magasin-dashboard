@@ -323,22 +323,22 @@ const [
         )}
       </div>
 
-      {/* MODAL */}
+     {/* MODAL */}
 
-      {selectedAd && (
+      {selectedClient && (
 
         <AdModal
-          ad={selectedAd}
+          ad={selectedClient}
 
           refreshAds={
-            loadAds
+            loadClients
           }
 
           onSaved={(
-            updatedAd
+            updatedClient
           ) => {
 
-            setAds(
+            setClients(
               (
                 prev
               ) =>
@@ -349,10 +349,10 @@ const [
 
                     if (
                       item.id ===
-                      updatedAd.id
+                      updatedClient.id
                     ) {
 
-                      return updatedAd;
+                      return updatedClient;
                     }
 
                     return item;
@@ -360,21 +360,18 @@ const [
                 )
             );
 
-            setSelectedAd(
-              updatedAd
+            setSelectedClient(
+              updatedClient
             );
           }}
 
           onClose={() =>
-            setSelectedAd(
+            setSelectedClient(
               null
             )
           }
         />
       )}
-    </div>
-  );
-}
 
 function Badge({
   children,
