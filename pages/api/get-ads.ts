@@ -10,17 +10,41 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const result = await pool.query(`
-      SELECT *
-      FROM ads
-      ORDER BY id ASC
-    `);
+
+    const { clientid } = req.query;
+
+    let result;
+
+    if (clientid) {
+
+      result = await pool.query(
+        `
+        SELECT *
+        FROM ads
+        WHERE clientid = $1
+        ORDER BY createdat DESC
+        `,
+        [clientid]
+      );
+
+    } else {
+
+      result = await pool.query(
+        `
+        SELECT *
+        FROM ads
+        ORDER BY createdat DESC
+        `
+      );
+    }
 
     return res.status(200).json({
       success: true,
       ads: result.rows,
     });
+
   } catch (error) {
+
     console.error(error);
 
     return res.status(500).json({
