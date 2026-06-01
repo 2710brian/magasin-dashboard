@@ -45,12 +45,6 @@ const tabs = [
     label: "Marketing",
     component: MarketingTab,
   },
-
-  {
-  id: "magasin",
-  label: "Magasin",
-  component: MagasinTab,
-},
   
   {
     id: "affiliate",
@@ -75,6 +69,13 @@ const tabs = [
     label: "Noter",
     component: NotesTab,
   },
+
+    {
+  id: "magasin",
+  label: "Magasin",
+  component: MagasinTab,
+},
+  
 ];
 
 export default function ClientModal({
