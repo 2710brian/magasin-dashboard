@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import MagasinTab from "./tabs/MagasinTab";
+
 import ContactTab from "./tabs/ContactTab";
 import SalesTab from "./tabs/SalesTab";
 import GeographyTab from "./tabs/GeographyTab";
@@ -69,12 +69,6 @@ const tabs = [
     label: "Noter",
     component: NotesTab,
   },
-
-    {
-  id: "magasin",
-  label: "Magasin",
-  component: MagasinTab,
-},
   
 ];
 
