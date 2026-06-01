@@ -180,7 +180,7 @@ const [
               "grid",
 
             gridTemplateColumns:
-              "80px 2fr 1.5fr 1fr 1fr 1fr 1fr",
+          "80px 2fr 2fr 1.5fr 1fr 1fr 1fr 1fr",
 
             background:
               "#202020",
@@ -272,40 +272,48 @@ const [
               }}
             >
               <div>
-                {ad.id}
-              </div>
+  {ad.id}
+</div>
 
-              <div
-                style={{
-                  fontWeight:
-                    600,
-                }}
-              >
-                {ad.title ||
-                  "-"}
-              </div>
+<div
+  style={{
+    fontWeight: 600,
+  }}
+>
+  {ad.title || "-"}
+</div>
 
-              <div
-                style={{
-                  color:
-                    "#888",
-                }}
-              >
-                {ad.website ||
-                  "-"}
-              </div>
+<div
+  style={{
+    color: "#888",
+  }}
+>
+  {ad.email || "-"}
+</div>
 
-              <div>
-                {ad.country ||
-                  "-"}
-              </div>
+<div>
+  {ad.contactperson || "-"}
+</div>
 
-              <div>
-                <Badge>
-                  {ad.status ||
-                    "-"}
-                </Badge>
-              </div>
+<div>
+  {ad.createdat
+    ? new Date(ad.createdat).toLocaleDateString()
+    : "-"}
+</div>
+
+<div>
+  {ad.followup_date || "-"}
+</div>
+
+<div>
+  {ad.country || "-"}
+</div>
+
+<div>
+  <Badge>
+    {ad.status || "-"}
+  </Badge>
+</div>
 
               <div>
                 <Badge>
