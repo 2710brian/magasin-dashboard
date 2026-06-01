@@ -197,17 +197,19 @@ const [
         >
           <div>ID</div>
 
-          <div>Virksomhed</div>
+<div>Virksomhed</div>
 
-          <div>Website</div>
+<div>Mail</div>
 
-          <div>Land</div>
+<div>Kontaktperson</div>
 
-          <div>Status</div>
+<div>Oprettet</div>
 
-          <div>Affiliate</div>
+<div>Opfølgning</div>
 
-          <div>Pipeline</div>
+<div>Land</div>
+
+<div>Status</div>
         </div>
 
         {/* ROWS */}
