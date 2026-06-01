@@ -5,7 +5,7 @@ import {
   useState,
 } from "react";
 
-import AdModal from "./AdModal";
+import ClientModal from "./ClientModal";
 
 export default function CRMView() {
 
@@ -122,6 +122,7 @@ const [
 
         </div>
 
+        <div style={{display:"flex",gap:"10px"}}>
         <input
           value={search}
 
@@ -152,6 +153,28 @@ const [
               "10px",
           }}
         />
+        <button
+          onClick={() =>
+            setSelectedClient({
+              title: "",
+              contactperson: "",
+              email: "",
+              status: "Lead",
+            })
+          }
+          style={{
+            background:"#2f6fed",
+            color:"white",
+            border:"none",
+            padding:"14px",
+            borderRadius:"10px",
+            cursor:"pointer",
+            fontWeight:600,
+          }}
+        >
+          + Kunde
+        </button>
+        </div>
       </div>
 
       {/* TABLE */}
@@ -337,7 +360,7 @@ const [
 
       {selectedClient && (
 
-        <AdModal
+        <ClientModal
           ad={selectedClient}
 
           refreshAds={
@@ -426,3 +449,4 @@ function Badge({
     </div>
   );
 }
+
