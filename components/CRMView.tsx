@@ -219,10 +219,10 @@ const [
               key={ad.id}
 
               onClick={() =>
-                setSelectedClient
-                  ad
-                )
-              }
+  setSelectedClient(
+    ad
+  )
+}
 
               style={{
                 display:
