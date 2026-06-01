@@ -325,7 +325,7 @@ const [
 </div>
 
 <div>
-  {ad.followup_date || "-"}
+  {ad.followupdate || "-"}
 </div>
 
 <div>
