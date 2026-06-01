@@ -5,10 +5,150 @@ import type {
 
 import pool from "../../lib/db";
 
+const allowedFields = [
+
+  "title",
+  "vat",
+  "contactperson",
+  "email",
+  "phone",
+  "website",
+  "facebook",
+  "instagram",
+  "linkedin",
+  "tiktok",
+  "logo",
+
+  "country",
+  "region",
+  "province",
+  "municipality",
+  "city",
+  "zipcode",
+  "address",
+  "area",
+  "industry",
+  "subindustry",
+  "languages",
+  "timezone",
+
+  "contactedat",
+  "followupdate",
+  "deadline",
+  "status",
+  "notes",
+
+  "seller",
+  "pipeline",
+  "qrurl",
+  "premiumplacement",
+
+  "googleads_active",
+  "googleads_budget",
+  "googleads_start",
+  "googleads_end",
+  "googleads_manager",
+  "googleads_comment",
+
+  "seo_active",
+  "seo_budget",
+  "seo_start",
+  "seo_end",
+  "seo_manager",
+  "seo_comment",
+
+  "emailmarketing_active",
+  "emailmarketing_budget",
+  "emailmarketing_start",
+  "emailmarketing_end",
+  "emailmarketing_manager",
+  "emailmarketing_comment",
+
+  "affiliate_active",
+  "affiliate_budget",
+  "affiliate_start",
+  "affiliate_end",
+  "affiliate_manager",
+  "affiliate_comment",
+
+  "metaads_active",
+  "metaads_budget",
+  "metaads_start",
+  "metaads_end",
+  "metaads_manager",
+  "metaads_comment",
+
+  "tiktokads_active",
+  "tiktokads_budget",
+  "tiktokads_start",
+  "tiktokads_end",
+  "tiktokads_manager",
+  "tiktokads_comment",
+
+  "linkedin_active",
+  "linkedin_budget",
+  "linkedin_start",
+  "linkedin_end",
+  "linkedin_manager",
+  "linkedin_comment",
+
+  "radio_active",
+  "radio_budget",
+  "radio_start",
+  "radio_end",
+  "radio_manager",
+  "radio_comment",
+
+  "tv_active",
+  "tv_budget",
+  "tv_start",
+  "tv_end",
+  "tv_manager",
+  "tv_comment",
+
+  "print_active",
+  "print_budget",
+  "print_start",
+  "print_end",
+  "print_manager",
+  "print_comment",
+
+  "affiliate_webshops",
+  "affiliate_dialogstatus",
+  "affiliate_status",
+  "affiliate_ticket",
+  "affiliate_nextfollowup",
+  "affiliate_contactdate",
+  "affiliate_maincategory",
+  "affiliate_products",
+  "affiliate_epc",
+  "affiliate_addeddate",
+  "affiliate_programname",
+  "affiliate_segment",
+  "affiliate_salespercent",
+  "affiliate_leadprice",
+  "affiliate_traffic",
+  "affiliate_feed",
+  "affiliate_networks",
+  "affiliate_countries",
+
+  "production_materialreceived",
+  "production_proofsent",
+  "production_approved",
+  "production_readyforprint",
+  "production_status",
+  "production_manager",
+  "production_deadline",
+  "production_printdate",
+  "production_distributiondate",
+  "production_comment"
+];
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+
   if (req.method !== "POST") {
     return res.status(405).json({
       success: false,
@@ -17,112 +157,95 @@ export default async function handler(
   }
 
   try {
+
     const client = req.body;
 
-    const values = [
-      client.title || "",
-      client.vat || "",
-      client.contactperson || client.contactPerson || "",
-      client.email || "",
-      client.phone || "",
-      client.website || "",
-      client.facebook || "",
-      client.instagram || "",
-      client.linkedin || "",
-      client.tiktok || "",
-      client.logo || "",
-      client.country || "",
-      client.region || "",
-      client.municipality || "",
-      client.contactedat || client.contactedAt || "",
-      client.followupdate || client.followUpDate || "",
-      client.deadline || "",
-      client.notes || "",
-      client.status || "",
-    ];
+    // NEW CLIENT
+    if (!client.id) {
 
-    // UPDATE
-    if (client.id) {
       const result = await pool.query(
         `
-        UPDATE clients
-        SET
-          title = $1,
-          vat = $2,
-          contactperson = $3,
-          email = $4,
-          phone = $5,
-          website = $6,
-          facebook = $7,
-          instagram = $8,
-          linkedin = $9,
-          tiktok = $10,
-          logo = $11,
-          country = $12,
-          region = $13,
-          municipality = $14,
-          contactedat = $15,
-          followupdate = $16,
-          deadline = $17,
-          notes = $18,
-          status = $19,
-          updatedat = NOW()
-        WHERE id = $20
+        INSERT INTO clients (
+          title,
+          contactperson,
+          email,
+          createdat,
+          updatedat
+        )
+        VALUES (
+          $1,$2,$3,NOW(),NOW()
+        )
         RETURNING *
         `,
-        [...values, client.id]
+        [
+          client.title || "",
+          client.contactperson || "",
+          client.email || "",
+        ]
       );
 
       return res.status(200).json({
         success: true,
-        mode: "update",
+        mode: "insert",
         client: result.rows[0],
       });
     }
 
-    // INSERT
-    const result = await pool.query(
-      `
-      INSERT INTO clients (
-        title,
-        vat,
-        contactperson,
-        email,
-        phone,
-        website,
-        facebook,
-        instagram,
-        linkedin,
-        tiktok,
-        logo,
-        country,
-        region,
-        municipality,
-        contactedat,
-        followupdate,
-        deadline,
-        notes,
-        status,
-        createdat,
-        updatedat
-      )
-      VALUES (
-        $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,
-        $11,$12,$13,$14,$15,$16,$17,$18,$19,
-        NOW(),
-        NOW()
-      )
-      RETURNING *
-      `,
-      values
+    const fieldsToUpdate =
+      allowedFields.filter(
+        (field) =>
+          Object.prototype.hasOwnProperty.call(
+            client,
+            field
+          )
+      );
+
+    const setClause =
+      fieldsToUpdate.map(
+        (field, index) =>
+          `${field} = $${index + 1}`
+      );
+
+    setClause.push(
+      `updatedat = $${fieldsToUpdate.length + 1}`
     );
+
+    const values =
+      fieldsToUpdate.map(
+        (field) =>
+          client[field]
+      );
+
+    values.push(
+      new Date().toISOString()
+    );
+
+    values.push(
+      client.id
+    );
+
+    const query = `
+      UPDATE clients
+      SET
+        ${setClause.join(", ")}
+      WHERE id = $${fieldsToUpdate.length + 2}
+      RETURNING *
+    `;
+
+    const result =
+      await pool.query(
+        query,
+        values
+      );
 
     return res.status(200).json({
       success: true,
-      mode: "insert",
+      mode: "update",
       client: result.rows[0],
     });
+
   } catch (error) {
+
     console.error(error);
 
     return res.status(500).json({
