@@ -254,7 +254,7 @@ const [
                   "grid",
 
                 gridTemplateColumns:
-                  "80px 2fr 1.5fr 1fr 1fr 1fr 1fr",
+  "80px 2fr 2fr 1fr 1fr 1fr 1fr 1fr",
 
                 padding:
                   "18px 16px",
