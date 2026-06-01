@@ -338,17 +338,6 @@ const [
   </Badge>
 </div>
 
-            <div>
-  <Badge>
-    {ad.affiliate_status || "-"}
-  </Badge>
-</div>
-
-<div>
-  <Badge>
-    {ad.pipeline || "-"}
-  </Badge>
-</div>
             </div>
           )
         )}
