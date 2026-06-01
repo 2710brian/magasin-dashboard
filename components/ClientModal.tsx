@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import MagasinTab from "./tabs/MagasinTab";
 import ContactTab from "./tabs/ContactTab";
 import SalesTab from "./tabs/SalesTab";
 import GeographyTab from "./tabs/GeographyTab";
@@ -46,6 +46,12 @@ const tabs = [
     component: MarketingTab,
   },
 
+  {
+  id: "magasin",
+  label: "Magasin",
+  component: MagasinTab,
+},
+  
   {
     id: "affiliate",
     label: "Affiliate",
