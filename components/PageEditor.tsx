@@ -197,9 +197,13 @@ page:
 
       price: 0,
 
-      seller: "",
+seller: "",
 
-      image: "",
+clientid: null,
+
+clientname: "",
+
+image: "",
 
       x: 20,
 
@@ -689,18 +693,52 @@ page:
               Annonce
             </h2>
 
-            <input
-              value={clientSearch || ""}
-              onChange={(e) =>
-                setClientSearch(e.target.value)
-              }
-              placeholder="Kundenavn"
+            <select
+  value={
+    selectedAd.clientid || ""
+  }
 
+  onChange={(e) => {
 
-              style={
-                inputStyle
-              }
-            />
+    const selectedClient =
+      clients.find(
+        (client) =>
+          String(client.id) ===
+          e.target.value
+      );
+
+    updateAd({
+      ...selectedAd,
+
+      clientid:
+        selectedClient?.id,
+
+      clientname:
+        selectedClient?.title ||
+        "",
+    });
+  }}
+
+  style={
+    inputStyle
+  }
+>
+  <option value="">
+    Vælg kunde
+  </option>
+
+  {clients.map(
+    (client) => (
+
+      <option
+        key={client.id}
+        value={client.id}
+      >
+        {client.title}
+      </option>
+    )
+  )}
+</select>
 
             <input
               value={
