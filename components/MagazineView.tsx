@@ -85,11 +85,13 @@ export default function MagazineView({
         const side =
           i + 1;
 
-        const ads =
+    const ads =
   dbAds.filter(
     (ad) =>
       Number(ad.page) ===
-      Number(side)
+        Number(side) &&
+      ad.magazinename ===
+        selectedMagazine?.navn
   );
 
         return {
