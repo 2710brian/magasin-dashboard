@@ -294,18 +294,14 @@ if (
           price,
           color,
           type,
-
           clientid,
           clientname,
           seller,
-
           image,
-
           x,
           y,
           width,
           height,
-
           createdat,
           updatedat
         )
@@ -350,28 +346,11 @@ if (
       values
     );
 }
-      `,
-      [
-        ad.id,
-        ad.page || 0,
-        ad.title || "",
-        ad.status || "Ledig",
-        ad.price || "",
-        ad.color || "",
-        ad.type || "",
-        new Date().toISOString(),
-        new Date().toISOString(),
-      ]
-    );
 
-} else {
-
-  result =
-    await pool.query(
-      query,
-      values
-    );
-}
+console.log(
+  "AD ID:",
+  ad.id
+);
 
 console.log(
   "AD ID:",
