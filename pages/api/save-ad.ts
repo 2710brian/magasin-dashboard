@@ -280,6 +280,7 @@ const existingAd =
 let result;
 
 if (
+ if (
   existingAd.rows.length === 0
 ) {
 
@@ -294,14 +295,62 @@ if (
           price,
           color,
           type,
+
+          clientid,
+          clientname,
+          seller,
+
+          image,
+
+          x,
+          y,
+          width,
+          height,
+
           createdat,
           updatedat
         )
         VALUES (
           $1,$2,$3,$4,$5,
-          $6,$7,$8,$9
+          $6,$7,$8,$9,$10,
+          $11,$12,$13,$14,$15,
+          $16,$17
         )
         RETURNING *
+      `,
+      [
+        ad.id,
+        ad.page || 0,
+        ad.title || "",
+        ad.status || "Ledig",
+        ad.price || "",
+        ad.color || "",
+        ad.type || "",
+
+        ad.clientid || null,
+        ad.clientname || "",
+        ad.seller || "",
+
+        ad.image || "",
+
+        ad.x || 20,
+        ad.y || 20,
+        ad.width || 100,
+        ad.height || 100,
+
+        new Date().toISOString(),
+        new Date().toISOString(),
+      ]
+    );
+
+} else {
+
+  result =
+    await pool.query(
+      query,
+      values
+    );
+}
       `,
       [
         ad.id,
