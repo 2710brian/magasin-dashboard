@@ -179,42 +179,49 @@ useEffect(() => {
       adSizes[type];
 
     const newAd = {
-page:
-  localPage.side,
-      id:
-  Date.now() +
-  Math.floor(
-    Math.random() * 10000
-  ),
+  page:
+    localPage.side,
 
-      title:
-        label,
+  id:
+    Date.now() +
+    Math.floor(
+      Math.random() * 10000
+    ),
 
-      status:
-        "Ledig",
+  title:
+    label,
 
-      type,
+  status:
+    "Ledig",
 
-      price: 0,
+  type,
 
-seller: "",
+  price: 0,
 
-clientid: null,
+  seller: "",
 
-clientname: "",
+  clientid: null,
 
-image: "",
+  clientname: "",
 
-      x: 20,
+  magazineid:
+    selectedMagazine?.id,
 
-      y: 20,
+  magazinename:
+    selectedMagazine?.navn,
 
-      width:
-        size.width,
+  image: "",
 
-      height:
-        size.height,
-    };
+  x: 20,
+
+  y: 20,
+
+  width:
+    size.width,
+
+  height:
+    size.height,
+};
 
     setLocalPage({
       ...localPage,
