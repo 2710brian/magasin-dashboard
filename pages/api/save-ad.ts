@@ -290,24 +290,30 @@ if (
   result =
     await pool.query(
       `
-        INSERT INTO ads (
-          id,
-          page,
-          title,
-          status,
-          price,
-          color,
-          type,
-          clientid,
-          clientname,
-          seller,
-          image,
-          x,
-          y,
-          width,
-          height,
-          createdat,
-          updatedat
+        id,
+page,
+title,
+status,
+price,
+color,
+type,
+
+clientid,
+clientname,
+seller,
+
+magazineid,
+magazinename,
+
+image,
+
+x,
+y,
+width,
+height,
+
+createdat,
+updatedat
         )
         VALUES (
           $1,$2,$3,$4,$5,
@@ -329,6 +335,8 @@ if (
         ad.clientid || null,
         ad.clientname || "",
         ad.seller || "",
+        ad.magazineid || null,
+        ad.magazinename || "",
 
         ad.image || "",
 
