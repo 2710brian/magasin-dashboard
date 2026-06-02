@@ -10,10 +10,19 @@ const allowedFields = [
   // BASIC
 
   "title",
-  "status",
-  "price",
-  "color",
-  "type",
+"status",
+"price",
+"color",
+"type",
+
+"seller",
+"clientname",
+"image",
+
+"x",
+"y",
+"width",
+"height",
 
   // CONTACT
 
