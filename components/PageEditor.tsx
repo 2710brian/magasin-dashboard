@@ -192,7 +192,8 @@ useEffect(() => {
     ),
 
   title:
-    label,
+  selectedMagazine?.navn ||
+  "",
 
   status:
     "Ledig",
