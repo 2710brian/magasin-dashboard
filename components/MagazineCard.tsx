@@ -5,6 +5,8 @@ type MagazineCardProps = {
     fyldning: number;
     deadline: string;
   };
+
+  dbAds: any[];
 };
 
 export default function MagazineCard({
