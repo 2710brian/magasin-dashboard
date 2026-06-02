@@ -8,6 +8,7 @@ import NotesTab from "./tabs/NotesTab";
 import ProductionTab from "./tabs/ProductionTab";
 import MarketingTab from "./tabs/MarketingTab";
 import AffiliateTab from "./tabs/AffiliateTab";
+import MagasinTab from "./tabs/MagasinTab";
 
 type ClientModalProps = {
   ad: any;
@@ -45,7 +46,13 @@ const tabs = [
     label: "Marketing",
     component: MarketingTab,
   },
-  
+
+  {
+    id: "magasin",
+    label: "Magasin",
+    component: MagasinTab,
+  },
+
   {
     id: "affiliate",
     label: "Affiliate",
@@ -69,7 +76,6 @@ const tabs = [
     label: "Noter",
     component: NotesTab,
   },
-  
 ];
 
 export default function ClientModal({
