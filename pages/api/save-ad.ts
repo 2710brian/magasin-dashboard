@@ -17,6 +17,10 @@ const allowedFields = [
 
 "seller",
 "clientname",
+
+"magazineid",
+"magazinename",
+
 "image",
 
 "x",
