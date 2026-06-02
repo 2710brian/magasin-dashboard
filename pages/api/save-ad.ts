@@ -280,7 +280,6 @@ const existingAd =
 let result;
 
 if (
- if (
   existingAd.rows.length === 0
 ) {
 
