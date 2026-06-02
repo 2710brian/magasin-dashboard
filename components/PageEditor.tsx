@@ -88,7 +88,7 @@ export default function PageEditor({
   selectedMagazine,
   setSelectedPage,
 }: PageEditorProps)
-
+{
   const [
     localPage,
     setLocalPage,
