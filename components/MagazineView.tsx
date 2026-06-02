@@ -66,7 +66,7 @@ export default function MagazineView({
 
   useEffect(() => {
 
-  // loadAds();
+  loadAds();
 
 }, []);
 
