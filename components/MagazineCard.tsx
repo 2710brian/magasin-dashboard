@@ -10,7 +10,8 @@ type MagazineCardProps = {
 };
 
 export default function MagazineCard({
-  kommune, 
+  kommune,
+  dbAds,
 }: MagazineCardProps) {
 
   function generatePages() {
@@ -58,7 +59,24 @@ export default function MagazineCard({
 
   
 
-  const totalOmsaetning = 0;
+  const totalOmsaetning =
+  dbAds
+    .filter(
+      (ad) =>
+        ad.magazinename ===
+        kommune.navn
+    )
+    .reduce(
+      (
+        total,
+        ad
+      ) =>
+        total +
+        Number(
+          ad.price || 0
+        ),
+      0
+    );
 
   return (
     <div
