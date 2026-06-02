@@ -827,7 +827,12 @@ image: "",
   }}
 >
   <button
-    onClick={async () => {
+   onClick={async () => {
+
+  console.log(
+    "SELECTED AD BEFORE SAVE",
+    selectedAd
+  );
 
   const response =
     await fetch(
@@ -850,7 +855,10 @@ image: "",
   const data =
     await response.json();
 
-  console.log(data);
+  console.log(
+    "SAVE RESPONSE",
+    data
+  );
 
   setSelectedAdId(
     null
