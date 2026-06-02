@@ -117,14 +117,18 @@ export default function MagazineView({
   if (selectedPage) {
 
     return (
-      <PageEditor
-        selectedPage={
-          selectedPage
-        }
+     <PageEditor
+  selectedPage={
+    selectedPage
+  }
 
-        setSelectedPage={(
-          page: any
-        ) => {
+  selectedMagazine={
+    selectedMagazine
+  }
+
+  setSelectedPage={(
+    page: any
+  ) => {
 
           if (!page) {
 
