@@ -101,8 +101,34 @@ export default function MagazineDashboard() {
     activeMagazines,
     setActiveMagazines,
   ] = useState<any[]>([]);
+const [
+  dbAds,
+  setDbAds,
+] = useState<any[]>([]);
 
-  useEffect(() => {
+async function loadAds() {
+
+  const response =
+    await fetch(
+      "/api/get-ads"
+    );
+
+  const data =
+    await response.json();
+
+  if (
+    data.success
+  ) {
+
+    setDbAds(
+      data.ads
+    );
+  }
+}
+
+useEffect(() => {
+
+  loadAds();
 
     const savedMagazines =
       localStorage.getItem(
@@ -251,23 +277,27 @@ export default function MagazineDashboard() {
                 }}
               >
                 <div
-                  onClick={() =>
-                    setSelectedKommune(
-                      kommune.navn
-                    )
-                  }
+  onClick={() =>
+    setSelectedKommune(
+      kommune.navn
+    )
+  }
 
-                  style={{
-                    cursor:
-                      "pointer",
-                  }}
-                >
-                  <MagazineCard
-                    kommune={
-                      kommune
-                    }
-                  />
-                </div>
+  style={{
+    cursor:
+      "pointer",
+  }}
+>
+  <MagazineCard
+    kommune={
+      kommune
+    }
+
+    dbAds={
+      dbAds
+    }
+  />
+</div>
 
                 <button
                   onClick={() => {
