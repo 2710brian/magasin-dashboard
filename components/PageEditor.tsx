@@ -12,6 +12,8 @@ import AdBlock from "./AdBlock";
 type PageEditorProps = {
   selectedPage: any;
 
+  selectedMagazine: any;
+
   setSelectedPage: (
     page: any | null
   ) => void;
@@ -83,8 +85,9 @@ const adSizes: any = {
 
 export default function PageEditor({
   selectedPage,
+  selectedMagazine,
   setSelectedPage,
-}: PageEditorProps) {
+}: PageEditorProps)
 
   const [
     localPage,
