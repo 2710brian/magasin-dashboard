@@ -583,13 +583,30 @@ useEffect(() => {
                     }
                   />
 
-                  <button
-                    onClick={(e) => {
+                 <button
+  onClick={async (e) => {
 
-                      e.stopPropagation();
+    e.stopPropagation();
 
-                      const updatedAds =
-                        localPage.ads.filter(
+    await fetch(
+      "/api/delete-ad",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body:
+          JSON.stringify({
+            id: ad.id,
+          }),
+      }
+    );
+
+    const updatedAds =
+      localPage.ads.filter(
                           (
                             item: any
                           ) =>
