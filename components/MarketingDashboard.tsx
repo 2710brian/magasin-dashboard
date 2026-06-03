@@ -21,81 +21,101 @@ export default function MagazineDashboard() {
   );
 
   const defaultMagazines = [
-    {
-      navn:
-        "Aalborg",
+  {
+    navn: "Kommuner",
+    region: "Offentlig",
+  },
 
-      region:
-        "Region Nordjylland",
+  {
+    navn: "Lufthavne",
+    region: "Transport",
+  },
 
-      fyldning: 91,
+  {
+    navn: "Privathospitaler",
+    region: "Sundhed",
+  },
 
-      deadline:
-        "12 Juni 2026",
+  {
+    navn: "Hørecentre",
+    region: "Sundhed",
+  },
 
-      totalPages: 56,
-    },
+  {
+    navn: "Tandlæger",
+    region: "Sundhed",
+  },
 
-    {
-      navn:
-        "Hjørring",
+  {
+    navn: "Advokater",
+    region: "Juridisk",
+  },
 
-      region:
-        "Region Nordjylland",
+  {
+    navn: "Hjælpemidler",
+    region: "Senior",
+  },
 
-      fyldning: 64,
+  {
+    navn: "Pleje & Hjemmehjælp",
+    region: "Senior",
+  },
 
-      deadline:
-        "19 Juni 2026",
+  {
+    navn: "Ejendomsmæglere",
+    region: "Bolig",
+  },
 
-      totalPages: 56,
-    },
+  {
+    navn: "Bedemænd",
+    region: "Senior",
+  },
 
-    {
-      navn:
-        "Brønderslev",
+  {
+    navn: "Banker",
+    region: "Finans",
+  },
 
-      region:
-        "Region Nordjylland",
+  {
+    navn: "Forsikring",
+    region: "Finans",
+  },
 
-      fyldning: 57,
+  {
+    navn: "Plejehjem",
+    region: "Senior",
+  },
 
-      deadline:
-        "27 Juni 2026",
+  {
+    navn: "Seniorboliger",
+    region: "Senior",
+  },
 
-      totalPages: 56,
-    },
+  {
+    navn: "Golf",
+    region: "Fritid",
+  },
 
-    {
-      navn:
-        "Jammerbugt",
+  {
+    navn: "Kultur",
+    region: "Fritid",
+  },
 
-      region:
-        "Region Nordjylland",
+  {
+    navn: "Apoteker",
+    region: "Sundhed",
+  },
 
-      fyldning: 71,
+  {
+    navn: "Helse",
+    region: "Sundhed",
+  },
 
-      deadline:
-        "30 Juni 2026",
-
-      totalPages: 56,
-    },
-
-    {
-      navn:
-        "Aarhus",
-
-      region:
-        "Region Midtjylland",
-
-      fyldning: 82,
-
-      deadline:
-        "18 Juni 2026",
-
-      totalPages: 56,
-    },
-  ];
+  {
+    navn: "Rejsebureauer",
+    region: "Rejser",
+  },
+];
 
   const [
     activeMagazines,
@@ -236,7 +256,7 @@ useEffect(() => {
           }}
         >
           <h1>
-            Aktive magasiner
+            Marketing Guide
           </h1>
 
           <p
@@ -246,7 +266,7 @@ useEffect(() => {
             }}
           >
             Oversigt over
-            aktive magasiner
+            Opslagsværk for brancher, salgsstrategier og pitches
           </p>
         </div>
 
