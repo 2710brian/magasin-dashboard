@@ -20,107 +20,16 @@ export default function MarketingDashboard() {
     null
   );
 
-  const defaultMagazines = [
-  {
-    navn: "Kommuner",
-    region: "Offentlig",
-  },
-
-  {
-    navn: "Lufthavne",
-    region: "Transport",
-  },
-
-  {
-    navn: "Privathospitaler",
-    region: "Sundhed",
-  },
-
-  {
-    navn: "Hørecentre",
-    region: "Sundhed",
-  },
-
-  {
-    navn: "Tandlæger",
-    region: "Sundhed",
-  },
-
-  {
-    navn: "Advokater",
-    region: "Juridisk",
-  },
-
-  {
-    navn: "Hjælpemidler",
-    region: "Senior",
-  },
-
-  {
-    navn: "Pleje & Hjemmehjælp",
-    region: "Senior",
-  },
-
-  {
-    navn: "Ejendomsmæglere",
-    region: "Bolig",
-  },
-
-  {
-    navn: "Bedemænd",
-    region: "Senior",
-  },
-
-  {
-    navn: "Banker",
-    region: "Finans",
-  },
-
-  {
-    navn: "Forsikring",
-    region: "Finans",
-  },
-
-  {
-    navn: "Plejehjem",
-    region: "Senior",
-  },
-
-  {
-    navn: "Seniorboliger",
-    region: "Senior",
-  },
-
-  {
-    navn: "Golf",
-    region: "Fritid",
-  },
-
-  {
-    navn: "Kultur",
-    region: "Fritid",
-  },
-
-  {
-    navn: "Apoteker",
-    region: "Sundhed",
-  },
-
-  {
-    navn: "Helse",
-    region: "Sundhed",
-  },
-
-  {
-    navn: "Rejsebureauer",
-    region: "Rejser",
-  },
-];
-
   const [
-    activeMagazines,
-    setActiveMagazines,
-  ] = useState<any[]>([]);
+  activeMagazines,
+  setActiveMagazines,
+] = useState<any[]>([]);
+
+const [
+  categories,
+  setCategories,
+] = useState<any[]>([]);
+
 const [
   dbAds,
   setDbAds,
