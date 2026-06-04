@@ -5,7 +5,7 @@ import {
   useState,
 } from "react";
 
-import Sidebar from "./Sidebar";
+import MarketingSidebar from "./MarketingSidebar";
 import MarketingCard from "./MarketingCard";
 import MarketingView from "./MarketingView";
 
