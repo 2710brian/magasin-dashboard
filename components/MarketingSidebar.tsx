@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 
-import { locationData } from "../data/locationData";
 
 type SidebarProps = {
   regions: {
@@ -38,30 +37,6 @@ export default function MarketingSidebar({
     setNewMagazineName,
   ] = useState("");
 
-  const [
-    selectedCountry,
-    setSelectedCountry,
-  ] = useState("Danmark");
-
-  const [
-    selectedRegion,
-    setSelectedRegion,
-  ] = useState("");
-
-  const [
-    selectedProvince,
-    setSelectedProvince,
-  ] = useState("");
-
-  const [
-    selectedCity,
-    setSelectedCity,
-  ] = useState("");
-
-  const [
-    newMagazinePages,
-    setNewMagazinePages,
-  ] = useState(56);
 
   const handleClick = (
     kommune: string
@@ -84,28 +59,10 @@ export default function MarketingSidebar({
       ...activeMagazines,
 
       {
-        navn:
-          newMagazineName,
-
-        country:
-          selectedCountry,
-
-        region:
-          selectedRegion,
-
-        province:
-          selectedProvince,
-
-        city:
-          selectedCity,
-
-        fyldning: 0,
-
-        deadline:
-          "Ikke sat",
-
-        totalPages:
-          newMagazinePages,
+        {
+  navn: newMagazineName,
+  region: "Marketing",
+}
       },
     ]);
 
@@ -129,27 +86,6 @@ export default function MarketingSidebar({
       ""
     );
   }
-
-  const regionData =
-    selectedRegion
-      ? locationData[
-          selectedCountry as keyof typeof locationData
-        ][
-          selectedRegion as keyof typeof locationData["Danmark"]
-        ]
-      : {};
-
-  const provinces =
-    Object.keys(
-      regionData || {}
-    );
-
-  const cities =
-    selectedProvince
-      ? regionData[
-          selectedProvince as keyof typeof regionData
-        ] || []
-      : [];
 
   return (
     <>
@@ -339,7 +275,7 @@ export default function MarketingSidebar({
                   "24px",
               }}
             >
-              Opret magasin
+              Opret branche
             </h2>
 
             <div
@@ -404,297 +340,7 @@ export default function MarketingSidebar({
                     "8px",
                 }}
               >
-                Land
-              </div>
-
-              <select
-                value={
-                  selectedCountry
-                }
-
-                onChange={(e) => {
-
-                  setSelectedCountry(
-                    e.target.value
-                  );
-
-                  setSelectedRegion(
-                    ""
-                  );
-
-                  setSelectedProvince(
-                    ""
-                  );
-
-                  setSelectedCity(
-                    ""
-                  );
-                }}
-
-                style={{
-                  width:
-                    "100%",
-
-                  padding:
-                    "12px",
-
-                  borderRadius:
-                    "10px",
-
-                  border:
-                    "1px solid #333",
-
-                  background:
-                    "#111",
-
-                  color:
-                    "white",
-                }}
-              >
-                <option>
-                  Danmark
-                </option>
-
-                <option>
-                  Spanien
-                </option>
-              </select>
-            </div>
-
-            <div
-              style={{
-                marginBottom:
-                  "16px",
-              }}
-            >
-              <div
-                style={{
-                  marginBottom:
-                    "8px",
-                }}
-              >
-                Region
-              </div>
-
-              <select
-                value={
-                  selectedRegion
-                }
-
-                onChange={(e) => {
-
-                  setSelectedRegion(
-                    e.target.value
-                  );
-
-                  setSelectedProvince(
-                    ""
-                  );
-
-                  setSelectedCity(
-                    ""
-                  );
-                }}
-
-                style={{
-                  width:
-                    "100%",
-
-                  padding:
-                    "12px",
-
-                  borderRadius:
-                    "10px",
-
-                  border:
-                    "1px solid #333",
-
-                  background:
-                    "#111",
-
-                  color:
-                    "white",
-                }}
-              >
-                <option value="">
-                  Vælg region
-                </option>
-
-                {Object.keys(
-                  locationData[
-                    selectedCountry as keyof typeof locationData
-                  ]
-                ).map(
-                  (
-                    region
-                  ) => (
-
-                    <option
-                      key={region}
-                      value={region}
-                    >
-                      {region}
-                    </option>
-                  )
-                )}
-              </select>
-            </div>
-
-            <div
-              style={{
-                marginBottom:
-                  "16px",
-              }}
-            >
-              <div
-                style={{
-                  marginBottom:
-                    "8px",
-                }}
-              >
-                Provins
-              </div>
-
-              <select
-                value={
-                  selectedProvince
-                }
-
-                onChange={(e) => {
-
-                  setSelectedProvince(
-                    e.target.value
-                  );
-
-                  setSelectedCity(
-                    ""
-                  );
-                }}
-
-                style={{
-                  width:
-                    "100%",
-
-                  padding:
-                    "12px",
-
-                  borderRadius:
-                    "10px",
-
-                  border:
-                    "1px solid #333",
-
-                  background:
-                    "#111",
-
-                  color:
-                    "white",
-                }}
-              >
-                <option value="">
-                  Vælg provins
-                </option>
-
-                {provinces.map(
-                  (
-                    province
-                  ) => (
-
-                    <option
-                      key={
-                        province
-                      }
-
-                      value={
-                        province
-                      }
-                    >
-                      {province}
-                    </option>
-                  )
-                )}
-              </select>
-            </div>
-
-            <div
-              style={{
-                marginBottom:
-                  "16px",
-              }}
-            >
-              <div
-                style={{
-                  marginBottom:
-                    "8px",
-                }}
-              >
-                By / Kommune
-              </div>
-
-              <select
-                value={
-                  selectedCity
-                }
-
-                onChange={(e) =>
-                  setSelectedCity(
-                    e.target.value
-                  )
-                }
-
-                style={{
-                  width:
-                    "100%",
-
-                  padding:
-                    "12px",
-
-                  borderRadius:
-                    "10px",
-
-                  border:
-                    "1px solid #333",
-
-                  background:
-                    "#111",
-
-                  color:
-                    "white",
-                }}
-              >
-                <option value="">
-                  Vælg by
-                </option>
-
-                {cities.map(
-                  (
-                    city: string
-                  ) => (
-
-                    <option
-                      key={city}
-                      value={city}
-                    >
-                      {city}
-                    </option>
-                  )
-                )}
-              </select>
-            </div>
-
-            <div
-              style={{
-                marginBottom:
-                  "24px",
-              }}
-            >
-              <div
-                style={{
-                  marginBottom:
-                    "8px",
-                }}
-              >
-                Antal sider
+              
               </div>
 
               <input
