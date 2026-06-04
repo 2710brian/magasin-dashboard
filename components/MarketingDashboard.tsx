@@ -6,10 +6,10 @@ import {
 } from "react";
 
 import Sidebar from "./Sidebar";
-import MarketingCard from "./MarketingCard";;
 import MarketingCard from "./MarketingCard";
+import MarketingView from "./MarketingView";
 
-// import { regions } from "../data/kommuner";
+import { regions } from "../data/kommuner";
 
 export default function MarketingDashboard() {
 
