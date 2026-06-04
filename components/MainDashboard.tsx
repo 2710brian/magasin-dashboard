@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import CRMView from "./CRMView";
 import MagazineDashboard from "./MagazineDashboard";
+import MarketingDashboard from "./MarketingDashboard";
 
 export default function MainDashboard() {
 
@@ -202,13 +203,18 @@ export default function MainDashboard() {
         )}
 
         {activeView ===
-          "ai" && (
-          <div>
-            <h1>
-              AI Tools
-            </h1>
-          </div>
-        )}
+  "marketing" && (
+  <MarketingDashboard />
+)}
+
+{activeView ===
+  "ai" && (
+  <div>
+    <h1>
+      AI Tools
+    </h1>
+  </div>
+)}
 
         {activeView ===
           "settings" && (
