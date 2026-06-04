@@ -60,11 +60,14 @@ export default function MarketingSidebar({
 
       {
         {
-  navn: newMagazineName,
-  region: "Marketing",
-}
-      },
-    ]);
+  setActiveMagazines([
+  ...activeMagazines,
+
+  {
+    navn: newMagazineName,
+    region: "Marketing",
+  },
+]);
 
     setShowCreateModal(
       false
@@ -74,17 +77,6 @@ export default function MarketingSidebar({
       ""
     );
 
-    setSelectedRegion(
-      ""
-    );
-
-    setSelectedProvince(
-      ""
-    );
-
-    setSelectedCity(
-      ""
-    );
   }
 
   return (
@@ -290,7 +282,7 @@ export default function MarketingSidebar({
                     "8px",
                 }}
               >
-                Magasin navn
+                Branche navn
               </div>
 
               <input
@@ -328,59 +320,7 @@ export default function MarketingSidebar({
               />
             </div>
 
-            <div
-              style={{
-                marginBottom:
-                  "16px",
-              }}
-            >
-              <div
-                style={{
-                  marginBottom:
-                    "8px",
-                }}
-              >
-              
-              </div>
-
-              <input
-                type="number"
-
-                value={
-                  newMagazinePages
-                }
-
-                onChange={(
-                  e
-                ) =>
-                  setNewMagazinePages(
-                    Number(
-                      e.target.value
-                    )
-                  )
-                }
-
-                style={{
-                  width:
-                    "100%",
-
-                  padding:
-                    "12px",
-
-                  borderRadius:
-                    "10px",
-
-                  border:
-                    "1px solid #333",
-
-                  background:
-                    "#111",
-
-                  color:
-                    "white",
-                }}
-              />
-            </div>
+            
 
             <div
               style={{
