@@ -35,6 +35,38 @@ const [
   setDbAds,
 ] = useState<any[]>([]);
 
+  async function loadCategories() {
+
+  const response =
+    await fetch(
+      "/api/marketing/categories"
+    );
+
+  const data =
+    await response.json();
+
+  if (
+    data.success
+  ) {
+
+    setCategories(
+      data.categories
+    );
+
+    setActiveMagazines(
+      data.categories.map(
+        (item: any) => ({
+          navn:
+            item.name,
+
+          region:
+            "Marketing",
+        })
+      )
+    );
+  }
+}
+  
 async function loadAds() {
 
   const response =
@@ -59,9 +91,7 @@ useEffect(() => {
 
   loadAds();
 
-  setActiveMagazines(
-    defaultMagazines
-  );
+  loadCategories();
 
 }, []);
 
