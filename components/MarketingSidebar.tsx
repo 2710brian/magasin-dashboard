@@ -287,6 +287,7 @@ export default function MarketingSidebar({
     </div>
   )
 )}
+        </div>
 
       {showCreateModal && (
 
