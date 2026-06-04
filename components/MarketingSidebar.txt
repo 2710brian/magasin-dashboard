@@ -20,7 +20,7 @@ type SidebarProps = {
   ) => void;
 };
 
-export default function Sidebar({
+export default function MarketingSidebar({
   regions,
   activeMagazines,
   setActiveMagazines,
@@ -180,7 +180,7 @@ export default function Sidebar({
               "20px",
           }}
         >
-          Magasin System
+          Marketing Guide
         </h2>
 
         <button
