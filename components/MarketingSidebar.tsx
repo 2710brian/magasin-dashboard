@@ -49,35 +49,22 @@ export default function MarketingSidebar({
 
   function createMagazine() {
 
-    if (
-      !newMagazineName
-    ) {
-      return;
-    }
-
-    setActiveMagazines([
-      ...activeMagazines,
-
-      {
-        {
-  setActiveMagazines([
-  ...activeMagazines,
-
-  {
-    navn: newMagazineName,
-    region: "Marketing",
-  },
-]);
-
-    setShowCreateModal(
-      false
-    );
-
-    setNewMagazineName(
-      ""
-    );
-
+  if (!newMagazineName) {
+    return;
   }
+
+  setActiveMagazines([
+    ...activeMagazines,
+    {
+      navn: newMagazineName,
+      region: "Marketing",
+    },
+  ]);
+
+  setShowCreateModal(false);
+
+  setNewMagazineName("");
+}
 
   return (
     <>
