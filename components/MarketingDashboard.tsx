@@ -35,12 +35,27 @@ const [
   setDbAds,
 ] = useState<any[]>([]);
 
-  async function loadCategories() {
+ async function loadCategories() {
 
-  const response =
-    await fetch(
-      "/api/marketing/categories"
-    );
+  setActiveMagazines([
+    {
+      navn: "Kommuner",
+      region: "Marketing",
+    },
+    {
+      navn: "Advokater",
+      region: "Marketing",
+    },
+    {
+      navn: "Tandlæger",
+      region: "Marketing",
+    },
+    {
+      navn: "Plejehjem",
+      region: "Marketing",
+    },
+  ]);
+}
 
   const data =
     await response.json();
