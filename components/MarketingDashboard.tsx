@@ -150,18 +150,11 @@ useEffect(() => {
 
   loadAds();
 
- setActiveMagazines(
-  defaultMagazines
-);
+  setActiveMagazines(
+    defaultMagazines
+  );
 
-    } else {
-
-      setActiveMagazines(
-        defaultMagazines
-      );
-    }
-
-  }, []);
+}, []);
 
   useEffect(() => {
 
