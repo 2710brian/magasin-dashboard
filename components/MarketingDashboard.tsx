@@ -6,12 +6,12 @@ import {
 } from "react";
 
 import Sidebar from "./Sidebar";
-import MagazineCard from "./MagazineCard";
-import MagazineView from "./MagazineView";
+import MarketingCard from "./MarketingCard";;
+import MarketingCard from "./MarketingCard";
 
-import { regions } from "../data/kommuner";
+// import { regions } from "../data/kommuner";
 
-export default function MagazineDashboard() {
+export default function MarketingDashboard() {
 
   const [
     selectedKommune,
@@ -198,7 +198,7 @@ useEffect(() => {
   ) {
 
     return (
-      <MagazineView
+      <MarketingView
         selectedMagazine={
           selectedMagazine
         }
@@ -308,7 +308,7 @@ useEffect(() => {
       "pointer",
   }}
 >
-  <MagazineCard
+  <MarketingCard
     kommune={
       kommune
     }
