@@ -218,7 +218,7 @@ useEffect(() => {
         height: "100%",
       }}
     >
-      <Sidebar
+      <MarketingSidebar
         regions={regions}
 
         activeMagazines={
