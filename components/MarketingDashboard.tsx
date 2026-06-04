@@ -150,20 +150,9 @@ useEffect(() => {
 
   loadAds();
 
-    const savedMagazines =
-      localStorage.getItem(
-        "activeMagazines"
-      );
-
-    if (
-      savedMagazines
-    ) {
-
-      setActiveMagazines(
-        JSON.parse(
-          savedMagazines
-        )
-      );
+ setActiveMagazines(
+  defaultMagazines
+);
 
     } else {
 
