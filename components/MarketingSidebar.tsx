@@ -219,150 +219,74 @@ export default function MarketingSidebar({
               700,
           }}
         >
-          + Opret magasin
+          + Opret branche
         </button>
 
-        {Object.entries(
-          regions
-        ).map(
-          ([region, kommuner]) => (
-            <div
-              key={region}
+        {activeMagazines.map(
+  (branche) => (
 
-              style={{
-                marginBottom:
-                  "30px",
-              }}
-            >
-              <h3
-                style={{
-                  color:
-                    "#888",
+    <div
+      key={
+        branche.navn
+      }
 
-                  marginBottom:
-                    "12px",
-                }}
-              >
-                {region}
-              </h3>
+      onClick={() =>
+        handleClick(
+          branche.navn
+        )
+      }
 
-              {kommuner.map(
-                (kommune) => {
+      style={{
+        padding:
+          "10px",
 
-                  const isActive =
-                    activeMagazines.some(
-                      (
-                        item
-                      ) =>
-                        item.navn ===
-                        kommune
-                    );
+        marginBottom:
+          "8px",
 
-                  return (
-                    <div
-                      key={kommune}
+        background:
+          selectedKommune ===
+          branche.navn
+            ? "#2a2a2a"
+            : "#1f1f1f",
 
-                      onClick={() => {
+        borderRadius:
+          "8px",
 
-                        if (
-                          !isActive
-                        ) {
+        cursor:
+          "pointer",
 
-                          const confirmCreate =
-                            confirm(
-                              `Opret magasin for ${kommune}?`
-                            );
+        display:
+          "flex",
 
-                          if (
-                            !confirmCreate
-                          ) {
-                            return;
-                          }
+        alignItems:
+          "center",
 
-                          setActiveMagazines([
-                            ...activeMagazines,
+        justifyContent:
+          "space-between",
+      }}
+    >
+      <span>
+        {branche.navn}
+      </span>
 
-                            {
-                              navn:
-                                kommune,
+      <div
+        style={{
+          width:
+            "10px",
 
-                              region,
+          height:
+            "10px",
 
-                              fyldning: 0,
+          borderRadius:
+            "50%",
 
-                              deadline:
-                                "Ikke sat",
-
-                              totalPages: 56,
-                            },
-                          ]);
-
-                          return;
-                        }
-
-                        handleClick(
-                          kommune
-                        );
-                      }}
-
-                      style={{
-                        padding:
-                          "10px",
-
-                        marginBottom:
-                          "8px",
-
-                        background:
-                          selectedKommune ===
-                          kommune
-                            ? "#2a2a2a"
-                            : "#1f1f1f",
-
-                        borderRadius:
-                          "8px",
-
-                        cursor:
-                          "pointer",
-
-                        display:
-                          "flex",
-
-                        alignItems:
-                          "center",
-
-                        justifyContent:
-                          "space-between",
-                      }}
-                    >
-                      <span>
-                        {kommune}
-                      </span>
-
-                      <div
-                        style={{
-                          width:
-                            "10px",
-
-                          height:
-                            "10px",
-
-                          borderRadius:
-                            "50%",
-
-                          background:
-                            isActive
-                              ? "#22c55e"
-                              : "#ef4444",
-                        }}
-                      />
-                    </div>
-                  );
-                }
-              )}
-            </div>
-          )
-        )}
-      </div>
+          background:
+            "#22c55e",
+        }}
+      />
+    </div>
+  )
+)}
 
       {showCreateModal && (
 
