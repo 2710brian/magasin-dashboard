@@ -56,31 +56,6 @@ const [
     },
   ]);
 }
-
-  const data =
-    await response.json();
-
-  if (
-    data.success
-  ) {
-
-    setCategories(
-      data.categories
-    );
-
-    setActiveMagazines(
-      data.categories.map(
-        (item: any) => ({
-          navn:
-            item.name,
-
-          region:
-            "Marketing",
-        })
-      )
-    );
-  }
-}
   
 async function loadAds() {
 
