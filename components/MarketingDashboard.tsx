@@ -104,24 +104,25 @@ const selectedCategory =
       selectedKommune
   );
 
-  if (
+if (
   selectedCategory
-)
-
-    return (
-  <MarketingView
-    selectedCategory={
-      selectedCategory
-    }
-
-    setSelectedKommune={
-      setSelectedKommune
-    }
-  />
-);
-  }
+) {
 
   return (
+    <MarketingView
+      selectedCategory={
+        selectedCategory
+      }
+
+      setSelectedKommune={
+        setSelectedKommune
+      }
+    />
+  );
+
+}
+
+return (
     <div
       style={{
         display: "flex",
