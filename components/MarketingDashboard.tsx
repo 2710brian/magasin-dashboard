@@ -37,24 +37,30 @@ const [
 
  async function loadCategories() {
 
-  setMarketingCategories([
-    {
-      navn: "Kommuner",
-      region: "Marketing",
-    },
-    {
-      navn: "Advokater",
-      region: "Marketing",
-    },
-    {
-      navn: "Tandlæger",
-      region: "Marketing",
-    },
-    {
-      navn: "Plejehjem",
-      region: "Marketing",
-    },
-  ]);
+  const response =
+    await fetch(
+      "/api/get-marketing-categories"
+    );
+
+  const data =
+    await response.json();
+
+  if (
+    data.success
+  ) {
+
+    setMarketingCategories(
+      data.categories.map(
+        (item: any) => ({
+          navn:
+            item.name,
+
+          region:
+            "Marketing",
+        })
+      )
+    );
+  }
 }
   
 async function loadAds() {
