@@ -21,8 +21,8 @@ export default function MarketingDashboard() {
   );
 
   const [
-  activeMagazines,
-  setActiveMagazines,
+  marketingCategories,
+  setMarketingCategories,
 ] = useState<any[]>([]);
 
 const [
@@ -37,7 +37,7 @@ const [
 
  async function loadCategories() {
 
-  setActiveMagazines([
+  setMarketingCategories([
     {
       navn: "Kommuner",
       region: "Marketing",
@@ -88,7 +88,7 @@ useEffect(() => {
   useEffect(() => {
 
     localStorage.setItem(
-      "activeMagazines",
+  "marketingCategories",
 
       JSON.stringify(
         activeMagazines
@@ -97,28 +97,28 @@ useEffect(() => {
 
   }, [activeMagazines]);
 
-  const selectedMagazine =
-    activeMagazines.find(
+  const selectedCategory =
+  marketingCategories.find(
       (item) =>
         item.navn ===
         selectedKommune
     );
 
   if (
-    selectedMagazine
-  ) {
+  selectedCategory
+)
 
     return (
-      <MarketingView
-        selectedMagazine={
-          selectedMagazine
-        }
+  <MarketingView
+    selectedCategory={
+      selectedCategory
+    }
 
-        setSelectedKommune={
-          setSelectedKommune
-        }
-      />
-    );
+    setSelectedKommune={
+      setSelectedKommune
+    }
+  />
+);
   }
 
   return (
@@ -130,11 +130,14 @@ useEffect(() => {
       }}
     >
       <MarketingSidebar
-        regions={regions}
 
-        activeMagazines={
-          activeMagazines
-        }
+  marketingCategories={
+    marketingCategories
+  }
+
+  setMarketingCategories={
+    setMarketingCategories
+  }
 
         setActiveMagazines={
           setActiveMagazines
@@ -192,7 +195,7 @@ useEffect(() => {
             gap: "20px",
           }}
         >
-          {activeMagazines.map(
+          {marketingCategories.map(
             (
               kommune
             ) => (
@@ -244,8 +247,8 @@ useEffect(() => {
                       return;
                     }
 
-                    setActiveMagazines(
-                      activeMagazines.filter(
+                    setMarketingCategories(
+  marketingCategories.filter(
                         (
                           item
                         ) =>
