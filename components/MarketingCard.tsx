@@ -14,70 +14,6 @@ export default function MagazineCard({
   dbAds,
 }: MagazineCardProps) {
 
-  function generatePages() {
-
-    return Array.from(
-      { length: 56 },
-      (_, i) => {
-
-        const page = i + 1;
-
-        return {
-          side: page,
-
-          premium: false,
-
-          status: "ledig",
-        };
-      }
-    );
-  }
-
-  function getPageColor(
-    status: string
-  ) {
-
-    if (
-      status === "solgt"
-    ) {
-
-      return "#22c55e";
-    }
-
-    if (
-      status === "reserveret"
-    ) {
-
-      return "#eab308";
-    }
-
-    return "#444";
-  }
-
-  const pages =
-    generatePages();
-
-  
-
-  const totalOmsaetning =
-  dbAds
-    .filter(
-      (ad) =>
-        ad.magazinename ===
-        kommune.navn
-    )
-    .reduce(
-      (
-        total,
-        ad
-      ) =>
-        total +
-        Number(
-          ad.price || 0
-        ),
-      0
-    );
-
   return (
     <div
       style={{
@@ -161,16 +97,55 @@ export default function MagazineCard({
         />
       </div>
 
-      {/* STATS */}
+     <div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "12px",
+  }}
+>
 
-      <div
-        style={{
-          display:
-            "grid",
+  <div>
+    <strong>Prompts</strong>
+    <div>0</div>
+  </div>
 
-          gridTemplateColumns:
-            "1fr 1fr",
+  <div>
+    <strong>Noter</strong>
+    <div>0</div>
+  </div>
 
+  <div>
+    <strong>Pitch</strong>
+    <div>0</div>
+  </div>
+
+  <div>
+    <strong>Emails</strong>
+    <div>0</div>
+  </div>
+
+  <div>
+    <strong>PDF</strong>
+    <div>0</div>
+  </div>
+
+  <div>
+    <strong>Billeder</strong>
+    <div>0</div>
+  </div>
+
+  <div>
+    <strong>Lyd</strong>
+    <div>0</div>
+  </div>
+
+  <div>
+    <strong>Video</strong>
+    <div>0</div>
+  </div>
+
+</div>
           gap:
             "12px",
         }}
@@ -253,18 +228,6 @@ export default function MagazineCard({
                 "4px",
             }}
           >
-            FYLDNING
-          </div>
-
-          <div
-            style={{
-              fontWeight:
-                700,
-            }}
-          >
-            {kommune.fyldning}%
-          </div>
-        </div>
 
         <div>
           <div
