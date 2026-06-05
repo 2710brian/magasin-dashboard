@@ -136,7 +136,7 @@ export default function MarketingSidebar({
           + Opret branche
         </button>
 
-        {activeMagazines.map(
+        {marketingCategories.map(
   (branche) => (
 
     <div
@@ -272,17 +272,17 @@ export default function MarketingSidebar({
               </div>
 
               <input
-                value={
-                  newMagazineName
-                }
+  value={
+    newCategoryName
+  }
 
-                onChange={(
-                  e
-                ) =>
-                  setNewMagazineName(
-                    e.target.value
-                  )
-                }
+  onChange={(
+    e
+  ) =>
+    setNewCategoryName(
+      e.target.value
+    )
+  }
 
                 style={{
                   width:
@@ -351,9 +351,10 @@ export default function MarketingSidebar({
               </button>
 
               <button
-                onClick={
-                  createMagazine
-                }
+  onClick={
+    createCategory
+  }
+>
 
                 style={{
                   flex: 1,
