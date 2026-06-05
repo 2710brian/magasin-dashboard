@@ -148,15 +148,27 @@ export default function MarketingView({
       </div>
 
       <div
-        style={{
-          display: "grid",
-          gridTemplateColumns:
-  "repeat(3, 1fr)"
-          gap: "20px",
-        }}
-      >
+  style={{
+    display: "grid",
+    gridTemplateColumns:
+      "repeat(3, 1fr)",
+    gap: "20px",
+  }}
+>
+
+  {contentItems.length === 0 ? (
+
+    <div>
+      Ingen indhold endnu
+    </div>
+
+  ) : (
+
+    contentItems.map(
+      (item) => (
 
         <div
+          key={item.id}
           style={{
             background:
               "#1b1b1b",
@@ -166,58 +178,10 @@ export default function MarketingView({
               "14px",
             padding:
               "20px",
+            minHeight:
+              "180px",
           }}
         >
-         {contentItems.length === 0 ? (
-
-  <div
-    style={{
-      background:
-        "#1b1b1b",
-
-      border:
-        "1px solid #2a2a2a",
-
-      borderRadius:
-        "14px",
-
-      padding:
-        "20px",
-    }}
-  >
-    Ingen indhold endnu
-  </div>
-
-) : (
-
-  contentItems.map(
-    (item) => (
-
-      <div
-        key={
-          item.id
-        }
-
-        style={{
-          background:
-            "#1b1b1b",
-
-          border:
-            "1px solid #2a2a2a",
-
-          borderRadius:
-            "14px",
-
-          padding:
-            "20px",
-
-          minHeight:
-            "180px",
-
-          cursor:
-            "pointer",
-        }}
-      >
 
         <h3>
           {item.type}
