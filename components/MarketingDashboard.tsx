@@ -87,22 +87,22 @@ useEffect(() => {
 
   useEffect(() => {
 
-    localStorage.setItem(
-  "marketingCategories",
+  localStorage.setItem(
+    "marketingCategories",
 
-      JSON.stringify(
-        activeMagazines
-      )
-    );
+    JSON.stringify(
+      marketingCategories
+    )
+  );
 
-  }, [activeMagazines]);
+}, [marketingCategories]);
 
-  const selectedCategory =
+const selectedCategory =
   marketingCategories.find(
-      (item) =>
-        item.navn ===
-        selectedKommune
-    );
+    (item) =>
+      item.navn ===
+      selectedKommune
+  );
 
   if (
   selectedCategory
@@ -129,7 +129,8 @@ useEffect(() => {
         height: "100%",
       }}
     >
-      <MarketingSidebar
+<MarketingSidebar
+  regions={regions}
 
   marketingCategories={
     marketingCategories
@@ -139,19 +140,15 @@ useEffect(() => {
     setMarketingCategories
   }
 
-        setActiveMagazines={
-          setActiveMagazines
-        }
+  selectedKommune={
+    selectedKommune ||
+    ""
+  }
 
-        selectedKommune={
-          selectedKommune ||
-          ""
-        }
-
-        setSelectedKommune={
-          setSelectedKommune
-        }
-      />
+  setSelectedKommune={
+    setSelectedKommune
+  }
+/>
 
       <div
         style={{
