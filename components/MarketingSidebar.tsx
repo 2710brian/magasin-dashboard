@@ -284,109 +284,107 @@ export default function MarketingSidebar({
     )
   }
 
-                style={{
-                  width:
-                    "100%",
+               style={{
+  width:
+    "100%",
 
-                  padding:
-                    "12px",
+  padding:
+    "12px",
 
-                  borderRadius:
-                    "10px",
+  borderRadius:
+    "10px",
 
-                  border:
-                    "1px solid #333",
+  border:
+    "1px solid #333",
 
-                  background:
-                    "#111",
+  background:
+    "#111",
 
-                  color:
-                    "white",
-                }}
-              />
-            </div>
+  color:
+    "white",
+}}
+/>
+</div>
 
-            
+<div
+  style={{
+    display:
+      "flex",
 
-            <div
-              style={{
-                display:
-                  "flex",
-
-                gap:
-                  "12px",
-              }}
-            >
-
-              <button
-                onClick={() =>
-                  setShowCreateModal(
-                    false
-                  )
-                }
-
-                style={{
-                  flex: 1,
-
-                  background:
-                    "#333",
-
-                  color:
-                    "white",
-
-                  border:
-                    "none",
-
-                  padding:
-                    "12px",
-
-                  borderRadius:
-                    "10px",
-
-                  cursor:
-                    "pointer",
-                }}
-              >
-                Luk
-              </button>
-
-              <button
-  onClick={
-    createCategory
-  }
+    gap:
+      "12px",
+  }}
 >
 
-                style={{
-                  flex: 1,
+  <button
+    onClick={() =>
+      setShowCreateModal(
+        false
+      )
+    }
 
-                  background:
-                    "#22c55e",
+    style={{
+      flex: 1,
 
-                  color:
-                    "white",
+      background:
+        "#333",
 
-                  border:
-                    "none",
+      color:
+        "white",
 
-                  padding:
-                    "12px",
+      border:
+        "none",
 
-                  borderRadius:
-                    "10px",
+      padding:
+        "12px",
 
-                  cursor:
-                    "pointer",
+      borderRadius:
+        "10px",
 
-                  fontWeight:
-                    700,
-                }}
-              >
-                Opret
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
+      cursor:
+        "pointer",
+    }}
+  >
+    Luk
+  </button>
+
+  <button
+    onClick={
+      createCategory
+    }
+
+    style={{
+      flex: 1,
+
+      background:
+        "#22c55e",
+
+      color:
+        "white",
+
+      border:
+        "none",
+
+      padding:
+        "12px",
+
+      borderRadius:
+        "10px",
+
+      cursor:
+        "pointer",
+
+      fontWeight:
+        700,
+    }}
+  >
+    Opret
+  </button>
+
+</div>
+</div>
+</div>
+)}
+</>
+);
 }
