@@ -158,30 +158,47 @@ export default function MarketingView({
 
   {contentItems.length === 0 ? (
 
-    <div>
+  <div
+    style={{
+      background: "#1b1b1b",
+      border: "1px solid #2a2a2a",
+      borderRadius: "14px",
+      padding: "20px",
+      minHeight: "180px",
+    }}
+  >
+    <h3>
       Ingen indhold endnu
-    </div>
+    </h3>
 
-  ) : (
+    <p
+      style={{
+        color: "#888",
+      }}
+    >
+      Klik på "Opret indhold"
+      for at oprette Prompt,
+      Pitch, Email, PDF,
+      Billede, Lyd eller Video.
+    </p>
+  </div>
 
-    contentItems.map(
-      (item) => (
+) : (
 
-        <div
-          key={item.id}
-          style={{
-            background:
-              "#1b1b1b",
-            border:
-              "1px solid #2a2a2a",
-            borderRadius:
-              "14px",
-            padding:
-              "20px",
-            minHeight:
-              "180px",
-          }}
-        >
+  contentItems.map(
+    (item) => (
+
+      <div
+        key={item.id}
+        style={{
+          background: "#1b1b1b",
+          border: "1px solid #2a2a2a",
+          borderRadius: "14px",
+          padding: "20px",
+          minHeight: "180px",
+          cursor: "pointer",
+        }}
+      >
 
         <h3>
           {item.type}
@@ -193,14 +210,9 @@ export default function MarketingView({
 
         <div
           style={{
-            display:
-              "flex",
-
-            gap:
-              "10px",
-
-            marginTop:
-              "20px",
+            display: "flex",
+            gap: "10px",
+            marginTop: "20px",
           }}
         >
 
@@ -219,25 +231,6 @@ export default function MarketingView({
   )
 
 )}
-
-          <p
-            style={{
-              color: "#888",
-            }}
-          >
-            Klik på
-            "Opret indhold"
-            for at oprette
-            Prompt,
-            Pitch,
-            Email,
-            PDF,
-            Billede,
-            Lyd eller Video.
-          </p>
-        </div>
-
-      </div>
 
       {showCreateModal && (
 
