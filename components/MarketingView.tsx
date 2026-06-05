@@ -23,6 +23,34 @@ export default function MarketingView({
     setContentType,
   ] = useState("Prompt");
 
+  const [
+  contentItems,
+  setContentItems,
+] = useState<any[]>([]);
+
+  function createContent() {
+
+  setContentItems([
+    ...contentItems,
+
+    {
+      id: Date.now(),
+
+      type:
+        contentType,
+
+      title: "",
+
+      content: "",
+    },
+  ]);
+
+  setShowCreateModal(
+    false
+  );
+}
+  
+
   return (
     <div
       style={{
@@ -140,9 +168,93 @@ export default function MarketingView({
               "20px",
           }}
         >
-          <h3>
-            Ingen indhold endnu
-          </h3>
+         {contentItems.length === 0 ? (
+
+  <div
+    style={{
+      background:
+        "#1b1b1b",
+
+      border:
+        "1px solid #2a2a2a",
+
+      borderRadius:
+        "14px",
+
+      padding:
+        "20px",
+    }}
+  >
+    Ingen indhold endnu
+  </div>
+
+) : (
+
+  contentItems.map(
+    (item) => (
+
+      <div
+        key={
+          item.id
+        }
+
+        style={{
+          background:
+            "#1b1b1b",
+
+          border:
+            "1px solid #2a2a2a",
+
+          borderRadius:
+            "14px",
+
+          padding:
+            "20px",
+
+          minHeight:
+            "180px",
+
+          cursor:
+            "pointer",
+        }}
+      >
+
+        <h3>
+          {item.type}
+        </h3>
+
+        <p>
+          Ikke udfyldt endnu
+        </p>
+
+        <div
+          style={{
+            display:
+              "flex",
+
+            gap:
+              "10px",
+
+            marginTop:
+              "20px",
+          }}
+        >
+
+          <button>
+            Rediger
+          </button>
+
+          <button>
+            Slet
+          </button>
+
+        </div>
+
+      </div>
+    )
+  )
+
+)}
 
           <p
             style={{
@@ -300,26 +412,37 @@ export default function MarketingView({
               </button>
 
               <button
-                style={{
-                  flex: 1,
-                  background:
-                    "#22c55e",
-                  color:
-                    "white",
-                  border:
-                    "none",
-                  padding:
-                    "12px",
-                  borderRadius:
-                    "10px",
-                  cursor:
-                    "pointer",
-                  fontWeight:
-                    700,
-                }}
-              >
-                Opret
-              </button>
+  onClick={
+    createContent
+  }
+
+  style={{
+    flex: 1,
+
+    background:
+      "#22c55e",
+
+    color:
+      "white",
+
+    border:
+      "none",
+
+    padding:
+      "12px",
+
+    borderRadius:
+      "10px",
+
+    cursor:
+      "pointer",
+
+    fontWeight:
+      700,
+  }}
+>
+  Opret
+</button>
 
             </div>
 
