@@ -110,7 +110,7 @@ if (
 
   return (
     <MarketingView
-      selectedCategory={
+      selectedMagazine={
         selectedCategory
       }
 
