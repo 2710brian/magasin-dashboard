@@ -8,9 +8,9 @@ type SidebarProps = {
     [key: string]: string[];
   };
 
-  activeMagazines: any[];
+  marketingCategories: any[];
 
-  setActiveMagazines: any;
+setMarketingCategories: any;
 
   selectedKommune: string;
 
@@ -21,8 +21,8 @@ type SidebarProps = {
 
 export default function MarketingSidebar({
   regions,
-  activeMagazines,
-  setActiveMagazines,
+  marketingCategories,
+  setMarketingCategories,
   selectedKommune,
   setSelectedKommune,
 }: SidebarProps) {
@@ -33,10 +33,9 @@ export default function MarketingSidebar({
   ] = useState(false);
 
   const [
-    newMagazineName,
-    setNewMagazineName,
+    newCategoryName,
+    setNewCategoryName,
   ] = useState("");
-
 
   const handleClick = (
     kommune: string
@@ -47,24 +46,24 @@ export default function MarketingSidebar({
     );
   };
 
-  function createMagazine() {
+  function createCategory() {
 
-  if (!newMagazineName) {
-    return;
+    if (!newCategoryName) {
+      return;
+    }
+
+    setMarketingCategories([
+      ...marketingCategories,
+      {
+        navn: newCategoryName,
+        region: "Marketing",
+      },
+    ]);
+
+    setShowCreateModal(false);
+
+    setNewCategoryName("");
   }
-
-  setActiveMagazines([
-    ...activeMagazines,
-    {
-      navn: newMagazineName,
-      region: "Marketing",
-    },
-  ]);
-
-  setShowCreateModal(false);
-
-  setNewMagazineName("");
-}
 
   return (
     <>
