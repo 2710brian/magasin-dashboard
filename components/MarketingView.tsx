@@ -231,7 +231,7 @@ export default function MarketingView({
   )
 
 )}
-
+</div>
       {showCreateModal && (
 
         <div
