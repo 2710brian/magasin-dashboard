@@ -1,271 +1,334 @@
-"use client";
+import { useState } from "react";
 
-import {
-  useEffect,
-  useState,
-} from "react";
-
-import PageEditor from "./PageEditor";
-import SidePreview from "./SidePreview";
-
-import { pages } from "../data/pages";
-
-type MagazineViewProps = {
+type MarketingViewProps = {
   selectedMagazine: any;
 
   setSelectedKommune: (
-    kommune: string | null
+    value: string | null
   ) => void;
 };
 
-export default function MagazineView({
+export default function MarketingView({
   selectedMagazine,
   setSelectedKommune,
-}: MagazineViewProps) {
+}: MarketingViewProps) {
 
   const [
-    selectedPageSide,
-    setSelectedPageSide,
-  ] = useState<number | null>(
-    null
-  );
+    showCreateModal,
+    setShowCreateModal,
+  ] = useState(false);
 
   const [
-    dbAds,
-    setDbAds,
-  ] = useState<any[]>([]);
-
-  async function loadAds() {
-
-    try {
-
-      const response =
-        await fetch(
-          "/api/get-ads"
-        );
-
-      const data =
-        await response.json();
-
-      if (
-        data.success
-      ) {
-
-        setDbAds(
-          data.ads
-        );
-      }
-
-    } catch (error) {
-
-      console.error(
-        error
-      );
-    }
-  }
-
-  useEffect(() => {
-
-  loadAds();
-
-}, []);
-
-  const totalPages =
-    selectedMagazine?.totalPages ||
-    56;
-
-  const generatedPages =
-    Array.from(
-      {
-        length:
-          totalPages,
-      },
-      (_, i) => {
-
-        const side =
-          i + 1;
-
-    const ads =
-  dbAds.filter(
-    (ad) =>
-      Number(ad.page) ===
-        Number(side) &&
-      ad.magazinename ===
-        selectedMagazine?.navn
-  );
-
-        return {
-
-          side,
-
-          premium:
-            side === 3 ||
-            side === 28 ||
-            side ===
-              totalPages,
-
-          ads,
-        };
-      }
-    );
-
-  const selectedPage =
-    generatedPages.find(
-      (page) =>
-        page.side ===
-        selectedPageSide
-    );
-
-  if (selectedPage) {
-
-    return (
-     <PageEditor
-  selectedPage={
-    selectedPage
-  }
-
-  selectedMagazine={
-    selectedMagazine
-  }
-
-  setSelectedPage={(
-    page: any
-  ) => {
-
-          if (!page) {
-
-            setSelectedPageSide(
-              null
-            );
-
-            return;
-          }
-
-          setSelectedPageSide(
-            page.side
-          );
-        }}
-      />
-    );
-  }
+    contentType,
+    setContentType,
+  ] = useState("Prompt");
 
   return (
-    <div>
-
-      {/* HEADER */}
+    <div
+      style={{
+        padding: "30px",
+        height: "100%",
+        overflowY: "auto",
+      }}
+    >
 
       <div
         style={{
           display: "flex",
-
           justifyContent:
             "space-between",
-
           alignItems:
             "center",
-
           marginBottom:
             "30px",
         }}
       >
-        <div>
 
+        <div>
           <h1>
-            {
-              selectedMagazine?.navn
-            }
+            {selectedMagazine?.navn}
           </h1>
 
           <p
             style={{
-              color:
-                "#888",
+              color: "#888",
             }}
           >
-            {
-              totalPages
-            }
-            {" "}
-            sider • Under
-            produktion
+            Marketing Guide
           </p>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            gap: "12px",
+          }}
+        >
+
+          <button
+            onClick={() =>
+              setSelectedKommune(
+                null
+              )
+            }
+            style={{
+              background:
+                "#333",
+              color:
+                "white",
+              border:
+                "none",
+              padding:
+                "12px 20px",
+              borderRadius:
+                "10px",
+              cursor:
+                "pointer",
+            }}
+          >
+            Tilbage
+          </button>
+
+          <button
+            onClick={() =>
+              setShowCreateModal(
+                true
+              )
+            }
+            style={{
+              background:
+                "#22c55e",
+              color:
+                "white",
+              border:
+                "none",
+              padding:
+                "12px 20px",
+              borderRadius:
+                "10px",
+              cursor:
+                "pointer",
+              fontWeight:
+                700,
+            }}
+          >
+            + Opret indhold
+          </button>
 
         </div>
 
-        <button
-          onClick={() =>
-            setSelectedKommune(
-              null
-            )
-          }
-
-          style={{
-            background:
-              "#1f1f1f",
-
-            border:
-              "1px solid #333",
-
-            color:
-              "white",
-
-            padding:
-              "12px 18px",
-
-            borderRadius:
-              "10px",
-
-            cursor:
-              "pointer",
-          }}
-        >
-          Tilbage
-        </button>
       </div>
-
-      {/* SIDER */}
 
       <div
         style={{
-          display:
-            "grid",
-
+          display: "grid",
           gridTemplateColumns:
-            "repeat(4, 1fr)",
-
-          gap:
-            "20px",
+            "repeat(auto-fill,minmax(350px,1fr))",
+          gap: "20px",
         }}
       >
-        {generatedPages.map(
-          (page) => (
 
-            <SidePreview
-              key={
-                page.side
+        <div
+          style={{
+            background:
+              "#1b1b1b",
+            border:
+              "1px solid #2a2a2a",
+            borderRadius:
+              "14px",
+            padding:
+              "20px",
+          }}
+        >
+          <h3>
+            Ingen indhold endnu
+          </h3>
+
+          <p
+            style={{
+              color: "#888",
+            }}
+          >
+            Klik på
+            "Opret indhold"
+            for at oprette
+            Prompt,
+            Pitch,
+            Email,
+            PDF,
+            Billede,
+            Lyd eller Video.
+          </p>
+        </div>
+
+      </div>
+
+      {showCreateModal && (
+
+        <div
+          style={{
+            position:
+              "fixed",
+            inset: 0,
+            background:
+              "rgba(0,0,0,0.8)",
+            display:
+              "flex",
+            justifyContent:
+              "center",
+            alignItems:
+              "center",
+            zIndex: 9999,
+          }}
+        >
+
+          <div
+            style={{
+              width: "500px",
+              background:
+                "#111",
+              padding:
+                "25px",
+              borderRadius:
+                "14px",
+              border:
+                "1px solid #333",
+            }}
+          >
+
+            <h2>
+              Opret indhold
+            </h2>
+
+            <select
+              value={
+                contentType
               }
-
-              side={
-                page.side
-              }
-
-              premium={
-                page.premium
-              }
-
-              ads={
-                page.ads
-              }
-
-              onClick={() =>
-                setSelectedPageSide(
-                  page.side
+              onChange={(
+                e
+              ) =>
+                setContentType(
+                  e.target.value
                 )
               }
-            />
-          )
-        )}
-      </div>
+              style={{
+                width:
+                  "100%",
+                padding:
+                  "12px",
+                marginTop:
+                  "20px",
+                background:
+                  "#1b1b1b",
+                color:
+                  "white",
+                border:
+                  "1px solid #333",
+                borderRadius:
+                  "10px",
+              }}
+            >
+
+              <option>
+                Prompt
+              </option>
+
+              <option>
+                Telefonpitch
+              </option>
+
+              <option>
+                Emailskabelon
+              </option>
+
+              <option>
+                Note
+              </option>
+
+              <option>
+                PDF
+              </option>
+
+              <option>
+                Billede
+              </option>
+
+              <option>
+                Lydfil
+              </option>
+
+              <option>
+                Video
+              </option>
+
+            </select>
+
+            <div
+              style={{
+                display:
+                  "flex",
+                gap:
+                  "12px",
+                marginTop:
+                  "25px",
+              }}
+            >
+
+              <button
+                onClick={() =>
+                  setShowCreateModal(
+                    false
+                  )
+                }
+                style={{
+                  flex: 1,
+                  background:
+                    "#333",
+                  color:
+                    "white",
+                  border:
+                    "none",
+                  padding:
+                    "12px",
+                  borderRadius:
+                    "10px",
+                  cursor:
+                    "pointer",
+                }}
+              >
+                Luk
+              </button>
+
+              <button
+                style={{
+                  flex: 1,
+                  background:
+                    "#22c55e",
+                  color:
+                    "white",
+                  border:
+                    "none",
+                  padding:
+                    "12px",
+                  borderRadius:
+                    "10px",
+                  cursor:
+                    "pointer",
+                  fontWeight:
+                    700,
+                }}
+              >
+                Opret
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )}
+
     </div>
   );
 }
