@@ -1,4 +1,4 @@
-type MagazineCardProps = {
+type MarketingCardProps = {
   kommune: {
     navn: string;
     region: string;
@@ -9,10 +9,10 @@ type MagazineCardProps = {
   dbAds: any[];
 };
 
-export default function MagazineCard({
+export default function MarketingCard({
   kommune,
   dbAds,
-}: MagazineCardProps) {
+}: MarketingCardProps) {
 
   return (
     <div
