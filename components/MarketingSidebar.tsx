@@ -46,24 +46,70 @@ export default function MarketingSidebar({
     );
   };
 
-  function createCategory() {
+  async function createCategory() {
 
-    if (!newCategoryName) {
-      return;
+  if (!newCategoryName) {
+    return;
+  }
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/save-marketing-category",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+
+          body:
+            JSON.stringify({
+              name:
+                newCategoryName,
+            }),
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (
+      data.success
+    ) {
+
+      setMarketingCategories([
+        ...marketingCategories,
+
+        {
+          navn:
+            data.category.name,
+
+          region:
+            "Marketing",
+        },
+      ]);
     }
 
-    setMarketingCategories([
-      ...marketingCategories,
-      {
-        navn: newCategoryName,
-        region: "Marketing",
-      },
-    ]);
+    setShowCreateModal(
+      false
+    );
 
-    setShowCreateModal(false);
+    setNewCategoryName(
+      ""
+    );
 
-    setNewCategoryName("");
+  } catch (
+    error
+  ) {
+
+    console.error(
+      error
+    );
   }
+}
 
   return (
     <>
