@@ -333,14 +333,32 @@ useEffect(() => {
 
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "10px",
-        }}
-      >
+      <button
+  onClick={(e) => {
 
-        <button
+    e.stopPropagation();
+
+    setSelectedItem(
+      item
+    );
+
+    setEditTitle(
+      item.title || ""
+    );
+
+    setEditContent(
+      item.content || ""
+    );
+
+    setEditDate(
+      item.date || ""
+    );
+  }}
+>
+  Rediger
+</button>
+
+<button
   onClick={async (e) => {
 
     e.stopPropagation();
