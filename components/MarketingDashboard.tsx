@@ -49,17 +49,20 @@ const [
     data.success
   ) {
 
-    setMarketingCategories(
-      data.categories.map(
-        (item: any) => ({
-          navn:
-            item.name,
+setMarketingCategories(
+  data.categories.map(
+    (item: any) => ({
+      id:
+        item.id,
 
-          region:
-            "Marketing",
-        })
-      )
-    );
+      navn:
+        item.name,
+
+      region:
+        "Marketing",
+    })
+  )
+);
   }
 }
   
