@@ -97,7 +97,7 @@ async function loadMarketingNotes() {
 
     const response =
       await fetch(
-        "/api/get-marketing-notes?categoryId=1"
+        `/api/get-marketing-notes?categoryId=${selectedMagazine.id}`
       );
 
     const data =
@@ -685,13 +685,14 @@ useEffect(() => {
 
           body:
             JSON.stringify({
-              categoryId: 1,
+              categoryId:
+  selectedMagazine.id,
 
-              title:
-                editTitle,
+title:
+  editTitle,
 
-              content:
-                editContent,
+content:
+  editContent,
             }),
         }
       );
