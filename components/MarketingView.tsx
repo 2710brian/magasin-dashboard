@@ -1,4 +1,7 @@
-import { useState } from "react";
+import {
+  useState,
+  useEffect,
+} from "react";
 
 type MarketingViewProps = {
   selectedMagazine: any;
@@ -88,7 +91,58 @@ const [
   );
 }
   
+async function loadMarketingNotes() {
 
+  try {
+
+    const response =
+      await fetch(
+        "/api/get-marketing-notes?categoryId=1"
+      );
+
+    const data =
+      await response.json();
+
+    if (
+      data.success
+    ) {
+
+      setContentItems(
+
+        data.notes.map(
+          (note: any) => ({
+
+            id:
+              note.id,
+
+            title:
+              note.note_title,
+
+            content:
+              note.note_content,
+
+            type:
+              "Note",
+          })
+        )
+      );
+    }
+
+  } catch (
+    error
+  ) {
+
+    console.error(
+      error
+    );
+  }
+}
+useEffect(() => {
+
+  loadMarketingNotes();
+
+}, []);
+  
   return (
     <div
       style={{
