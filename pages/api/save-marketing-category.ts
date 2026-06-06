@@ -22,7 +22,7 @@ export default async function handler(
     const result =
       await pool.query(
         `
-        INSERT INTO marketing_categories
+        INSERT INTO marketing_categories 
         (
           name
         )
