@@ -341,46 +341,51 @@ useEffect(() => {
       >
 
         <button
-          onClick={(e) => {
+  onClick={async (e) => {
 
-            e.stopPropagation();
+    e.stopPropagation();
 
-            setSelectedItem(
-              item
-            );
+    try {
 
-            setEditTitle(
-              item.title || ""
-            );
+      await fetch(
+        "/api/delete-marketing-note",
+        {
+          method:
+            "POST",
 
-            setEditContent(
-              item.content || ""
-            );
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
 
-            setEditDate(
-              item.date || ""
-            );
-          }}
-        >
-          Rediger
-        </button>
+          body:
+            JSON.stringify({
+              id:
+                item.id,
+            }),
+        }
+      );
 
-        <button
-          onClick={(e) => {
+      setContentItems(
+        contentItems.filter(
+          (x) =>
+            x.id !==
+            item.id
+        )
+      );
 
-            e.stopPropagation();
+    } catch (
+      error
+    ) {
 
-            setContentItems(
-              contentItems.filter(
-                (x) =>
-                  x.id !==
-                  item.id
-              )
-            );
-          }}
-        >
-          Slet
-        </button>
+      console.error(
+        error
+      );
+    }
+  }}
+>
+  Slet
+</button>
 
       </div>
 
