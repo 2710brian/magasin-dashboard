@@ -673,76 +673,79 @@ useEffect(() => {
         </button>
 
         <button
-         onClick={async () => {
+  onClick={async () => {
 
-  try {
+    try {
 
-    const response =
-      await fetch(
-        "/api/save-marketing-note",
-        {
-          method: "POST",
+      const response =
+        await fetch(
+          "/api/edit-marketing-note",
+          {
+            method:
+              "POST",
 
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
 
-          body:
-            JSON.stringify({
-              categoryId:
-  selectedMagazine.id,
+            body:
+              JSON.stringify({
 
-title:
-  editTitle,
+                id:
+                  selectedItem.id,
 
-content:
-  editContent,
-            }),
-        }
-      );
+                title:
+                  editTitle,
 
-    const data =
-      await response.json();
+                content:
+                  editContent,
+              }),
+          }
+        );
 
-    if (
-      data.success
+      const data =
+        await response.json();
+
+      if (
+        data.success
+      ) {
+
+        setContentItems(
+          contentItems.map(
+            (item) =>
+              item.id ===
+              selectedItem.id
+                ? {
+                    ...item,
+
+                    title:
+                      editTitle,
+
+                    content:
+                      editContent,
+
+                    date:
+                      editDate,
+                  }
+                : item
+          )
+        );
+
+        setSelectedItem(
+          null
+        );
+      }
+
+    } catch (
+      error
     ) {
 
-      setContentItems(
-        contentItems.map(
-          (item) =>
-            item.id ===
-            selectedItem.id
-              ? {
-                  ...item,
-                  title:
-                    editTitle,
-
-                  content:
-                    editContent,
-
-                  date:
-                    editDate,
-                }
-              : item
-        )
-      );
-
-      setSelectedItem(
-        null
+      console.error(
+        error
       );
     }
-
-} catch (
-  error
-) {
-
-  console.error(
-    error
-  );
-}
-}}
+  }}
 >
   Gem
 </button>
