@@ -187,11 +187,12 @@ const [
 
       <div
   style={{
-    display: "grid",
-    gridTemplateColumns:
-      "repeat(3, 1fr)",
-    gap: "20px",
-  }}
+  display: "grid",
+  gridTemplateColumns:
+    "repeat(3, minmax(350px, 1fr))",
+  gap: "30px",
+  alignItems: "stretch",
+}}
 >
 
   {contentItems.length === 0 ? (
@@ -224,96 +225,112 @@ const [
 ) : (
 
   contentItems.map(
-    (item) => (
+  (item) => (
 
-     <div
-  key={item.id}
+    <div
+      key={item.id}
 
-  onClick={() => {
+      onClick={() => {
 
-    setSelectedItem(
-      item
-    );
+        setSelectedItem(item);
 
-    setEditTitle(
-      item.title || ""
-    );
+        setEditTitle(
+          item.title || ""
+        );
 
-    setEditContent(
-      item.content || ""
-    );
+        setEditContent(
+          item.content || ""
+        );
 
-    setEditDate(
-      item.date || ""
-    );
-  }}
-      >
+        setEditDate(
+          item.date || ""
+        );
+      }}
+
+      style={{
+        background: "#1b1b1b",
+        border: "1px solid #2a2a2a",
+        borderRadius: "14px",
+        padding: "20px",
+        minHeight: "220px",
+        cursor: "pointer",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+
+      <div>
 
         <h3>
           {item.type}
         </h3>
 
-        <p>
-          Ikke udfyldt endnu
-        </p>
-
-        <div
+        <p
           style={{
-            display: "flex",
-            gap: "10px",
-            marginTop: "20px",
+            color: "#888",
           }}
         >
-
-          <button
-  onClick={(e) => {
-
-    e.stopPropagation();
-
-    setSelectedItem(
-      item
-    );
-
-    setEditTitle(
-      item.title || ""
-    );
-
-    setEditContent(
-      item.content || ""
-    );
-
-    setEditDate(
-      item.date || ""
-    );
-  }}
->
-  Rediger
-</button>
-
-          <button
-  onClick={(e) => {
-
-    e.stopPropagation();
-
-    setContentItems(
-      contentItems.filter(
-        (x) =>
-          x.id !==
-          item.id
-      )
-    );
-  }}
->
-  Slet
-</button>
-
-        </div>
+          {item.title ||
+            "Ikke udfyldt endnu"}
+        </p>
 
       </div>
-    )
-  )
 
-)}
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+        }}
+      >
+
+        <button
+          onClick={(e) => {
+
+            e.stopPropagation();
+
+            setSelectedItem(
+              item
+            );
+
+            setEditTitle(
+              item.title || ""
+            );
+
+            setEditContent(
+              item.content || ""
+            );
+
+            setEditDate(
+              item.date || ""
+            );
+          }}
+        >
+          Rediger
+        </button>
+
+        <button
+          onClick={(e) => {
+
+            e.stopPropagation();
+
+            setContentItems(
+              contentItems.filter(
+                (x) =>
+                  x.id !==
+                  item.id
+              )
+            );
+          }}
+        >
+          Slet
+        </button>
+
+      </div>
+
+    </div>
+  )
+)
 </div>
       {showCreateModal && (
 
