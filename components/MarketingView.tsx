@@ -340,181 +340,335 @@ const [
 
 {showCreateModal && (
 
-        <div
+  <div
+    style={{
+      position: "fixed",
+      inset: 0,
+      background:
+        "rgba(0,0,0,0.8)",
+      display: "flex",
+      justifyContent:
+        "center",
+      alignItems:
+        "center",
+      zIndex: 9999,
+    }}
+  >
+
+    <div
+      style={{
+        width: "500px",
+        background: "#111",
+        padding: "25px",
+        borderRadius: "14px",
+        border:
+          "1px solid #333",
+      }}
+    >
+
+      <h2>
+        Opret indhold
+      </h2>
+
+      <select
+        value={contentType}
+        onChange={(e) =>
+          setContentType(
+            e.target.value
+          )
+        }
+        style={{
+          width: "100%",
+          padding: "12px",
+          marginTop: "20px",
+          background:
+            "#1b1b1b",
+          color: "white",
+          border:
+            "1px solid #333",
+          borderRadius:
+            "10px",
+        }}
+      >
+
+        <option>
+          Prompt
+        </option>
+
+        <option>
+          Telefonpitch
+        </option>
+
+        <option>
+          Emailskabelon
+        </option>
+
+        <option>
+          Note
+        </option>
+
+        <option>
+          PDF
+        </option>
+
+        <option>
+          Billede
+        </option>
+
+        <option>
+          Lydfil
+        </option>
+
+        <option>
+          Video
+        </option>
+
+      </select>
+
+      <div
+        style={{
+          display: "flex",
+          gap: "12px",
+          marginTop: "25px",
+        }}
+      >
+
+        <button
+          onClick={() =>
+            setShowCreateModal(
+              false
+            )
+          }
           style={{
-            position:
-              "fixed",
-            inset: 0,
+            flex: 1,
             background:
-              "rgba(0,0,0,0.8)",
-            display:
-              "flex",
-            justifyContent:
-              "center",
-            alignItems:
-              "center",
-            zIndex: 9999,
+              "#333",
+            color:
+              "white",
+            border:
+              "none",
+            padding:
+              "12px",
+            borderRadius:
+              "10px",
+            cursor:
+              "pointer",
           }}
         >
+          Luk
+        </button>
 
-          <div
-            style={{
-              width: "500px",
-              background:
-                "#111",
-              padding:
-                "25px",
-              borderRadius:
-                "14px",
-              border:
-                "1px solid #333",
-            }}
-          >
+        <button
+          onClick={
+            createContent
+          }
+          style={{
+            flex: 1,
+            background:
+              "#22c55e",
+            color:
+              "white",
+            border:
+              "none",
+            padding:
+              "12px",
+            borderRadius:
+              "10px",
+            cursor:
+              "pointer",
+            fontWeight:
+              700,
+          }}
+        >
+          Opret
+        </button>
 
-            <h2>
-              Opret indhold
-            </h2>
-
-            <select
-              value={
-                contentType
-              }
-              onChange={(
-                e
-              ) =>
-                setContentType(
-                  e.target.value
-                )
-              }
-              style={{
-                width:
-                  "100%",
-                padding:
-                  "12px",
-                marginTop:
-                  "20px",
-                background:
-                  "#1b1b1b",
-                color:
-                  "white",
-                border:
-                  "1px solid #333",
-                borderRadius:
-                  "10px",
-              }}
-            >
-
-              <option>
-                Prompt
-              </option>
-
-              <option>
-                Telefonpitch
-              </option>
-
-              <option>
-                Emailskabelon
-              </option>
-
-              <option>
-                Note
-              </option>
-
-              <option>
-                PDF
-              </option>
-
-              <option>
-                Billede
-              </option>
-
-              <option>
-                Lydfil
-              </option>
-
-              <option>
-                Video
-              </option>
-
-            </select>
-
-            <div
-              style={{
-                display:
-                  "flex",
-                gap:
-                  "12px",
-                marginTop:
-                  "25px",
-              }}
-            >
-
-              <button
-                onClick={() =>
-                  setShowCreateModal(
-                    false
-                  )
-                }
-                style={{
-                  flex: 1,
-                  background:
-                    "#333",
-                  color:
-                    "white",
-                  border:
-                    "none",
-                  padding:
-                    "12px",
-                  borderRadius:
-                    "10px",
-                  cursor:
-                    "pointer",
-                }}
-              >
-                Luk
-              </button>
-
-              <button
-  onClick={
-    createContent
-  }
-
-  style={{
-    flex: 1,
-
-    background:
-      "#22c55e",
-
-    color:
-      "white",
-
-    border:
-      "none",
-
-    padding:
-      "12px",
-
-    borderRadius:
-      "10px",
-
-    cursor:
-      "pointer",
-
-    fontWeight:
-      700,
-  }}
->
-  Opret
-</button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      )}
+      </div>
 
     </div>
+
+  </div>
+
+)}
+
+{selectedItem && (
+
+  <div
+    style={{
+      position: "fixed",
+      inset: 0,
+      background:
+        "rgba(0,0,0,0.85)",
+      display: "flex",
+      justifyContent:
+        "center",
+      alignItems:
+        "center",
+      zIndex: 10000,
+    }}
+  >
+
+    <div
+      style={{
+        width: "900px",
+        maxWidth: "95%",
+        background:
+          "#111",
+        border:
+          "1px solid #333",
+        borderRadius:
+          "14px",
+        padding:
+          "25px",
+      }}
+    >
+
+      <h2>
+        {selectedItem.type}
+      </h2>
+
+      <input
+        value={editTitle}
+        onChange={(e) =>
+          setEditTitle(
+            e.target.value
+          )
+        }
+        placeholder="Titel"
+        style={{
+          width: "100%",
+          padding: "12px",
+          marginTop: "20px",
+          background:
+            "#1b1b1b",
+          color: "white",
+          border:
+            "1px solid #333",
+          borderRadius:
+            "10px",
+        }}
+      />
+
+      <input
+        type="date"
+        value={editDate}
+        onChange={(e) =>
+          setEditDate(
+            e.target.value
+          )
+        }
+        style={{
+          width: "100%",
+          padding: "12px",
+          marginTop: "15px",
+          background:
+            "#1b1b1b",
+          color: "white",
+          border:
+            "1px solid #333",
+          borderRadius:
+            "10px",
+        }}
+      />
+
+      <textarea
+        value={editContent}
+        onChange={(e) =>
+          setEditContent(
+            e.target.value
+          )
+        }
+        placeholder="Indhold"
+        style={{
+          width: "100%",
+          minHeight:
+            "350px",
+          padding: "12px",
+          marginTop: "15px",
+          background:
+            "#1b1b1b",
+          color: "white",
+          border:
+            "1px solid #333",
+          borderRadius:
+            "10px",
+        }}
+      />
+
+      <div
+        style={{
+          display: "flex",
+          gap: "12px",
+          marginTop: "20px",
+        }}
+      >
+
+        <button
+          onClick={() =>
+            setSelectedItem(
+              null
+            )
+          }
+        >
+          Luk
+        </button>
+
+        <button
+          onClick={() => {
+
+            setContentItems(
+              contentItems.map(
+                (item) =>
+                  item.id ===
+                  selectedItem.id
+                    ? {
+                        ...item,
+                        title:
+                          editTitle,
+                        content:
+                          editContent,
+                        date:
+                          editDate,
+                      }
+                    : item
+              )
+            );
+
+            setSelectedItem(
+              null
+            );
+          }}
+        >
+          Gem
+        </button>
+
+        <button
+          onClick={() => {
+
+            setContentItems(
+              contentItems.filter(
+                (item) =>
+                  item.id !==
+                  selectedItem.id
+              )
+            );
+
+            setSelectedItem(
+              null
+            );
+          }}
+        >
+          Slet
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+)}
+
+</div>
   );
 }
