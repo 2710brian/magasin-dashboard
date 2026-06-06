@@ -614,33 +614,75 @@ const [
         </button>
 
         <button
-          onClick={() => {
+         onClick={async () => {
 
-            setContentItems(
-              contentItems.map(
-                (item) =>
-                  item.id ===
-                  selectedItem.id
-                    ? {
-                        ...item,
-                        title:
-                          editTitle,
-                        content:
-                          editContent,
-                        date:
-                          editDate,
-                      }
-                    : item
-              )
-            );
+  try {
 
-            setSelectedItem(
-              null
-            );
-          }}
-        >
-          Gem
-        </button>
+    const response =
+      await fetch(
+        "/api/save-marketing-note",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+
+          body:
+            JSON.stringify({
+              categoryId: 1,
+
+              title:
+                editTitle,
+
+              content:
+                editContent,
+            }),
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (
+      data.success
+    ) {
+
+      setContentItems(
+        contentItems.map(
+          (item) =>
+            item.id ===
+            selectedItem.id
+              ? {
+                  ...item,
+                  title:
+                    editTitle,
+
+                  content:
+                    editContent,
+
+                  date:
+                    editDate,
+                }
+              : item
+        )
+      );
+
+      setSelectedItem(
+        null
+      );
+    }
+
+  } catch (
+    error
+  ) {
+
+    console.error(
+      error
+    );
+  }
+}}
 
         <button
           onClick={() => {
