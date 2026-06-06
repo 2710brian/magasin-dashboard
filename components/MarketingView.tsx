@@ -28,25 +28,63 @@ export default function MarketingView({
   setContentItems,
 ] = useState<any[]>([]);
 
+  const [
+  selectedItem,
+  setSelectedItem,
+] = useState<any>(null);
+
+const [
+  editTitle,
+  setEditTitle,
+] = useState("");
+
+const [
+  editContent,
+  setEditContent,
+] = useState("");
+
+const [
+  editDate,
+  setEditDate,
+] = useState("");
+
   function createContent() {
+
+  const newItem = {
+    id: Date.now(),
+
+    type:
+      contentType,
+
+    title: "",
+
+    content: "",
+
+    date:
+      new Date()
+        .toISOString()
+        .split("T")[0],
+  };
 
   setContentItems([
     ...contentItems,
-
-    {
-      id: Date.now(),
-
-      type:
-        contentType,
-
-      title: "",
-
-      content: "",
-    },
+    newItem,
   ]);
 
   setShowCreateModal(
     false
+  );
+
+  setSelectedItem(
+    newItem
+  );
+
+  setEditTitle("");
+
+  setEditContent("");
+
+  setEditDate(
+    newItem.date
   );
 }
   
@@ -188,16 +226,27 @@ export default function MarketingView({
   contentItems.map(
     (item) => (
 
-      <div
-        key={item.id}
-        style={{
-          background: "#1b1b1b",
-          border: "1px solid #2a2a2a",
-          borderRadius: "14px",
-          padding: "20px",
-          minHeight: "180px",
-          cursor: "pointer",
-        }}
+     <div
+  key={item.id}
+
+  onClick={() => {
+
+    setSelectedItem(
+      item
+    );
+
+    setEditTitle(
+      item.title || ""
+    );
+
+    setEditContent(
+      item.content || ""
+    );
+
+    setEditDate(
+      item.date || ""
+    );
+  }}
       >
 
         <h3>
@@ -216,13 +265,47 @@ export default function MarketingView({
           }}
         >
 
-          <button>
-            Rediger
-          </button>
+          <button
+  onClick={(e) => {
 
-          <button>
-            Slet
-          </button>
+    e.stopPropagation();
+
+    setSelectedItem(
+      item
+    );
+
+    setEditTitle(
+      item.title || ""
+    );
+
+    setEditContent(
+      item.content || ""
+    );
+
+    setEditDate(
+      item.date || ""
+    );
+  }}
+>
+  Rediger
+</button>
+
+          <button
+  onClick={(e) => {
+
+    e.stopPropagation();
+
+    setContentItems(
+      contentItems.filter(
+        (x) =>
+          x.id !==
+          item.id
+      )
+    );
+  }}
+>
+  Slet
+</button>
 
         </div>
 
