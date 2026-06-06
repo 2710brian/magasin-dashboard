@@ -743,23 +743,53 @@ content:
 </button>
 
         <button
-          onClick={() => {
+  onClick={async () => {
 
-            setContentItems(
-              contentItems.filter(
-                (item) =>
-                  item.id !==
-                  selectedItem.id
-              )
-            );
+    try {
 
-            setSelectedItem(
-              null
-            );
-          }}
-        >
-          Slet
-        </button>
+      await fetch(
+        "/api/delete-marketing-note",
+        {
+          method:
+            "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+
+          body:
+            JSON.stringify({
+              id:
+                selectedItem.id,
+            }),
+        }
+      );
+
+      setContentItems(
+        contentItems.filter(
+          (item) =>
+            item.id !==
+            selectedItem.id
+        )
+      );
+
+      setSelectedItem(
+        null
+      );
+
+    } catch (
+      error
+    ) {
+
+      console.error(
+        error
+      );
+    }
+  }}
+>
+  Slet
+</button>
 
       </div>
 
