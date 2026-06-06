@@ -241,30 +241,59 @@ return (
 </div>
 
                 <button
-                  onClick={() => {
+                 onClick={async () => {
 
-                    const confirmDelete =
-                      confirm(
-                        `Slet ${kommune.navn}?`
-                      );
+  const confirmDelete =
+    confirm(
+      `Slet ${kommune.navn}?`
+    );
 
-                    if (
-                      !confirmDelete
-                    ) {
-                      return;
-                    }
+  if (
+    !confirmDelete
+  ) {
+    return;
+  }
 
-                    setMarketingCategories(
-  marketingCategories.filter(
-                        (
-                          item
-                        ) =>
-                          item.navn !==
-                          kommune.navn
-                      )
-                    );
-                  }}
+  try {
 
+    await fetch(
+      "/api/delete-marketing-category",
+      {
+        method:
+          "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body:
+          JSON.stringify({
+            id:
+              kommune.id,
+          }),
+      }
+    );
+
+    setMarketingCategories(
+      marketingCategories.filter(
+        (
+          item
+        ) =>
+          item.id !==
+          kommune.id
+      )
+    );
+
+  } catch (
+    error
+  ) {
+
+    console.error(
+      error
+    );
+  }
+}}
                   style={{
                     position:
                       "absolute",
