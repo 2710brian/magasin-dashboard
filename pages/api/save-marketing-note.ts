@@ -16,11 +16,9 @@ export default async function handler(
   try {
 
     const {
-      category,
-      type,
+      categoryId,
       title,
       content,
-      date,
     } = req.body;
 
     const result =
@@ -28,28 +26,22 @@ export default async function handler(
         `
         INSERT INTO marketing_notes
         (
-          category,
-          type,
-          title,
-          content,
-          note_date
+          category_id,
+          note_title,
+          note_content
         )
         VALUES
         (
           $1,
           $2,
-          $3,
-          $4,
-          $5
+          $3
         )
         RETURNING *
         `,
         [
-          category,
-          type,
+          categoryId,
           title,
           content,
-          date,
         ]
       );
 
