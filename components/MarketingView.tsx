@@ -232,7 +232,9 @@ const [
 
       onClick={() => {
 
-        setSelectedItem(item);
+        setSelectedItem(
+          item
+        );
 
         setEditTitle(
           item.title || ""
@@ -329,10 +331,14 @@ const [
       </div>
 
     </div>
+
   )
 )
+
+)}
 </div>
-      {showCreateModal && (
+
+{showCreateModal && (
 
         <div
           style={{
